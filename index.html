@@ -230,18 +230,62 @@
   <div class="modal-overlay" id="paywallOverlay">
     <div class="modal pricing-modal">
       <button class="modal-close" data-close="paywallOverlay">✕</button>
+
+      <!-- Urgency Banner -->
+      <div class="urgency-banner">
+        <div class="urgency-pulse"></div>
+        <span class="urgency-text">⚡ FLASH SALE — Limited Time Only</span>
+      </div>
+
       <div class="pricing-header">
-        <div class="pricing-badge">🔥 EARLY BIRD OFFER</div>
+        <div class="pricing-original">
+          <span class="original-price">$49</span>
+          <span class="original-label">Regular price</span>
+        </div>
+        <div class="pricing-badge">🔥 82% OFF — EARLY BIRD</div>
         <h2 class="pricing-title">Unlock Link Polish Pro</h2>
-        <p class="pricing-sub">One-time payment. Lifetime access. No subscriptions.</p>
+        <p class="pricing-sub">One-time payment. Lifetime access. No subscriptions ever.</p>
+      </div>
+
+      <!-- Countdown Timer -->
+      <div class="countdown-section">
+        <div class="countdown-label">⏰ Offer expires in:</div>
+        <div class="countdown-timer" id="countdownTimer">
+          <div class="countdown-block">
+            <span class="countdown-num" id="cdHours">02</span>
+            <span class="countdown-unit">HRS</span>
+          </div>
+          <span class="countdown-colon">:</span>
+          <div class="countdown-block">
+            <span class="countdown-num" id="cdMinutes">47</span>
+            <span class="countdown-unit">MIN</span>
+          </div>
+          <span class="countdown-colon">:</span>
+          <div class="countdown-block">
+            <span class="countdown-num" id="cdSeconds">33</span>
+            <span class="countdown-unit">SEC</span>
+          </div>
+        </div>
       </div>
 
       <div class="pricing-card">
         <div class="pricing-amount">
           <span class="pricing-currency">$</span>
           <span class="pricing-number">9</span>
-          <span class="pricing-period">lifetime</span>
+          <span class="pricing-period">one-time · lifetime</span>
         </div>
+
+        <!-- Spots Remaining -->
+        <div class="spots-bar">
+          <div class="spots-icon">🔥</div>
+          <div class="spots-text">
+            <strong id="spotsCount">17</strong> spots left at this price
+          </div>
+          <div class="spots-bar-track">
+            <div class="spots-bar-fill" id="spotsBarFill"></div>
+          </div>
+        </div>
+
         <ul class="pricing-features">
           <li class="feat-free"><span class="feat-icon">✅</span> Bold / Italic / Underline</li>
           <li class="feat-free"><span class="feat-icon">✅</span> Bullet Points & Lists</li>
@@ -259,6 +303,28 @@
         <a href="https://gumroad.com/l/YOUR_PRODUCT_ID" target="_blank" rel="noopener" class="buy-btn" id="buyBtn">
           🛒 Buy Now — $9 <span class="buy-lifetime">Lifetime</span>
         </a>
+
+        <!-- Social Proof Ticker -->
+        <div class="social-proof" id="socialProof">
+          <div class="proof-avatar">👤</div>
+          <div class="proof-text" id="proofText">Loading recent purchases...</div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="trust-badges">
+          <div class="trust-badge">
+            <span class="trust-icon">🔒</span>
+            <span>Secure Payment</span>
+          </div>
+          <div class="trust-badge">
+            <span class="trust-icon">⚡</span>
+            <span>Instant Access</span>
+          </div>
+          <div class="trust-badge">
+            <span class="trust-icon">💰</span>
+            <span>30-Day Refund</span>
+          </div>
+        </div>
 
         <div class="pricing-divider">
           <span>Already bought?</span>

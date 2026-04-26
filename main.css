@@ -863,6 +863,284 @@ body {
   margin: 0 8px;
 }
 
+/* === Urgency Banner === */
+.urgency-banner {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.urgency-pulse {
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  animation: urgencyPulse 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes urgencyPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.urgency-text {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  animation: urgencyShake 3s ease-in-out infinite;
+}
+
+@keyframes urgencyShake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30% { transform: translateX(-2px); }
+  20%, 40% { transform: translateX(2px); }
+  50% { transform: translateX(0); }
+}
+
+/* === Original Price === */
+.pricing-original {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.original-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255,255,255,.5);
+  text-decoration: line-through;
+}
+
+.original-label {
+  font-size: 12px;
+  color: rgba(255,255,255,.6);
+}
+
+/* === Countdown Timer === */
+.countdown-section {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  padding: 16px 20px;
+  text-align: center;
+}
+
+.countdown-label {
+  font-size: 13px;
+  color: rgba(255,255,255,.7);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.countdown-timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.countdown-block {
+  background: rgba(255,255,255,.1);
+  border-radius: 8px;
+  padding: 8px 14px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.countdown-num {
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  display: block;
+  line-height: 1;
+}
+
+.countdown-unit {
+  font-size: 10px;
+  color: rgba(255,255,255,.5);
+  letter-spacing: 1px;
+  font-weight: 600;
+  display: block;
+  margin-top: 4px;
+}
+
+.countdown-colon {
+  font-size: 24px;
+  font-weight: 700;
+  color: rgba(255,255,255,.4);
+  animation: colonBlink 1s step-end infinite;
+}
+
+@keyframes colonBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* === Spots Remaining Bar === */
+.spots-bar {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border: 2px solid #f59e0b;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  text-align: center;
+  animation: spotsPulse 2s ease-in-out infinite;
+}
+
+@keyframes spotsPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(245, 158, 11, 0); }
+}
+
+.spots-icon {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.spots-text {
+  font-size: 14px;
+  color: #92400e;
+  margin-bottom: 8px;
+}
+
+.spots-text strong {
+  color: #dc2626;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.spots-bar-track {
+  height: 6px;
+  background: rgba(0,0,0,.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.spots-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f59e0b, #ef4444);
+  border-radius: 3px;
+  transition: width 1s ease;
+  width: 85%;
+}
+
+/* === Social Proof Ticker === */
+.social-proof {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  animation: proofFadeIn 0.5s ease;
+}
+
+@keyframes proofFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.proof-avatar {
+  font-size: 20px;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: #dcfce7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.proof-text {
+  font-size: 13px;
+  color: #166534;
+  line-height: 1.4;
+}
+
+.proof-text strong {
+  color: #15803d;
+  font-weight: 700;
+}
+
+/* === Trust Badges === */
+.trust-badges {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text2);
+  font-weight: 500;
+}
+
+.trust-icon {
+  font-size: 14px;
+}
+
+/* === Pricing Modal Overrides === */
+.pricing-modal {
+  max-width: 440px;
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid rgba(239, 68, 68, 0.2);
+  box-shadow: 0 20px 60px rgba(0,0,0,.2), 0 0 0 1px rgba(239, 68, 68, 0.1);
+}
+
+.pricing-header {
+  background: linear-gradient(135deg, #0a66c2, #004182);
+  color: #fff;
+  padding: 20px 24px 16px;
+  text-align: center;
+  position: relative;
+}
+
+.pricing-header::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f59e0b, #ef4444, #f59e0b);
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.pricing-badge {
+  display: inline-block;
+  background: rgba(255,255,255,.2);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+  animation: pulse 2s infinite;
+}
+
 /* === Paywall Modal === */
 .paywall-icon {
   font-size: 48px;
@@ -1799,5 +2077,52 @@ body {
 
   .feat-pro {
     background: rgba(10,102,194,.1);
+  }
+
+  .urgency-banner {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+  }
+
+  .countdown-section {
+    background: linear-gradient(135deg, #0f172a, #020617);
+  }
+
+  .countdown-block {
+    background: rgba(255,255,255,.08);
+  }
+
+  .spots-bar {
+    background: linear-gradient(135deg, #451a03, #78350f);
+    border-color: #d97706;
+  }
+
+  .spots-text {
+    color: #fbbf24;
+  }
+
+  .spots-text strong {
+    color: #f87171;
+  }
+
+  .social-proof {
+    background: #052e16;
+    border-color: #166534;
+  }
+
+  .proof-avatar {
+    background: #14532d;
+  }
+
+  .proof-text {
+    color: #4ade80;
+  }
+
+  .proof-text strong {
+    color: #22c55e;
+  }
+
+  .pricing-modal {
+    border-color: rgba(239, 68, 68, 0.3);
+    box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 0 1px rgba(239, 68, 68, 0.15);
   }
 }

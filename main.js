@@ -1167,6 +1167,154 @@ Thank you for being part of this journey! ❤️
   }
 
   // ============================================================
+  //  COUNTDOWN TIMER (Fake urgency)
+  // ============================================================
+  const cdHours = document.getElementById("cdHours");
+  const cdMinutes = document.getElementById("cdMinutes");
+  const cdSeconds = document.getElementById("cdSeconds");
+  const spotsCount = document.getElementById("spotsCount");
+  const spotsBarFill = document.getElementById("spotsBarFill");
+  const proofText = document.getElementById("proofText");
+
+  // Persistent countdown — resets every ~3 hours, stored in localStorage
+  const COUNTDOWN_KEY = "lp_countdown_end";
+  const SPOTS_KEY = "lp_spots";
+
+  function getCountdownEnd() {
+    try {
+      let end = parseInt(localStorage.getItem(COUNTDOWN_KEY), 10);
+      const now = Date.now();
+      if (!end || end < now) {
+        // Set new countdown: random 1h–3h from now
+        const hours = 1 + Math.random() * 2;
+        end = now + hours * 3600 * 1000;
+        localStorage.setItem(COUNTDOWN_KEY, end);
+      }
+      return end;
+    } catch (_) {
+      return Date.now() + 2.5 * 3600 * 1000;
+    }
+  }
+
+  function updateCountdown() {
+    const end = getCountdownEnd();
+    const now = Date.now();
+    let diff = Math.max(0, Math.floor((end - now) / 1000));
+
+    const h = Math.floor(diff / 3600);
+    diff %= 3600;
+    const m = Math.floor(diff / 60);
+    const s = diff % 60;
+
+    if (cdHours) cdHours.textContent = String(h).padStart(2, "0");
+    if (cdMinutes) cdMinutes.textContent = String(m).padStart(2, "0");
+    if (cdSeconds) cdSeconds.textContent = String(s).padStart(2, "0");
+  }
+
+  // Start countdown
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // ============================================================
+  //  SPOTS REMAINING (Fake scarcity)
+  // ============================================================
+  function getSpots() {
+    try {
+      let spots = parseInt(localStorage.getItem(SPOTS_KEY), 10);
+      if (!spots || spots < 5 || spots > 30) {
+        spots = 12 + Math.floor(Math.random() * 11); // 12–22
+        localStorage.setItem(SPOTS_KEY, spots);
+      }
+      return spots;
+    } catch (_) {
+      return 17;
+    }
+  }
+
+  function updateSpots() {
+    const spots = getSpots();
+    if (spotsCount) spotsCount.textContent = spots;
+    // Bar fill: lower spots = more filled
+    const pct = Math.max(15, Math.min(95, 100 - (spots / 30) * 100));
+    if (spotsBarFill) spotsBarFill.style.width = pct + "%";
+  }
+
+  // Occasionally decrease spots
+  function maybeDecreaseSpot() {
+    try {
+      let spots = parseInt(localStorage.getItem(SPOTS_KEY), 10) || 17;
+      if (spots > 3 && Math.random() < 0.3) {
+        spots--;
+        localStorage.setItem(SPOTS_KEY, spots);
+        updateSpots();
+      }
+    } catch (_) {}
+  }
+
+  updateSpots();
+  setInterval(maybeDecreaseSpot, 45000); // Check every 45s
+
+  // ============================================================
+  //  SOCIAL PROOF TICKER (Fake purchases)
+  // ============================================================
+  const FIRST_NAMES = [
+    "James", "Sarah", "Mike", "Emma", "David", "Lisa", "Alex", "Rachel",
+    "Tom", "Jessica", "Ryan", "Ashley", "Chris", "Amanda", "Brian", "Megan",
+    "Jason", "Lauren", "Kevin", "Stephanie", "Daniel", "Nicole", "Matt", "Brittany",
+    "Andrew", "Jennifer", "Josh", "Kayla", "Brandon", "Samantha", "Tyler", "Olivia",
+    "Nathan", "Hannah", "Marcus", "Chloe", "Ethan", "Sophia", "Leo", "Mia",
+    "Noah", "Isabella", "Liam", "Ava", "Oliver", "Charlotte", "Elijah", "Amelia"
+  ];
+
+  const CITIES = [
+    "New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "San Diego",
+    "Dallas", "Austin", "Seattle", "Denver", "Boston", "Miami", "Atlanta",
+    "Portland", "Nashville", "San Francisco", "Las Vegas", "Orlando",
+    "London", "Toronto", "Sydney", "Berlin", "Paris", "Amsterdam",
+    "Singapore", "Dubai", "Mumbai", "Bangalore", "Tokyo", "Melbourne"
+  ];
+
+  const ACTIONS = [
+    "just upgraded to Pro",
+    "just purchased Link Polish Pro",
+    "just unlocked lifetime access",
+    "just grabbed the $9 deal",
+    "just got Pro — lifetime",
+    "just secured their lifetime license"
+  ];
+
+  function randomFrom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function timeAgo() {
+    const mins = Math.floor(Math.random() * 15) + 1;
+    return mins === 1 ? "1 min ago" : mins + " mins ago";
+  }
+
+  function generateProof() {
+    const name = randomFrom(FIRST_NAMES);
+    const city = randomFrom(CITIES);
+    const action = randomFrom(ACTIONS);
+    const time = timeAgo();
+    return `<strong>${name}</strong> from ${city} ${action} <span style="opacity:.6">· ${time}</span>`;
+  }
+
+  function cycleSocialProof() {
+    if (!proofText) return;
+    // Fade out
+    proofText.parentElement.style.animation = "none";
+    proofText.parentElement.offsetHeight; // trigger reflow
+    proofText.parentElement.style.animation = "proofFadeIn 0.5s ease";
+    proofText.innerHTML = generateProof();
+  }
+
+  // Initial proof
+  setTimeout(cycleSocialProof, 1000);
+  // Cycle every 5–8 seconds
+  setInterval(cycleSocialProof, 5000 + Math.random() * 3000);
+
+  // ============================================================
   //  CONSENT BANNER
   // ============================================================
   const consentBanner = document.getElementById("consentBanner");
