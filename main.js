@@ -1100,11 +1100,54 @@ Thank you for being part of this journey! ❤️
       isPro = true;
       try { localStorage.setItem(PRO_KEY, "true"); } catch (_) {}
       updateProUI();
-      showToast("Pro unlocked! All features unlocked 🎉", "success");
       closeModal(paywallOverlay);
+      showProCelebration();
       return true;
     }
     return false;
+  }
+
+  // ============================================================
+  //  PRO CELEBRATION ANIMATION
+  // ============================================================
+  function showProCelebration() {
+    const overlay = document.getElementById("proSuccessOverlay");
+    if (!overlay) return;
+
+    // Generate confetti
+    const container = document.getElementById("confettiContainer");
+    if (container) {
+      container.innerHTML = "";
+      const colors = ["#0a66c2", "#057642", "#f59e0b", "#ef4444", "#8b5cf6", "#ec4899", "#14b8a6"];
+      for (let i = 0; i < 50; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti-piece";
+        piece.style.left = Math.random() * 100 + "%";
+        piece.style.top = -10 + Math.random() * 20 + "px";
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = Math.random() * 0.8 + "s";
+        piece.style.animationDuration = 1 + Math.random() * 1.5 + "s";
+        piece.style.width = 6 + Math.random() * 8 + "px";
+        piece.style.height = 6 + Math.random() * 8 + "px";
+        if (Math.random() > 0.5) piece.style.borderRadius = "50%";
+        container.appendChild(piece);
+      }
+    }
+
+    overlay.classList.add("show");
+
+    // Close button
+    const btn = document.getElementById("proSuccessBtn");
+    if (btn) {
+      btn.onclick = function() {
+        overlay.classList.remove("show");
+      };
+    }
+
+    // Auto-close after 8 seconds
+    setTimeout(function() {
+      overlay.classList.remove("show");
+    }, 8000);
   }
 
   function updateProUI() {

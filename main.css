@@ -941,6 +941,163 @@ body {
 }
 
 /* === Floating Buy Button === */
+
+/* === Pro Success Celebration === */
+.pro-success-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0,0,0,.6);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.pro-success-overlay.show {
+  display: flex;
+  animation: overlayFadeIn 0.3s ease;
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.pro-success-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px 32px;
+  text-align: center;
+  max-width: 380px;
+  width: calc(100% - 32px);
+  box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  position: relative;
+  overflow: hidden;
+  animation: cardBounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes cardBounceIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.pro-success-confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  animation: confettiFall 1.5s ease-out forwards;
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(400px) rotate(720deg); opacity: 0; }
+}
+
+.pro-success-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  animation: iconPop 0.6s ease 0.3s both;
+}
+
+@keyframes iconPop {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.pro-success-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #057642;
+  margin-bottom: 8px;
+  animation: textSlideUp 0.4s ease 0.4s both;
+}
+
+.pro-success-sub {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  animation: textSlideUp 0.4s ease 0.5s both;
+}
+
+.pro-success-sub strong {
+  color: #0a66c2;
+  font-weight: 700;
+}
+
+.pro-success-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 20px;
+  animation: textSlideUp 0.4s ease 0.6s both;
+}
+
+.pro-success-feat {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  padding: 8px;
+  background: #f0fdf4;
+  border-radius: 8px;
+}
+
+.pro-success-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 8px 20px;
+  border-radius: 30px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  animation: badgePulse 1.5s ease-in-out infinite, textSlideUp 0.4s ease 0.7s both;
+}
+
+@keyframes badgePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.pro-success-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #057642, #046237);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+  animation: textSlideUp 0.4s ease 0.8s both;
+}
+
+.pro-success-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(5,118,66,.35);
+}
+
+@keyframes textSlideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* === Floating Buy Button === */
 .floating-buy-btn {
   position: fixed;
   bottom: 24px;
@@ -2095,6 +2252,28 @@ body {
   .floating-buy-btn {
     background: linear-gradient(135deg, #1a7fe8, #004182);
     box-shadow: 0 4px 20px rgba(26,127,232,.4), 0 0 0 0 rgba(26,127,232,.3);
+  }
+
+  .pro-success-card {
+    background: #242424;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  }
+
+  .pro-success-title {
+    color: #4ade80;
+  }
+
+  .pro-success-sub {
+    color: #999;
+  }
+
+  .pro-success-sub strong {
+    color: #60a5fa;
+  }
+
+  .pro-success-feat {
+    background: #052e16;
+    color: #e8e8e8;
   }
 
   .emoji-picker {
