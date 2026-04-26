@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Link Polish — How to Use (All Features Guide)</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f3f2ef;
+      color: #191919;
+      line-height: 1.7;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.05);
+      padding: 40px;
+    }
+    h1 {
+      font-size: 28px;
+      color: #0a66c2;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: #666;
+      font-size: 15px;
+      margin-bottom: 32px;
+    }
+    h2 {
+      font-size: 20px;
+      color: #191919;
+      margin-top: 32px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #0a66c2;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h3 {
+      font-size: 16px;
+      color: #333;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+    p {
+      margin-bottom: 12px;
+      color: #333;
+    }
+    .feature-card {
+      background: #f9f9f9;
+      border: 1px solid #e0dfdc;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .feature-card h3 {
+      margin-top: 0;
+      color: #0a66c2;
+    }
+    .shortcut {
+      display: inline-block;
+      background: #e8e8e8;
+      color: #333;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .tip {
+      background: #f0fdf4;
+      border-left: 4px solid #057642;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 14px;
+      color: #166534;
+    }
+    .warning {
+      background: #fef3c7;
+      border-left: 4pxpx solid #f59e0b;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 14px;
+      color: #92400e;
+    }
+    ul {
+      margin: 8px 0 16px 24px;
+    }
+    li {
+      margin-bottom: 6px;
+      color: #333;
+    }
+    .emoji {
+      font-size: 18px;
+      margin-right: 6px;
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #0a66c2;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    .toc {
+      background: #f0f7ff;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .toc h3 {
+      margin-top: 0;
+      color: #0a66c2;
+    }
+    .toc ol {
+      margin-left: 20px;
+    }
+    .toc a {
+      color: #0a66c2;
+      text-decoration: none;
+    }
+    .toc a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 600px) {
+      body { padding: 0; }
+      .container { padding: 20px; border-radius: 0; }
+      h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">← Back to Link Polish</a>
+
+    <h1>📖 Link Polish — Feature Guide</h1>
+    <p class="subtitle">Everything you need to know about every feature. Bookmark this page!</p>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+      <h3>📑 Table of Contents</h3>
+      <ol>
+        <li><a href="#formatting">Text Formatting (Bold, Italic, etc.)</a></li>
+        <li><a href="#lists">Bullet Points & Ordered Lists</a></li>
+        <li><a href="#emoji">Emoji Picker</a></li>
+        <li><a href="#cases">Case Converter (UPPER/lower/Title)</a></li>
+        <li><a href="#undo">Undo / Redo</a></li>
+        <li><a href="#templates">Post Templates</a></li>
+        <li><a href="#hooks">Viral Hook Templates</a></li>
+        <li><a href="#find">Find & Replace</a></li>
+        <li><a href="#charmap">Special Characters (Ω)</a></li>
+        <li><a href="#clean">Text Cleaner</a></li>
+        <li><a href="#emoji-fix">Emoji Spacing Fix</a></li>
+        <li><a href="#linebreak">Auto Line-Break Fix</a></li>
+        <li><a href="#signature">Custom Signature ✍️</a></li>
+        <li><a href="#export">Export as .txt</a></li>
+        <li><a href="#copy">Copy Formatted Text</a></li>
+        <li><a href="#preview">Live Preview</a></li>
+        <li><a href="#stats">Live Stats Bar</a></li>
+        <li><a href="#pro">Pro Features & Unlock</a></li>
+      </ol>
+    </div>
+
+    <!-- 1. Formatting -->
+    <h2 id="formatting"><span class="emoji">✨</span> 1. Text Formatting</h2>
+    <p>Convert your normal text into Unicode formatted text that works on LinkedIn, Twitter, Facebook, and more.</p>
+
+    <div class="feature-card">
+      <h3>Bold — <span class="shortcut">B</span> button or <span class="shortcut">Ctrl + B</span></h3>
+      <p>Select text → Click <strong>B</strong> or press <span class="shortcut">Ctrl + B</span></p>
+      <p><strong>Input:</strong> Hello World</p>
+      <p><strong>Output:</strong> 𝐇𝐞𝐥𝐥𝐨 𝐖𝐨𝐫𝐥𝐝</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Italic — <span class="shortcut">I</span> button or <span class="shortcut">Ctrl + I</span></h3>
+      <p>Select text → Click <strong>I</strong> or press <span class="shortcut">Ctrl + I</span></p>
+      <p><strong>Input:</strong> Hello World</p>
+      <p><strong>Output:</strong> 𝐻𝑒𝑙𝑙𝑜 𝑊𝑜𝑟𝑙𝑑</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Bold Italic — <span class="shortcut">BI</span> button or <span class="shortcut">Ctrl + Shift + B</span></h3>
+      <p>Select text → Click <strong>BI</strong></p>
+      <p><strong>Input:</strong> Hello World</p>
+      <p><strong>Output:</strong> 𝑯𝒆𝒍𝒍𝒐 𝑾𝒐𝒓𝒍𝒅</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Underline — <span class="shortcut">U</span> button or <span class="shortcut">Ctrl + U</span></h3>
+      <p>Select text → Click <strong>U</strong></p>
+      <p><strong>Input:</strong> Hello World</p>
+      <p><strong>Output:</strong> H̲e̲l̲l̲o̲ W̲o̲r̲l̲d̲</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Strikethrough — <span class="shortcut">S</span> button or <span class="shortcut">Ctrl + Shift + X</span></h3>
+      <p>Select text → Click <strong>S</strong></p>
+      <p><strong>Input:</strong> Hello World</p>
+      <p><strong>Output:</strong> H̶e̶l̶l̶o̶ W̶o̶r̶l̶d̶</p>
+    </div>
+
+    <div class="tip">💡 <strong>Tip:</strong> Click the same format button again to remove formatting (toggle).</div>
+
+    <!-- 2. Lists -->
+    <h2 id="lists"><span class="emoji">📋</span> 2. Bullet Points & Ordered Lists</h2>
+
+    <div class="feature-card">
+      <h3>Bullet Points — <span class="shortcut">•</span> button</h3>
+      <p>Place cursor on a line → Click <strong>•</strong> to add bullet point at the start</p>
+      <p><strong>Before:</strong> First item</p>
+      <p><strong>After:</strong> • First item</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Ordered List — <span class="shortcut">1.</span> button</h3>
+      <p>Place cursor on a line → Click <strong>1.</strong> to add numbered list (①②③...)</p>
+      <p><strong>Before:</strong> Step one</p>
+      <p><strong>After:</strong> ① Step one</p>
+    </div>
+
+    <!-- 3. Emoji -->
+    <h2 id="emoji"><span class="emoji">😊</span> 3. Emoji Picker</h2>
+
+    <div class="feature-card">
+      <h3>How to use</h3>
+      <p>Click the <strong>😊</strong> button → Search or browse emojis → Click any emoji to insert at cursor position</p>
+      <ul>
+        <li>Search emoji by name (type "fire" to find 🔥)</li>
+        <li>Browse 1000+ emojis organized by category</li>
+        <li>Click to insert at cursor position</li>
+        <li>Click outside or press <span class="shortcut">Esc</span> to close</li>
+      </ul>
+    </div>
+
+    <!-- 4. Case Converter -->
+    <h2 id="cases"><span class="emoji">🔤</span> 4. Case Converter</h2>
+
+    <div class="feature-card">
+      <h3>UPPERCASE — <span class="shortcut">AB</span> or <span class="shortcut">Ctrl + Shift + U</span></h3>
+      <p>Converts selected text (or all text) to UPPER CASE</p>
+      <p><strong>Input:</strong> hello world → <strong>Output:</strong> HELLO WORLD</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>lowercase — <span class="shortcut">ab</span> or <span class="shortcut">Ctrl + Shift + L</span></h3>
+      <p>Converts selected text to lower case</p>
+      <p><strong>Input:</strong> HELLO WORLD → <strong>Output:</strong> hello world</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Title Case — <span class="shortcut">Ab</span> or <span class="shortcut">Ctrl + Shift + T</span></h3>
+      <p>Converts selected text to Title Case</p>
+      <p><strong>Input:</strong> hello world → <strong>Output:</strong> Hello World</p>
+    </div>
+
+    <!-- 5. Undo/Redo -->
+    <h2 id="undo"><span class="emoji">↩️</span> 5. Undo / Redo</h2>
+
+    <div class="feature-card">
+      <h3>Undo — <span class="shortcut">↩️</span> button or <span class="shortcut">Ctrl + Z</span></h3>
+      <p>Undo your last action</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Redo — <span class="shortcut">↪️</span> button or <span class="shortcut">Ctrl + Y</span></h3>
+      <p>Redo an undone action</p>
+    </div>
+
+    <!-- 6. Templates -->
+    <h2 id="templates"><span class="emoji">📋</span> 6. Post Templates</h2>
+
+    <div class="feature-card">
+      <h3>How to use</h3>
+      <p>Click the <strong>📋</strong> button → Browse 8 ready-made templates → Click any template to insert</p>
+      <ul>
+        <li>🚀 Launch Announcement</li>
+        <li>💡 Lessons Learned</li>
+        <li>📊 Tips & How-To</li>
+        <li>🎉 Milestone / Achievement</li>
+        <li>📝 Job Update</li>
+        <li>🔥 Hot Take / Opinion</li>
+        <li>📚 Book / Resource Review</li>
+        <li>🙏 Gratitude / Thank You</li>
+      </ul>
+    </div>
+
+    <div class="tip">💡 <strong>Tip:</strong> Templates insert at cursor position. Edit the [PLACEHOLDER] text to customize.</div>
+
+    <!-- 7. Hooks -->
+    <h2 id="hooks"><span class="emoji">🎣</span> 7. Viral Hook Templates</h2>
+
+    <div class="feature-card">
+      <h3>How to use</h3>
+      <p>Click the <strong>🎣</strong> button → Choose from 5 viral hook frameworks → Click to insert</p>
+      <ul>
+        <li>🔥 The Controversy Hook</li>
+        <li>💰 The Money/Result Hook</li>
+        <li>😱 The Shocking Fact Hook</li>
+        <li>🎯 The Listicle Hook</li>
+        <li>🧠 The Story Hook</li>
+      </ul>
+    </div>
+
+    <div class="tip">💡 <strong>Tip:</strong> Hooks are proven frameworks used by top LinkedIn creators. Fill in the [BRACKETS] with your content.</div>
+
+    <!-- 8. Find & Replace -->
+    <h2 id="find"><span class="emoji">🔍</span> 8. Find & Replace</h2>
+
+    <div class="feature-card">
+      <h3>How to use</h3>
+      <p>Click the <strong>🔍</strong> button or press <span class="shortcut">Ctrl + H</span></p>
+      <ul>
+        <li><strong>Find:</strong> Type the text you want to find</li>
+        <li><strong>Replace:</strong> Type the replacement text</li>
+        <li><strong>Find Next:</strong> Jump to next occurrence</li>
+        <li><strong>Replace:</strong> Replace current occurrence</li>
+        <li><strong>Replace All:</strong> Replace all occurrences at once</li>
+      </ul>
+      <p>Press <span class="shortcut">Enter</span> in the find field to jump to next match.</p>
+    </div>
+
+    <!-- 9. Special Characters -->
+    <h2 id="charmap"><span class="emoji">Ω</span> 9. Special Characters</h2>
+
+    <div class="feature-card">
+      <h3>How to use</h3>
+      <p>Click the <strong>Ω</strong> button → Browse categories → Click any character to insert</p>
+      <p><strong>Categories:</strong></p>
+      <ul>
+        <li>Arrows (← → ↑ ↓)</li>
+        <li>Math (± × ÷ ≠ ≈)</li>
+        <li>Currency ($ € £ ¥ ₹)</li>
+        <li>Symbols (© ® ™ §)</li>
+        <li>Punctuation (— – · « »)</li>
+        <li>Fractions (½ ⅓ ¼)</li>
+        <li>Shapes (● ○ ◆ ■ ▲ ★)</li>
+        <li>Checks (✓ ✔ ✗ ✅ ❌)</li>
+        <li>Stars (★ ☆ ✦ ✧ ✨)</li>
+      </ul>
+    </div>
+
+    <!-- 10. Text Cleaner -->
+    <h2 id="clean"><span class="emoji">🧹</span> 10. Text Cleaner</h2>
+
+    <div class="feature-card">
+      <h3>How to use</h3>
+      <p>Click the <strong>🧹</strong> button to automatically clean your text:</p>
+      <ul>
+        <li>Removes trailing spaces from each line</li>
+        <li>Collapses 3+ blank lines into 2</li>
+        <li>Removes zero-width invisible characters</li>
+      </ul>
+    </div>
+
+    <!-- 11. Emoji Spacing Fix -->
+    <h2 id="emoji-fix"><span class="emoji">🔤</span> 11. Emoji Spacing Fix</h2>
+
+    <div class="feature-card">
+      <h3>How to use</h3>
+      <p>Click the <strong>🔤</strong> button to fix spacing around emojis:</p>
+      <ul>
+        <li>Adds space before emoji if missing</li>
+        <li>Adds space after emoji if followed by text</li>
+        <li>Removes double spaces around emojis</li>
+      </ul>
+      <p><strong>Before:</strong> Great post🔥really helpful</p>
+      <p><strong>After:</strong> Great post 🔥 really helpful</p>
+    </div>
+
+    <!-- 12. Line Break Fix -->
+    <h2 id="linebreak"><span class="emoji">↩️</span> 12. Auto Line-Break Fix</h2>
+
+    <div class="feature-card">
+      <h3>How to use</h3>
+      <p>Click the <strong>↩️</strong> (second one) to normalize line breaks:</p>
+      <ul>
+        <li>Normalizes all line endings to standard format</li>
+        <li>Removes zero-width characters</li>
+        <li>Removes trailing whitespace per line</li>
+        <li>Collapses multiple blank lines</li>
+        <li>Removes leading/trailing blank lines</li>
+      </ul>
+    </div>
+
+    <!-- 13. Signature -->
+    <h2 id="signature"><span class="emoji">✍️</span> 13. Custom Signature (Pro)</h2>
+
+    <div class="feature-card">
+      <h3>How to use</h3>
+      <p>Click the <strong>✍️</strong> button → Fill in your details → Save & Insert</p>
+      <ul>
+        <li><strong>Name:</strong> Your name or brand (e.g., "Link Polish")</li>
+        <li><strong>Tagline:</strong> Your title or tagline (e.g., "LinkedIn Text Formatter")</li>
+        <li><strong>CTA:</strong> Call to action (e.g., "Try it free → linkpolish.com")</li>
+      </ul>
+      <p><strong>Buttons:</strong></p>
+      <ul>
+        <li><strong>💾 Save:</strong> Save signature for future use</li>
+        <li><strong>Insert at End:</strong> Add signature to end of current post</li>
+        <li><strong>Auto-insert:</strong> Automatically add signature to every post when copying</li>
+      </ul>
+    </div>
+
+    <div class="tip">💡 <strong>Tip:</strong> Enable "Auto-insert" so your signature is always included when you copy formatted text.</div>
+
+    <!-- 14. Export -->
+    <h2 id="export"><span class="emoji">📥</span> 14. Export as .txt</h2>
+
+    <div class="feature-card">
+      <h3>How to use</h3>
+      <p>Click the <strong>📥</strong> button to download your post as a .txt file</p>
+      <ul>
+        <li>File is named with today's date: <code>linkpolish-post-2026-04-26.txt</code></li>
+        <li>Useful for saving drafts or backing up posts</li>
+      </ul>
+    </div>
+
+    <!-- 15. Copy -->
+    <h2 id="copy"><span class="emoji">📋</span> 15. Copy Formatted Text (Pro)</h2>
+
+    <div class="feature-card">
+      <h3>How to use</h3>
+      <p>Click the big blue <strong>"Copy Formatted Text"</strong> button</p>
+      <ul>
+        <li>Copies your formatted post to clipboard</li>
+        <li>Paste directly into LinkedIn, Twitter, etc.</li>
+        <li>Includes auto-signature if enabled</li>
+        <li>Button turns green and says "Copied!" on success</li>
+      </ul>
+    </div>
+
+    <div class="warning">⚠️ <strong>Note:</strong> Copy Formatted Text is a Pro feature. Purchase a license or use the unlock code to activate.</div>
+
+    <!-- 16. Preview -->
+    <h2 id="preview"><span class="emoji">👁</span> 16. Live Preview</h2>
+
+    <div class="feature-card">
+      <h3>How it works</h3>
+      <p>The right panel shows a <strong>live LinkedIn preview</strong> of your post:</p>
+      <ul>
+        <li>Updates in real-time as you type</li>
+        <li>Shows how your post will look on LinkedIn</li>
+        <li>Includes mock profile, like/comment counts</li>
+        <li>On mobile: switch between Editor and Preview tabs</li>
+      </ul>
+    </div>
+
+    <!-- 17. Stats -->
+    <h2 id="stats"><span class="emoji">📊</span> 17. Live Stats Bar</h2>
+
+    <div class="feature-card">
+      <h3>What it shows</h3>
+      <ul>
+        <li><strong>Chars:</strong> Total character count</li>
+        <li><strong>Words:</strong> Total word count</li>
+        <li><strong>Lines:</strong> Total line count</li>
+        <li><strong>Read time:</strong> Estimated reading time (based on 3.5 words/sec)</li>
+      </ul>
+    </div>
+
+    <div class="tip">💡 <strong>Tip:</strong> LinkedIn posts with 1,300-2,000 characters tend to get the most engagement. Keep read time under 45 seconds for best results.</div>
+
+    <!-- 18. Pro -->
+    <h2 id="pro"><span class="emoji">⚡</span> 18. Pro Features & Unlock</h2>
+
+    <div class="feature-card">
+      <h3>What's included in Pro</h3>
+      <ul>
+        <li>✅ <strong>Copy Formatted Text</strong> — Copy with Unicode formatting</li>
+        <li>✅ <strong>Custom Signature</strong> — Save & auto-insert your signature</li>
+        <li>✅ <strong>Priority Updates</strong> — Get new features first</li>
+        <li>✅ <strong>No Restrictions</strong> — Full access to everything</li>
+      </ul>
+    </div>
+
+    <div class="feature-card">
+      <h3>How to unlock</h3>
+      <ol>
+        <li>Click any Pro feature (Copy or Signature)</li>
+        <li>Pricing modal will appear</li>
+        <li>Click <strong>"Buy Now — $9"</strong> to purchase via Gumroad</li>
+        <li>You'll receive an unlock code via email</li>
+        <li>Paste the code in the "Already bought?" section</li>
+        <li>Click <strong>🔓 Activate</strong></li>
+      </ol>
+      <p>Once activated, Pro features are unlocked permanently on that browser.</p>
+    </div>
+
+    <!-- Keyboard Shortcuts -->
+    <h2><span class="emoji">⌨️</span> Keyboard Shortcuts</h2>
+
+    <div class="feature-card">
+      <table style="width:100%; border-collapse:collapse;">
+        <tr style="border-bottom:1px solid #e0dfdc;">
+          <td style="padding:8px 0;"><span class="shortcut">Ctrl + B</span></td>
+          <td style="padding:8px 0;">Bold</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e0dfdc;">
+          <td style="padding:8px 0;"><span class="shortcut">Ctrl + I</span></td>
+          <td style="padding:8px 0;">Italic</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e0dfdc;">
+          <td style="padding:8px 0;"><span class="shortcut">Ctrl + U</span></td>
+          <td style="padding:8px 0;">Underline</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e0dfdc;">
+          <td style="padding:8px 0;"><span class="shortcut">Ctrl + Shift + X</span></td>
+          <td style="padding:8px 0;">Strikethrough</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e0dfdc;">
+          <td style="padding:8px 0;"><span class="shortcut">Ctrl + Shift + B</span></td>
+          <td style="padding:8px 0;">Bold Italic</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e0dfdc;">
+          <td style="padding:8px 0;"><span class="shortcut">Ctrl + Z</span></td>
+          <td style="padding:8px 0;">Undo</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e0dfdc;">
+          <td style="padding:8px 0;"><span class="shortcut">Ctrl + Y</span></td>
+          <td style="padding:8px 0;">Redo</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e0dfdc;">
+          <td style="padding:8px 0;"><span class="shortcut">Ctrl + H</span></td>
+          <td style="padding:8px 0;">Find & Replace</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e0dfdc;">
+          <td style="padding:8px 0;"><span class="shortcut">Ctrl + S</span></td>
+          <td style="padding:8px 0;">Export as .txt</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 0;"><span class="shortcut">Esc</span></td>
+          <td style="padding:8px 0;">Close any modal/picker</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="tip">
+      <strong>🎉 That's it!</strong> You now know every feature of Link Polish. Go make your LinkedIn posts stand out! 
+      <br><br>
+      Questions? Issues? Visit <a href="https://github.com/fruitbuddiesusa-cyber/Link-Polish" style="color:#0a66c2;">our GitHub repo</a>.
+    </div>
+
+  </div>
+</body>
+</html>

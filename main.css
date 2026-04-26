@@ -185,6 +185,26 @@ body {
   50% { transform: translateX(4px); }
 }
 
+/* === Help Link === */
+.help-link {
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue);
+  text-decoration: none;
+  padding: 8px 12px;
+  background: rgba(10,102,194,.06);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  transition: background .15s;
+}
+
+.help-link:hover {
+  background: rgba(10,102,194,.12);
+  text-decoration: underline;
+}
+
 /* === Toolbar === */
 .toolbar {
   display: flex;
