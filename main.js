@@ -1187,6 +1187,17 @@ Thank you for being part of this journey! ❤️
     if (countdownSection) countdownSection.style.display = isPro ? "none" : "";
     const spotsBar = document.querySelector(".spots-bar");
     if (spotsBar) spotsBar.style.display = isPro ? "none" : "";
+    // Close paywall overlay for pro users (they already unlocked)
+    if (isPro && paywallOverlay) {
+      paywallOverlay.classList.remove("open");
+    }
+    // Hide unlock section for pro users
+    const unlockSection = document.querySelector(".unlock-section");
+    if (unlockSection) unlockSection.style.display = isPro ? "none" : "";
+    const unlockStatusEl = document.getElementById("unlockStatus");
+    if (unlockStatusEl) unlockStatusEl.style.display = isPro ? "none" : "";
+    const pricingDivider = document.querySelector(".pricing-divider");
+    if (pricingDivider) pricingDivider.style.display = isPro ? "none" : "";
     // Update copy button text for free users
     const copyBtnSpan = copyBtn.querySelector("span");
     if (copyBtnSpan) {

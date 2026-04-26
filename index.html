@@ -391,9 +391,13 @@
 
   <script src="main.js?v=3" defer></script>
   <script defer>
-    // Auto-open pricing modal after page loads
+    // Auto-open pricing modal after page loads (only for non-Pro users)
     window.addEventListener('load', function() {
       setTimeout(function() {
+        // Check if user is already Pro — don't show paywall to Pro users
+        var isPro = false;
+        try { isPro = localStorage.getItem('linkpolish_ispro') === 'true'; } catch(_) {}
+        if (isPro) return;
         var el = document.getElementById('paywallOverlay');
         if (el) el.classList.add('open');
       }, 600);
