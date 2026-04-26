@@ -8,7 +8,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>Link Polish — LinkedIn Text Formatter</title>
-  <link rel="stylesheet" href="main.css?v=2">
+  <link rel="preconnect" href="https://fruitbuddiesusa-cyber.github.io">
+  <link rel="stylesheet" href="main.css?v=3">
+  <style>
+    /* Critical CSS — inline for instant render */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f3f2ef; color: #191919; display: flex; justify-content: center; padding: 20px; }
+    .app { display: flex; gap: 16px; max-width: 1100px; width: 100%; }
+    .panel { flex: 1; min-width: 0; }
+    .editor-panel { background: #fff; border-radius: 10px; box-shadow: 0 0 0 1px rgba(0,0,0,.08); padding: 20px; }
+  </style>
 </head>
 <body>
   <!-- Mobile Tab Bar -->
@@ -26,6 +35,7 @@
           <h1>Link Polish</h1>
         </div>
         <span class="badge">LinkedIn</span>
+        <a href="help.html" class="help-icon" title="Feature Guide">?</a>
       </header>
 
       <p class="tagline">Style your posts with bold, italic, underline & more ✨</p>
@@ -41,9 +51,6 @@
           <span class="pro-cta-arrow">→</span>
         </div>
       </div>
-
-      <!-- Help Link -->
-      <a href="help.html" class="help-link">📖 How to use? — Feature Guide</a>
 
       <!-- Toolbar Row 1 — Formatting -->
       <div class="toolbar" id="toolbar">
@@ -315,7 +322,7 @@
           <li class="feat-pro"><span class="feat-icon">⚡</span> <strong>No Restrictions</strong></li>
         </ul>
 
-        <a href="https://gumroad.com/l/YOUR_PRODUCT_ID" target="_blank" rel="noopener" class="buy-btn" id="buyBtn">
+        <a href="https://kage001177.gumroad.com/l/dsdjb" target="_blank" rel="noopener" class="buy-btn" id="buyBtn">
           🛒 Buy Now — $9 <span class="buy-lifetime">Lifetime</span>
         </a>
 
@@ -357,20 +364,21 @@
   </div>
 
   <!-- Floating Buy Button (always visible) -->
-  <a href="https://gumroad.com/l/YOUR_PRODUCT_ID" target="_blank" rel="noopener" class="floating-buy-btn" id="floatingBuyBtn">
+  <a href="https://kage001177.gumroad.com/l/dsdjb" target="_blank" rel="noopener" class="floating-buy-btn" id="floatingBuyBtn">
     🛒 Buy Pro — $9
   </a>
 
   <!-- Toast Container -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <script src="main.js?v=3"></script>
-  <script>
-    // Auto-open pricing modal on page load
+  <script src="main.js?v=3" defer></script>
+  <script defer>
+    // Auto-open pricing modal after page loads
     window.addEventListener('load', function() {
       setTimeout(function() {
-        document.getElementById('paywallOverlay').classList.add('open');
-      }, 800);
+        var el = document.getElementById('paywallOverlay');
+        if (el) el.classList.add('open');
+      }, 600);
     });
   </script>
 </body>

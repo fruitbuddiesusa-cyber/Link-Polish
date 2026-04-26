@@ -185,24 +185,26 @@ body {
   50% { transform: translateX(4px); }
 }
 
-/* === Help Link === */
-.help-link {
-  display: block;
-  text-align: center;
-  font-size: 13px;
-  font-weight: 600;
+/* === Help Icon === */
+.help-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: rgba(10,102,194,.1);
   color: var(--blue);
+  font-size: 14px;
+  font-weight: 800;
+  border-radius: 50%;
   text-decoration: none;
-  padding: 8px 12px;
-  background: rgba(10,102,194,.06);
-  border-radius: 8px;
-  margin-bottom: 14px;
   transition: background .15s;
+  flex-shrink: 0;
 }
 
-.help-link:hover {
-  background: rgba(10,102,194,.12);
-  text-decoration: underline;
+.help-icon:hover {
+  background: var(--blue);
+  color: #fff;
 }
 
 /* === Toolbar === */
