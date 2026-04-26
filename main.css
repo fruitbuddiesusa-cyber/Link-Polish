@@ -863,6 +863,133 @@ body {
   margin: 0 8px;
 }
 
+/* === Paywall Modal === */
+.paywall-icon {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.paywall-text {
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.paywall-sub {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 16px;
+}
+
+.unlock-status {
+  margin-top: 10px;
+  font-size: 13px;
+  text-align: center;
+  min-height: 20px;
+}
+
+.unlock-status.success {
+  color: #057642;
+}
+
+.unlock-status.error {
+  color: #cc1016;
+}
+
+.paywall-features {
+  margin-top: 16px;
+  padding: 12px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.paywall-features p {
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.paywall-features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.paywall-features li {
+  font-size: 13px;
+  padding: 3px 0;
+}
+
+/* === Pro Badge === */
+.pro-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+  letter-spacing: 0.5px;
+}
+
+.pro-active .copy-btn {
+  background: linear-gradient(135deg, #0a66c2, #004182);
+}
+
+/* === Toast Notifications === */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  font-size: 14px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+  animation: toastIn .3s ease;
+  max-width: 340px;
+}
+
+.toast.toast-out {
+  animation: toastOut .3s ease forwards;
+}
+
+.toast-success { border-left: 4px solid #057642; }
+.toast-error { border-left: 4px solid #cc1016; }
+.toast-info { border-left: 4px solid var(--blue); }
+.toast-warning { border-left: 4px solid #f59e0b; }
+
+.toast-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastOut {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(40px); }
+}
+
 /* ============================================
    MOBILE RESPONSIVE — Tablet (≤ 800px)
    ============================================ */
@@ -1386,5 +1513,14 @@ body {
 
   .consent-decline:hover {
     background: #444;
+  }
+
+  .toast {
+    background: #242424;
+    border-color: #3a3a3a;
+  }
+
+  .paywall-features {
+    background: #2a2a2a;
   }
 }

@@ -35,6 +35,8 @@
 
   const STORAGE_KEY = "textcraft_content";
   const CONSENT_KEY = "textcraft_consent";
+  const PRO_KEY = "linkpolish_ispro";
+  const MASTER_CODE = "PROFORMAT2026";
 
   // --- Sample post for preview ---
   const SAMPLE = `🚀 𝐓𝐢𝐫𝐞𝐝 𝐨𝐟 𝐩𝐥𝐚𝐢𝐧 𝐋𝐢𝐧𝐤𝐞𝐝𝐈𝐧 𝐩𝐨𝐬𝐭𝐬? 𝐒𝐭𝐚𝐧𝐝 𝐨𝐮𝐭 𝐰𝐢𝐭𝐡 𝐛𝐨𝐥𝐝, 𝐢𝐭𝐚𝐥𝐢𝐜, 𝐚𝐧𝐝 𝐦𝐨𝐫𝐞!
@@ -175,6 +177,11 @@ Would love your feedback! How do you currently format your LinkedIn posts? Let m
   //  COPY
   // ============================================================
   async function copyFormatted() {
+    // Pro check
+    if (!isPro) {
+      requirePro("Copy Formatted Text");
+      return;
+    }
     let textToCopy = editor.value;
     // Auto-insert signature if enabled and not already present
     const autoSig = getAutoSignature();
@@ -184,16 +191,22 @@ Would love your feedback! How do you currently format your LinkedIn posts? Let m
     try {
       await navigator.clipboard.writeText(textToCopy);
     } catch (_) {
-      const ta = document.createElement("textarea");
-      ta.value = textToCopy;
-      ta.style.cssText = "position:fixed;opacity:0";
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = textToCopy;
+        ta.style.cssText = "position:fixed;opacity:0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      } catch (err) {
+        showToast("Copy failed. Please select and copy manually.", "error");
+        return;
+      }
     }
     copyBtn.classList.add("copied");
     copyBtn.querySelector("span").textContent = "Copied!";
+    showToast("Copied to clipboard!", "success");
     setTimeout(() => {
       copyBtn.classList.remove("copied");
       copyBtn.querySelector("span").textContent = "Copy Formatted Text";
@@ -362,6 +375,7 @@ Would love your feedback! How do you currently format your LinkedIn posts? Let m
   }
 
   function openSignature() {
+    if (!requirePro("Custom Signature")) return;
     loadSignature();
     signatureOverlay.classList.add("open");
   }
@@ -508,12 +522,21 @@ Here's what they meant 👇`
   //  EXPORT AS .TXT
   // ============================================================
   function exportTxt() {
-    const blob = new Blob([editor.value], { type: "text/plain;charset=utf-8" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "textcraft-post-" + new Date().toISOString().slice(0, 10) + ".txt";
-    a.click();
-    URL.revokeObjectURL(a.href);
+    try {
+      if (!editor.value.trim()) {
+        showToast("Nothing to export. Write something first!", "warning");
+        return;
+      }
+      const blob = new Blob([editor.value], { type: "text/plain;charset=utf-8" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "linkpolish-post-" + new Date().toISOString().slice(0, 10) + ".txt";
+      a.click();
+      URL.revokeObjectURL(a.href);
+      showToast("File downloaded!", "success");
+    } catch (_) {
+      showToast("Export failed. Try again.", "error");
+    }
   }
 
   // ============================================================
@@ -900,8 +923,9 @@ Thank you for being part of this journey! ❤️
   function clearEditor() {
     if (!editor.value || confirm("Clear all content?")) {
       editor.value = "";
-      localStorage.removeItem(STORAGE_KEY);
+      try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
       updatePreview();
+      showToast("Editor cleared", "info");
     }
   }
 
@@ -1043,11 +1067,111 @@ Thank you for being part of this journey! ❤️
   });
 
   // ============================================================
+  //  TOAST NOTIFICATION SYSTEM
+  // ============================================================
+  function showToast(message, type = "info") {
+    const icons = { success: "✅", error: "❌", info: "ℹ️", warning: "⚠️" };
+    const toast = document.createElement("div");
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `<span class="toast-icon">${icons[type] || icons.info}</span><span>${message}</span>`;
+    toastContainer.appendChild(toast);
+    setTimeout(() => {
+      toast.classList.add("toast-out");
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+
+  // ============================================================
+  //  PRO SYSTEM
+  // ============================================================
+  let isPro = false;
+
+  function checkPro() {
+    try {
+      isPro = localStorage.getItem(PRO_KEY) === "true";
+    } catch (_) {
+      isPro = false;
+    }
+    updateProUI();
+  }
+
+  function unlockPro(code) {
+    if (code === MASTER_CODE) {
+      isPro = true;
+      try { localStorage.setItem(PRO_KEY, "true"); } catch (_) {}
+      updateProUI();
+      showToast("Pro unlocked! All features unlocked 🎉", "success");
+      closeModal(paywallOverlay);
+      return true;
+    }
+    return false;
+  }
+
+  function updateProUI() {
+    // Show/hide pro badge next to brand
+    const badge = document.querySelector(".badge");
+    if (badge) {
+      if (isPro) {
+        badge.textContent = "Pro";
+        badge.style.background = "linear-gradient(135deg, #f59e0b, #ef4444)";
+        badge.style.color = "#fff";
+      } else {
+        badge.textContent = "LinkedIn";
+        badge.style.background = "";
+        badge.style.color = "";
+      }
+    }
+    // Disable/enable signature for free users
+    const sigBtn = toolbar2.querySelector('[data-action="signature"]');
+    if (sigBtn) {
+      sigBtn.style.opacity = isPro ? "" : "0.5";
+      sigBtn.title = isPro ? "Custom Signature" : "Custom Signature (Pro only)";
+    }
+  }
+
+  function requirePro(feature) {
+    if (isPro) return true;
+    showToast(`${feature} is a Pro feature. Enter your unlock code.`, "warning");
+    paywallOverlay.classList.add("open");
+    if (unlockCode) unlockCode.value = "";
+    if (unlockStatus) unlockStatus.textContent = "";
+    return false;
+  }
+
+  // Paywall events
+  if (unlockBtn) {
+    unlockBtn.addEventListener("click", () => {
+      const code = (unlockCode.value || "").trim();
+      if (!code) {
+        unlockStatus.textContent = "Please enter a code";
+        unlockStatus.className = "unlock-status error";
+        return;
+      }
+      if (!unlockPro(code)) {
+        unlockStatus.textContent = "Invalid code. Try again.";
+        unlockStatus.className = "unlock-status error";
+        showToast("Invalid unlock code", "error");
+      }
+    });
+  }
+
+  if (unlockCode) {
+    unlockCode.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") unlockBtn.click();
+    });
+  }
+
+  // ============================================================
   //  CONSENT BANNER
   // ============================================================
   const consentBanner = document.getElementById("consentBanner");
   const consentAccept = document.getElementById("consentAccept");
   const consentDecline = document.getElementById("consentDecline");
+  const paywallOverlay = document.getElementById("paywallOverlay");
+  const unlockCode = document.getElementById("unlockCode");
+  const unlockBtn = document.getElementById("unlockBtn");
+  const unlockStatus = document.getElementById("unlockStatus");
+  const toastContainer = document.getElementById("toastContainer");
 
   let consentGiven = false;
 
@@ -1134,6 +1258,7 @@ Thank you for being part of this journey! ❤️
   //  INIT
   // ============================================================
   checkConsent();
+  checkPro();
   load();
   updatePreview();
 })();

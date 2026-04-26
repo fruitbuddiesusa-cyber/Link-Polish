@@ -226,6 +226,37 @@
     <a href="terms.html">Terms of Service</a>
   </footer>
 
+  <!-- Paywall Modal -->
+  <div class="modal-overlay" id="paywallOverlay">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>🔒 Pro Feature</h3>
+        <button class="modal-close" data-close="paywallOverlay">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="paywall-icon">⚡</div>
+        <p class="paywall-text">This feature is available for <strong>Pro users</strong>.</p>
+        <p class="paywall-sub">Unlock all premium features with a code.</p>
+        <label class="modal-label">Enter Unlock Code</label>
+        <input type="text" id="unlockCode" class="modal-input" placeholder="Enter your pro code" autocomplete="off">
+        <button class="modal-btn modal-btn-primary" id="unlockBtn" style="width:100%;margin-top:8px">🔓 Unlock Pro</button>
+        <div class="unlock-status" id="unlockStatus"></div>
+        <div class="paywall-features">
+          <p><strong>Pro includes:</strong></p>
+          <ul>
+            <li>✅ Copy Formatted Text</li>
+            <li>✅ Custom Signature</li>
+            <li>✅ All Premium Templates</li>
+            <li>✅ No Restrictions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
   <script src="main.js"></script>
 </body>
 </html>

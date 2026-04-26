@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Allow: /privacy.html
+Allow: /terms.html
+
+Sitemap: https://fruitbuddiesusa-cyber.github.io/Link-Polish/sitemap.xml
