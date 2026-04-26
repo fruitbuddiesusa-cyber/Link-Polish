@@ -1123,14 +1123,20 @@ Thank you for being part of this journey! ❤️
     }
     // Hide CTA banner for pro users
     const ctaBanner = document.getElementById("proCtaBanner");
-    if (ctaBanner) {
-      ctaBanner.style.display = isPro ? "none" : "";
-    }
+    if (ctaBanner) ctaBanner.style.display = isPro ? "none" : "";
     // Hide floating buy button for pro users
     const floatingBtn = document.getElementById("floatingBuyBtn");
-    if (floatingBtn) {
-      floatingBtn.style.display = isPro ? "none" : "";
-    }
+    if (floatingBtn) floatingBtn.style.display = isPro ? "none" : "";
+    // Hide Buy Now button in pricing modal for pro users
+    const buyBtn = document.getElementById("buyBtn");
+    if (buyBtn) buyBtn.style.display = isPro ? "none" : "";
+    // Hide urgency/countdown/spots for pro users
+    const urgencyBanner = document.querySelector(".urgency-banner");
+    if (urgencyBanner) urgencyBanner.style.display = isPro ? "none" : "";
+    const countdownSection = document.querySelector(".countdown-section");
+    if (countdownSection) countdownSection.style.display = isPro ? "none" : "";
+    const spotsBar = document.querySelector(".spots-bar");
+    if (spotsBar) spotsBar.style.display = isPro ? "none" : "";
     // Update copy button text for free users
     const copyBtnSpan = copyBtn.querySelector("span");
     if (copyBtnSpan) {
@@ -1179,14 +1185,6 @@ Thank you for being part of this journey! ❤️
   // ============================================================
   //  COUNTDOWN TIMER (Fake urgency)
   // ============================================================
-  const cdHours = document.getElementById("cdHours");
-  const cdMinutes = document.getElementById("cdMinutes");
-  const cdSeconds = document.getElementById("cdSeconds");
-  const spotsCount = document.getElementById("spotsCount");
-  const spotsBarFill = document.getElementById("spotsBarFill");
-  const proofText = document.getElementById("proofText");
-
-  // Persistent countdown — resets every ~3 hours, stored in localStorage
   const COUNTDOWN_KEY = "lp_countdown_end";
   const SPOTS_KEY = "lp_spots";
 
@@ -1194,15 +1192,15 @@ Thank you for being part of this journey! ❤️
     try {
       let end = parseInt(localStorage.getItem(COUNTDOWN_KEY), 10);
       const now = Date.now();
-      if (!end || end < now) {
-        // Set new countdown: random 1h–3h from now
-        const hours = 1 + Math.random() * 2;
+      if (!end || end <= now) {
+        // Set new countdown: 2-4 hours from now
+        const hours = 2 + Math.floor(Math.random() * 3);
         end = now + hours * 3600 * 1000;
         localStorage.setItem(COUNTDOWN_KEY, end);
       }
       return end;
     } catch (_) {
-      return Date.now() + 2.5 * 3600 * 1000;
+      return Date.now() + 3 * 3600 * 1000;
     }
   }
 
@@ -1210,66 +1208,56 @@ Thank you for being part of this journey! ❤️
     const end = getCountdownEnd();
     const now = Date.now();
     let diff = Math.max(0, Math.floor((end - now) / 1000));
-
     const h = Math.floor(diff / 3600);
     diff %= 3600;
     const m = Math.floor(diff / 60);
     const s = diff % 60;
-
-    if (cdHours) cdHours.textContent = String(h).padStart(2, "0");
-    if (cdMinutes) cdMinutes.textContent = String(m).padStart(2, "0");
-    if (cdSeconds) cdSeconds.textContent = String(s).padStart(2, "0");
+    const cdH = document.getElementById("cdHours");
+    const cdM = document.getElementById("cdMinutes");
+    const cdS = document.getElementById("cdSeconds");
+    if (cdH) cdH.textContent = String(h).padStart(2, "0");
+    if (cdM) cdM.textContent = String(m).padStart(2, "0");
+    if (cdS) cdS.textContent = String(s).padStart(2, "0");
+    // CTA banner timer
+    const ctaTimer = document.getElementById("proCtaTimer");
+    if (ctaTimer) ctaTimer.textContent = "🔥 " + h + "h " + String(m).padStart(2, "0") + "m left";
   }
 
-  // Start countdown
   setInterval(updateCountdown, 1000);
   updateCountdown();
 
-  // CTA banner timer (sync with countdown)
-  const proCtaTimer = document.getElementById("proCtaTimer");
-  function updateCtaTimer() {
-    if (!proCtaTimer) return;
-    const end = getCountdownEnd();
-    const now = Date.now();
-    let diff = Math.max(0, Math.floor((end - now) / 1000));
-    const h = Math.floor(diff / 3600);
-    diff %= 3600;
-    const m = Math.floor(diff / 60);
-    proCtaTimer.textContent = "🔥 " + h + "h " + String(m).padStart(2, "0") + "m left";
-  }
-  setInterval(updateCtaTimer, 1000);
-  updateCtaTimer();
-
   // ============================================================
-  //  SPOTS REMAINING (Fake scarcity)
+  //  SPOTS REMAINING (Fake scarcity — starts at ~3000)
   // ============================================================
   function getSpots() {
     try {
       let spots = parseInt(localStorage.getItem(SPOTS_KEY), 10);
-      if (!spots || spots < 5 || spots > 30) {
-        spots = 12 + Math.floor(Math.random() * 11); // 12–22
+      if (!spots || spots < 100 || spots > 5000) {
+        spots = 2800 + Math.floor(Math.random() * 400); // 2800–3200
         localStorage.setItem(SPOTS_KEY, spots);
       }
       return spots;
     } catch (_) {
-      return 17;
+      return 3000;
     }
   }
 
   function updateSpots() {
     const spots = getSpots();
-    if (spotsCount) spotsCount.textContent = spots;
-    // Bar fill: lower spots = more filled
-    const pct = Math.max(15, Math.min(95, 100 - (spots / 30) * 100));
-    if (spotsBarFill) spotsBarFill.style.width = pct + "%";
+    const el = document.getElementById("spotsCount");
+    if (el) el.textContent = spots.toLocaleString();
+    // Bar fill: 3000 = ~80% full, lower = more full
+    const pct = Math.max(30, Math.min(95, (spots / 3500) * 100));
+    const bar = document.getElementById("spotsBarFill");
+    if (bar) bar.style.width = pct + "%";
   }
 
-  // Occasionally decrease spots
+  // Decrease spots very slowly — ~1 per 30-60 min
   function maybeDecreaseSpot() {
     try {
-      let spots = parseInt(localStorage.getItem(SPOTS_KEY), 10) || 17;
-      if (spots > 3 && Math.random() < 0.3) {
-        spots--;
+      let spots = parseInt(localStorage.getItem(SPOTS_KEY), 10) || 3000;
+      if (spots > 500 && Math.random() < 0.15) {
+        spots -= Math.floor(Math.random() * 3) + 1; // decrease by 1-3
         localStorage.setItem(SPOTS_KEY, spots);
         updateSpots();
       }
@@ -1277,11 +1265,12 @@ Thank you for being part of this journey! ❤️
   }
 
   updateSpots();
-  setInterval(maybeDecreaseSpot, 45000); // Check every 45s
+  setInterval(maybeDecreaseSpot, 1800000); // Check every 30 min
 
   // ============================================================
   //  SOCIAL PROOF TICKER (Fake purchases)
   // ============================================================
+  const proofText = document.getElementById("proofText");
   const FIRST_NAMES = [
     "James", "Sarah", "Mike", "Emma", "David", "Lisa", "Alex", "Rachel",
     "Tom", "Jessica", "Ryan", "Ashley", "Chris", "Amanda", "Brian", "Megan",
