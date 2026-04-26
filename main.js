@@ -38,6 +38,13 @@
   const PRO_KEY = "linkpolish_ispro";
   const MASTER_CODE = "PROFORMAT2026";
 
+  // --- Paywall / Unlock / Toast DOM refs (declared early to avoid TDZ crash) ---
+  const paywallOverlay = document.getElementById("paywallOverlay");
+  const unlockCode = document.getElementById("unlockCode");
+  const unlockBtnEl = document.getElementById("unlockBtn");
+  const unlockStatus = document.getElementById("unlockStatus");
+  const toastContainer = document.getElementById("toastContainer");
+
   // --- Sample post for preview ---
   const SAMPLE = `🚀 𝐓𝐢𝐫𝐞𝐝 𝐨𝐟 𝐩𝐥𝐚𝐢𝐧 𝐋𝐢𝐧𝐤𝐞𝐝𝐈𝐧 𝐩𝐨𝐬𝐭𝐬? 𝐒𝐭𝐚𝐧𝐝 𝐨𝐮𝐭 𝐰𝐢𝐭𝐡 𝐛𝐨𝐥𝐝, 𝐢𝐭𝐚𝐥𝐢𝐜, 𝐚𝐧𝐝 𝐦𝐨𝐫𝐞!
 
@@ -1203,8 +1210,8 @@ Thank you for being part of this journey! ❤️
   }
 
   // Paywall events
-  if (unlockBtn) {
-    unlockBtn.addEventListener("click", () => {
+  if (unlockBtnEl) {
+    unlockBtnEl.addEventListener("click", () => {
       const code = (unlockCode.value || "").trim();
       if (!code) {
         unlockStatus.textContent = "Please enter a code";
@@ -1221,7 +1228,7 @@ Thank you for being part of this journey! ❤️
 
   if (unlockCode) {
     unlockCode.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") unlockBtn.click();
+      if (e.key === "Enter") unlockBtnEl.click();
     });
   }
 
@@ -1377,11 +1384,7 @@ Thank you for being part of this journey! ❤️
   const consentBanner = document.getElementById("consentBanner");
   const consentAccept = document.getElementById("consentAccept");
   const consentDecline = document.getElementById("consentDecline");
-  const paywallOverlay = document.getElementById("paywallOverlay");
-  const unlockCode = document.getElementById("unlockCode");
-  const unlockBtn = document.getElementById("unlockBtn");
-  const unlockStatus = document.getElementById("unlockStatus");
-  const toastContainer = document.getElementById("toastContainer");
+  // paywallOverlay, unlockCode, unlockBtnEl, unlockStatus, toastContainer are already declared at the top of the IIFE
 
   let consentGiven = false;
 
