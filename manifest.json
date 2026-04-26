@@ -1,23 +1,18 @@
 {
   "manifest_version": 3,
-  "name": "LinkedIn Text Formatter",
-  "version": "1.2",
-  "description": "A LinkedIn Text Formatter with functionalities for bold, italic, underline, bullet points, and emojis.",
-  "permissions": ["storage", "system.display"],
-  "background": {
-    "service_worker": "background.js"
-  },
+  "name": "Link Polish — LinkedIn Text Formatter",
+  "version": "2.0.0",
+  "description": "Lightning-fast LinkedIn text formatter with bold, italic, underline, strikethrough, bullet points, emojis, and live preview.",
+  "permissions": ["storage", "clipboardWrite"],
   "action": {
     "default_icon": {
       "16": "icons/icon-16.png",
       "48": "icons/icon-48.png",
-      "128": "icons/icon-128.png",
-      "1024": "icons/icon-1024.png"
+      "128": "icons/icon-128.png"
     },
-    "default_popup_size": {
-      "width": 1080,
-      "height": 680
-    }
+    "default_popup": "index.html",
+    "default_popup_width": 1100,
+    "default_popup_height": 700
   },
   "icons": {
     "16": "icons/icon-16.png",

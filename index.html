@@ -1,114 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LinkedIn Text Formatter</title>
-    <link rel="stylesheet" href="main.css" />
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#f3f2ef" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b1b1b" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Link Polish — LinkedIn Text Formatter</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <!-- Mobile Tab Bar -->
+  <nav class="mobile-tabs" id="mobileTabs">
+    <button class="mobile-tab active" data-tab="editor">✏️ Editor</button>
+    <button class="mobile-tab" data-tab="preview">👁 Preview</button>
+  </nav>
 
-  <body>
-    <div class="app-container">
-      <!-- Editor Section -->
-      <div class="editor-section">
-        <div class="container">
-          <div class="header">
-            <h1 class="title">
-              <img src="icons/linkedin-icon.png" alt="LinkedIn" />
-              LinkedIn Text Formatter
-            </h1>
-          </div>
-          <div class="subtitle">
-            <p>
-              Elevate your content with precision – Unicode Formatter makes
-              styling effortless!
-            </p>
-          </div>
-
-          <div class="toolbar">
-            <div class="btn-group">
-              <button class="btn" id="btn-bold" title="Bold">𝐁</button>
-              <button class="btn" id="btn-italic" title="Italic">𝐼</button>
-              <button class="btn" id="btn-bold-italic" title="Bold and Italic">
-                𝐁 + 𝐼
-              </button>
-              <button class="btn" id="btn-underline" title="Underline">
-                U̲
-              </button>
-            </div>
-            <div class="divider"></div>
-
-            <div class="btn-group">
-              <button class="btn" id="btn-bullet-point" title="Bullet Point">
-                •
-              </button>
-            </div>
-            <div class="divider"></div>
-
-            <div class="btn-group">
-              <button class="btn" id="btn-add-emoji" title="Add Emoji">
-                😊
-              </button>
-              <button class="btn" id="btn-clear" title="Clear">🧹</button>
-            </div>
-          </div>
-
-          <textarea
-            id="editor"
-            class="editor"
-            placeholder="Compose your LinkedIn post here..."
-          ></textarea>
-
-          <button class="action-btn" id="btn-copy">Copy Formatted Text</button>
+  <div class="app" id="app">
+    <!-- Editor Panel -->
+    <section class="panel editor-panel" id="editorPanel">
+      <header class="panel-header">
+        <div class="brand">
+          <img src="icons/icon-128.png" alt="Link Polish" class="brand-icon">
+          <h1>Link Polish</h1>
         </div>
+        <span class="badge">LinkedIn</span>
+      </header>
+
+      <p class="tagline">Style your posts with bold, italic, underline & more ✨</p>
+
+      <!-- Toolbar Row 1 — Formatting -->
+      <div class="toolbar" id="toolbar">
+        <button class="tool-btn" data-action="bold" title="Bold (Ctrl+B)"><b>B</b></button>
+        <button class="tool-btn" data-action="italic" title="Italic (Ctrl+I)"><i>I</i></button>
+        <button class="tool-btn" data-action="boldItalic" title="Bold Italic"><b><i>BI</i></b></button>
+        <span class="sep"></span>
+        <button class="tool-btn" data-action="underline" title="Underline"><u>U</u></button>
+        <button class="tool-btn" data-action="strikethrough" title="Strikethrough"><s>S</s></button>
+        <span class="sep"></span>
+        <button class="tool-btn" data-action="bullet" title="Bullet Point">•</button>
+        <button class="tool-btn" data-action="orderedList" title="Ordered List">1.</button>
+        <span class="sep"></span>
+        <button class="tool-btn" data-action="emoji" title="Add Emoji">😊</button>
+        <button class="tool-btn" data-action="clear" title="Clear All">🗑</button>
       </div>
 
-      <!-- Preview Section -->
-      <div class="preview-section">
-        <div class="linkedin-post-preview">
-          <div class="post-header">
-            <div class="profile-pic">
-              <img src="icons/profile-icon.jpg" alt="Profile Picture" />
+      <!-- Toolbar Row 2 — Tools -->
+      <div class="toolbar toolbar-secondary" id="toolbar2">
+        <button class="tool-btn tool-btn-wide" data-action="undo" title="Undo (Ctrl+Z)">↩️</button>
+        <button class="tool-btn tool-btn-wide" data-action="redo" title="Redo (Ctrl+Y)">↪️</button>
+        <span class="sep"></span>
+        <button class="tool-btn tool-btn-wide" data-action="caseUpper" title="UPPERCASE">AB</button>
+        <button class="tool-btn tool-btn-wide" data-action="caseLower" title="lowercase">ab</button>
+        <button class="tool-btn tool-btn-wide" data-action="caseTitle" title="Title Case">Ab</button>
+        <span class="sep"></span>
+        <button class="tool-btn tool-btn-wide" data-action="templates" title="Post Templates">📋</button>
+        <button class="tool-btn tool-btn-wide" data-action="findReplace" title="Find & Replace">🔍</button>
+        <button class="tool-btn tool-btn-wide" data-action="charmap" title="Special Characters">Ω</button>
+        <span class="sep"></span>
+        <button class="tool-btn tool-btn-wide" data-action="cleanText" title="Clean Text">🧹</button>
+        <button class="tool-btn tool-btn-wide" data-action="emojiFix" title="Emoji Spacing Fix (auto-gap around emojis)">🔤</button>
+        <button class="tool-btn tool-btn-wide" data-action="signature" title="Custom Signature">✍️</button>
+        <button class="tool-btn tool-btn-wide" data-action="hooks" title="5 Viral Hook Templates">🎣</button>
+        <button class="tool-btn tool-btn-wide" data-action="linebreak" title="Auto Line-Break Fix (Normalize line breaks & remove double spacing)">↩️</button>
+        <button class="tool-btn tool-btn-wide" data-action="export" title="Download .txt">📥</button>
+      </div>
+
+      <textarea id="editor" class="editor" placeholder="Start typing your LinkedIn post..." spellcheck="true"></textarea>
+
+      <!-- Live Stats Bar -->
+      <div class="stats-bar" id="statsBar">
+        <span class="stat" id="statChars">0 chars</span>
+        <span class="stat-sep">•</span>
+        <span class="stat" id="statWords">0 words</span>
+        <span class="stat-sep">•</span>
+        <span class="stat" id="statLines">0 lines</span>
+        <span class="stat-sep">•</span>
+        <span class="stat" id="statRead">0s read</span>
+      </div>
+
+      <button class="copy-btn" id="copyBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        <span>Copy Formatted Text</span>
+      </button>
+    </section>
+
+    <!-- Preview Panel -->
+    <section class="panel preview-panel" id="previewPanel">
+      <div class="post-card">
+        <div class="post-head">
+          <div class="avatar"></div>
+          <div class="post-meta">
+            <div class="meta-row">
+              <strong class="name">Link Polish</strong>
+              <span class="time">• now</span>
             </div>
-            <div class="profile-info">
-              <div class="profile-meta">
-                <span class="profile-name"
-                  >Mayur Kadam <span class="post-time">• 12h</span></span
-                >
-                <span class="post-connect" id="btn-post-connect">+ Connect</span>
-              </div>
-              <div class="profile-title">
-                SDE @EPAM | Ex-TCS | Tech Blogger @Medium | YouTuber |
-                JavaScript, React.js, React Native | DSA | System Design...
-              </div>
-            </div>
+            <span class="headline">Make your posts stand out ✨</span>
           </div>
-          <div class="post-content" id="preview-content">
-            Start writing and your post will appear here..
-          </div>
-          <!-- <div class="post-details">
-            You can add images, links,
-            <span class="hashtag">#hashtags</span> and emojis 😊
-          </div> -->
-          <div class="post-footer">
-            <div class="engagement-stats">
-              <div class="reactions">
-                <span class="reaction">👍</span>
-                <span class="reaction">❤️</span>
-                <span>57</span>
-              </div>
-              <div class="comments-reposts">
-                <span>24 comments</span>
-                <span>• 6 reposts</span>
-              </div>
-            </div>
-          </div>
+          <button class="connect-btn">+ Connect</button>
         </div>
+        <div class="post-body" id="preview"></div>
+        <div class="post-stats">
+          <span>👍 ❤️ 0</span>
+          <span>0 comments • 0 reposts</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Emoji Picker -->
+  <div class="emoji-overlay" id="emojiOverlay">
+    <div class="emoji-picker">
+      <div class="emoji-search-wrap">
+        <input type="text" id="emojiSearch" class="emoji-search" placeholder="Search emoji..." autocomplete="off">
+      </div>
+      <div class="emoji-grid" id="emojiGrid"></div>
+    </div>
+  </div>
+
+  <!-- Templates Panel -->
+  <div class="modal-overlay" id="templatesOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>📋 Post Templates</h3>
+        <button class="modal-close" data-close="templatesOverlay">✕</button>
+      </div>
+      <div class="modal-body" id="templatesList"></div>
+    </div>
+  </div>
+
+  <!-- Find & Replace Panel -->
+  <div class="modal-overlay" id="findReplaceOverlay">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>🔍 Find & Replace</h3>
+        <button class="modal-close" data-close="findReplaceOverlay">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="findInput" class="modal-input" placeholder="Find..." autocomplete="off">
+        <input type="text" id="replaceInput" class="modal-input" placeholder="Replace with..." autocomplete="off">
+        <div class="modal-actions">
+          <button class="modal-btn" id="findNext">Find Next</button>
+          <button class="modal-btn" id="replaceOne">Replace</button>
+          <button class="modal-btn modal-btn-primary" id="replaceAll">Replace All</button>
+        </div>
+        <div class="find-status" id="findStatus"></div>
       </div>
     </div>
+  </div>
 
-    <div id="emoji-picker" class="emoji-picker"></div>
+  <!-- Character Map Panel -->
+  <div class="modal-overlay" id="charmapOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Ω Special Characters</h3>
+        <button class="modal-close" data-close="charmapOverlay">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="charmap-categories" id="charmapCategories"></div>
+        <div class="charmap-grid" id="charmapGrid"></div>
+      </div>
+    </div>
+  </div>
 
-    <script src="main.js"></script>
-  </body>
+  <!-- Custom Signature Panel -->
+  <div class="modal-overlay" id="signatureOverlay">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>✍️ Custom Signature</h3>
+        <button class="modal-close" data-close="signatureOverlay">✕</button>
+      </div>
+      <div class="modal-body">
+        <label class="modal-label">Link Polish</label>
+        <input type="text" id="sigName" class="modal-input" placeholder="e.g. Link Polish" autocomplete="off">
+        <label class="modal-label">Tagline / Title</label>
+        <input type="text" id="sigTagline" class="modal-input" placeholder="e.g. Full Stack Developer | Open Source Enthusiast" autocomplete="off">
+        <label class="modal-label">CTA (optional)</label>
+        <input type="text" id="sigCTA" class="modal-input" placeholder="e.g. Follow for more tips!" autocomplete="off">
+        <div class="sig-preview" id="sigPreview"></div>
+        <div class="modal-actions">
+          <button class="modal-btn" id="sigSave">💾 Save Signature</button>
+          <button class="modal-btn modal-btn-primary" id="sigInsert">Insert at End</button>
+        </div>
+        <label class="modal-label" style="margin-top:10px">
+          <input type="checkbox" id="sigAutoInsert"> Auto-insert on every post
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Viral Hooks Panel -->
+  <div class="modal-overlay" id="hooksOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>🎣 Viral Hook Templates</h3>
+        <button class="modal-close" data-close="hooksOverlay">✕</button>
+      </div>
+      <div class="modal-body" id="hooksList"></div>
+    </div>
+  </div>
+
+  <!-- Cookie / LocalStorage Consent Banner -->
+  <div class="consent-banner" id="consentBanner">
+    <div class="consent-inner">
+      <div class="consent-text">
+        <strong>🍪 We use localStorage</strong>
+        <p>Link Polish saves your editor content and preferences locally in your browser. No data is sent to any server. By continuing, you agree to our use of localStorage.</p>
+      </div>
+      <div class="consent-links">
+        <a href="privacy.html" target="_blank">Privacy Policy</a>
+        <a href="terms.html" target="_blank">Terms</a>
+      </div>
+      <div class="consent-actions">
+        <button class="consent-btn consent-decline" id="consentDecline">Decline</button>
+        <button class="consent-btn consent-accept" id="consentAccept">Accept</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Links -->
+  <footer class="app-footer">
+    <a href="privacy.html">Privacy Policy</a>
+    <span class="footer-sep">•</span>
+    <a href="terms.html">Terms of Service</a>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
 </html>
