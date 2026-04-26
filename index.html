@@ -353,9 +353,22 @@
     </div>
   </div>
 
+  <!-- Floating Buy Button (always visible) -->
+  <a href="https://gumroad.com/l/YOUR_PRODUCT_ID" target="_blank" rel="noopener" class="floating-buy-btn" id="floatingBuyBtn">
+    🛒 Buy Pro — $9
+  </a>
+
   <!-- Toast Container -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <script src="main.js?v=2"></script>
+  <script src="main.js?v=3"></script>
+  <script>
+    // Auto-open pricing modal on page load
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.getElementById('paywallOverlay').classList.add('open');
+      }, 800);
+    });
+  </script>
 </body>
 </html>

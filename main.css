@@ -918,6 +918,44 @@ body {
   background: #e5e5e5;
 }
 
+/* === Floating Buy Button === */
+.floating-buy-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #0a66c2, #004182);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--font);
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(10,102,194,.4), 0 0 0 0 rgba(10,102,194,.3);
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  animation: floatPulse 2s ease-in-out infinite, floatBounce 3s ease-in-out infinite;
+}
+
+.floating-buy-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 30px rgba(10,102,194,.5);
+}
+
+@keyframes floatPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(10,102,194,.4), 0 0 0 0 rgba(10,102,194,.3); }
+  50% { box-shadow: 0 4px 20px rgba(10,102,194,.4), 0 0 0 10px rgba(10,102,194,0); }
+}
+
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
 /* === Footer === */
 .app-footer {
   text-align: center;
@@ -1922,6 +1960,16 @@ body {
   .unlock-btn {
     padding: 14px;
   }
+
+  .floating-buy-btn {
+    bottom: calc(16px + var(--safe-bottom));
+    right: 16px;
+    left: 16px;
+    justify-content: center;
+    padding: 16px 24px;
+    font-size: 16px;
+    border-radius: 14px;
+  }
 }
 
 /* ============================================
@@ -2020,6 +2068,11 @@ body {
 
   .pro-cta-banner {
     background: linear-gradient(135deg, #1a7fe8, #004182);
+  }
+
+  .floating-buy-btn {
+    background: linear-gradient(135deg, #1a7fe8, #004182);
+    box-shadow: 0 4px 20px rgba(26,127,232,.4), 0 0 0 0 rgba(26,127,232,.3);
   }
 
   .emoji-picker {

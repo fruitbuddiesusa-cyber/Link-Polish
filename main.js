@@ -1126,6 +1126,11 @@ Thank you for being part of this journey! ❤️
     if (ctaBanner) {
       ctaBanner.style.display = isPro ? "none" : "";
     }
+    // Hide floating buy button for pro users
+    const floatingBtn = document.getElementById("floatingBuyBtn");
+    if (floatingBtn) {
+      floatingBtn.style.display = isPro ? "none" : "";
+    }
     // Update copy button text for free users
     const copyBtnSpan = copyBtn.querySelector("span");
     if (copyBtnSpan) {
