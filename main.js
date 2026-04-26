@@ -1121,6 +1121,11 @@ Thank you for being part of this journey! ❤️
         badge.style.color = "";
       }
     }
+    // Hide CTA banner for pro users
+    const ctaBanner = document.getElementById("proCtaBanner");
+    if (ctaBanner) {
+      ctaBanner.style.display = isPro ? "none" : "";
+    }
     // Update copy button text for free users
     const copyBtnSpan = copyBtn.querySelector("span");
     if (copyBtnSpan) {
@@ -1214,6 +1219,21 @@ Thank you for being part of this journey! ❤️
   // Start countdown
   setInterval(updateCountdown, 1000);
   updateCountdown();
+
+  // CTA banner timer (sync with countdown)
+  const proCtaTimer = document.getElementById("proCtaTimer");
+  function updateCtaTimer() {
+    if (!proCtaTimer) return;
+    const end = getCountdownEnd();
+    const now = Date.now();
+    let diff = Math.max(0, Math.floor((end - now) / 1000));
+    const h = Math.floor(diff / 3600);
+    diff %= 3600;
+    const m = Math.floor(diff / 60);
+    proCtaTimer.textContent = "🔥 " + h + "h " + String(m).padStart(2, "0") + "m left";
+  }
+  setInterval(updateCtaTimer, 1000);
+  updateCtaTimer();
 
   // ============================================================
   //  SPOTS REMAINING (Fake scarcity)

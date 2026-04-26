@@ -105,7 +105,84 @@ body {
 .tagline {
   color: var(--text2);
   font-size: 13px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+}
+
+/* === Pro CTA Banner (visible on main page) === */
+.pro-cta-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #0a66c2, #004182);
+  border-radius: 10px;
+  margin-bottom: 14px;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+  animation: ctaPulse 3s ease-in-out infinite;
+}
+
+.pro-cta-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(10,102,194,.35);
+}
+
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(10,102,194,.3); }
+  50% { box-shadow: 0 0 0 8px rgba(10,102,194,0); }
+}
+
+.pro-cta-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pro-cta-badge {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 1px;
+}
+
+.pro-cta-text {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.pro-cta-text strong {
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pro-cta-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pro-cta-timer {
+  color: rgba(255,255,255,.85);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pro-cta-arrow {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  animation: arrowBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
 }
 
 /* === Toolbar === */
@@ -1939,6 +2016,10 @@ body {
 
   .toolbar {
     background: #2a2a2a;
+  }
+
+  .pro-cta-banner {
+    background: linear-gradient(135deg, #1a7fe8, #004182);
   }
 
   .emoji-picker {
