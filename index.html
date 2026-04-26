@@ -226,31 +226,52 @@
     <a href="terms.html">Terms of Service</a>
   </footer>
 
-  <!-- Paywall Modal -->
+  <!-- Paywall / Pricing Modal -->
   <div class="modal-overlay" id="paywallOverlay">
-    <div class="modal modal-sm">
-      <div class="modal-header">
-        <h3>🔒 Pro Feature</h3>
-        <button class="modal-close" data-close="paywallOverlay">✕</button>
+    <div class="modal pricing-modal">
+      <button class="modal-close" data-close="paywallOverlay">✕</button>
+      <div class="pricing-header">
+        <div class="pricing-badge">🔥 EARLY BIRD OFFER</div>
+        <h2 class="pricing-title">Unlock Link Polish Pro</h2>
+        <p class="pricing-sub">One-time payment. Lifetime access. No subscriptions.</p>
       </div>
-      <div class="modal-body">
-        <div class="paywall-icon">⚡</div>
-        <p class="paywall-text">This feature is available for <strong>Pro users</strong>.</p>
-        <p class="paywall-sub">Unlock all premium features with a code.</p>
-        <label class="modal-label">Enter Unlock Code</label>
-        <input type="text" id="unlockCode" class="modal-input" placeholder="Enter your pro code" autocomplete="off">
-        <button class="modal-btn modal-btn-primary" id="unlockBtn" style="width:100%;margin-top:8px">🔓 Unlock Pro</button>
-        <div class="unlock-status" id="unlockStatus"></div>
-        <div class="paywall-features">
-          <p><strong>Pro includes:</strong></p>
-          <ul>
-            <li>✅ Copy Formatted Text</li>
-            <li>✅ Custom Signature</li>
-            <li>✅ All Premium Templates</li>
-            <li>✅ No Restrictions</li>
-          </ul>
+
+      <div class="pricing-card">
+        <div class="pricing-amount">
+          <span class="pricing-currency">$</span>
+          <span class="pricing-number">9</span>
+          <span class="pricing-period">lifetime</span>
         </div>
+        <ul class="pricing-features">
+          <li class="feat-free"><span class="feat-icon">✅</span> Bold / Italic / Underline</li>
+          <li class="feat-free"><span class="feat-icon">✅</span> Bullet Points & Lists</li>
+          <li class="feat-free"><span class="feat-icon">✅</span> Emoji Picker</li>
+          <li class="feat-free"><span class="feat-icon">✅</span> Live Preview</li>
+          <li class="feat-free"><span class="feat-icon">✅</span> Templates & Hooks</li>
+          <li class="feat-free"><span class="feat-icon">✅</span> Character Counter</li>
+          <li class="feat-divider"></li>
+          <li class="feat-pro"><span class="feat-icon">⚡</span> <strong>Copy Formatted Text</strong></li>
+          <li class="feat-pro"><span class="feat-icon">⚡</span> <strong>Custom Signature</strong></li>
+          <li class="feat-pro"><span class="feat-icon">⚡</span> <strong>Priority Updates</strong></li>
+          <li class="feat-pro"><span class="feat-icon">⚡</span> <strong>No Restrictions</strong></li>
+        </ul>
+
+        <a href="https://gumroad.com/l/YOUR_PRODUCT_ID" target="_blank" rel="noopener" class="buy-btn" id="buyBtn">
+          🛒 Buy Now — $9 <span class="buy-lifetime">Lifetime</span>
+        </a>
+
+        <div class="pricing-divider">
+          <span>Already bought?</span>
+        </div>
+
+        <div class="unlock-section">
+          <input type="text" id="unlockCode" class="unlock-input" placeholder="Paste your unlock code here" autocomplete="off">
+          <button class="unlock-btn" id="unlockBtn">🔓 Activate</button>
+        </div>
+        <div class="unlock-status" id="unlockStatus"></div>
       </div>
+
+      <p class="pricing-note">🔒 Secure payment via Gumroad • Instant code delivery • 30-day refund</p>
     </div>
   </div>
 

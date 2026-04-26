@@ -1112,7 +1112,7 @@ Thank you for being part of this journey! ❤️
     const badge = document.querySelector(".badge");
     if (badge) {
       if (isPro) {
-        badge.textContent = "Pro";
+        badge.innerHTML = "⚡ Pro";
         badge.style.background = "linear-gradient(135deg, #f59e0b, #ef4444)";
         badge.style.color = "#fff";
       } else {
@@ -1120,6 +1120,11 @@ Thank you for being part of this journey! ❤️
         badge.style.background = "";
         badge.style.color = "";
       }
+    }
+    // Update copy button text for free users
+    const copyBtnSpan = copyBtn.querySelector("span");
+    if (copyBtnSpan) {
+      copyBtnSpan.textContent = isPro ? "Copy Formatted Text" : "🔒 Copy (Pro)";
     }
     // Disable/enable signature for free users
     const sigBtn = toolbar2.querySelector('[data-action="signature"]');

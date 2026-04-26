@@ -920,6 +920,229 @@ body {
   padding: 3px 0;
 }
 
+/* === Pricing Modal === */
+.pricing-modal {
+  max-width: 440px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.pricing-header {
+  background: linear-gradient(135deg, #0a66c2, #004182);
+  color: #fff;
+  padding: 28px 24px 20px;
+  text-align: center;
+}
+
+.pricing-badge {
+  display: inline-block;
+  background: rgba(255,255,255,.2);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .7; }
+}
+
+.pricing-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.pricing-sub {
+  font-size: 14px;
+  opacity: .85;
+}
+
+.pricing-card {
+  padding: 24px;
+}
+
+.pricing-amount {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.pricing-currency {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.pricing-number {
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+
+.pricing-period {
+  font-size: 16px;
+  color: var(--text2);
+  margin-left: 4px;
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.pricing-features li {
+  padding: 6px 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feat-icon {
+  flex-shrink: 0;
+}
+
+.feat-free {
+  color: var(--text2);
+}
+
+.feat-pro {
+  color: var(--text);
+  background: rgba(10,102,194,.04);
+  margin: 0 -8px;
+  padding: 8px 8px !important;
+  border-radius: 6px;
+}
+
+.feat-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 0;
+}
+
+.buy-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #0a66c2, #004182);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+  margin-bottom: 20px;
+}
+
+.buy-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(10,102,194,.35);
+}
+
+.buy-lifetime {
+  font-size: 12px;
+  font-weight: 400;
+  opacity: .7;
+  margin-left: 4px;
+}
+
+.pricing-divider {
+  text-align: center;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.pricing-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--border);
+}
+
+.pricing-divider span {
+  position: relative;
+  background: var(--card);
+  padding: 0 12px;
+  font-size: 13px;
+  color: var(--text2);
+}
+
+.unlock-section {
+  display: flex;
+  gap: 8px;
+}
+
+.unlock-input {
+  flex: 1;
+  padding: 12px 14px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: var(--font);
+  outline: none;
+  transition: border-color .2s;
+  -webkit-appearance: none;
+}
+
+.unlock-input:focus {
+  border-color: var(--blue);
+}
+
+.unlock-btn {
+  padding: 12px 20px;
+  background: #057642;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background .15s;
+  white-space: nowrap;
+}
+
+.unlock-btn:hover {
+  background: #046237;
+}
+
+.unlock-status {
+  margin-top: 10px;
+  font-size: 13px;
+  text-align: center;
+  min-height: 20px;
+}
+
+.unlock-status.success {
+  color: #057642;
+}
+
+.unlock-status.error {
+  color: #cc1016;
+}
+
+.pricing-note {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text2);
+  padding: 0 24px 20px;
+}
+
 /* === Pro Badge === */
 .pro-badge {
   display: inline-block;
@@ -1312,6 +1535,38 @@ body {
   .modal-btn {
     flex: 1 1 calc(50% - 4px);
   }
+
+  .pricing-modal {
+    max-width: 100%;
+    border-radius: 16px 16px 0 0;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .pricing-header {
+    padding: 24px 16px 16px;
+  }
+
+  .pricing-card {
+    padding: 16px;
+  }
+
+  .pricing-number {
+    font-size: 48px;
+  }
+
+  .buy-btn {
+    padding: 14px;
+    font-size: 16px;
+  }
+
+  .unlock-section {
+    flex-direction: column;
+  }
+
+  .unlock-btn {
+    padding: 14px;
+  }
 }
 
 /* ============================================
@@ -1522,5 +1777,27 @@ body {
 
   .paywall-features {
     background: #2a2a2a;
+  }
+
+  .pricing-header {
+    background: linear-gradient(135deg, #1a7fe8, #004182);
+  }
+
+  .pricing-divider span {
+    background: #242424;
+  }
+
+  .unlock-input {
+    background: #2a2a2a;
+    color: var(--text);
+    border-color: #3a3a3a;
+  }
+
+  .unlock-input:focus {
+    border-color: var(--blue);
+  }
+
+  .feat-pro {
+    background: rgba(10,102,194,.1);
   }
 }
