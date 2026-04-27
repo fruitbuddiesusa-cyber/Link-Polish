@@ -1,22 +1,44 @@
 # Link Polish — LinkedIn Text Formatter
 
-> Lightning-fast LinkedIn text formatter. Style your posts with bold, italic, underline, strikethrough, emojis & more using Unicode characters.
-
-![Extension View](screenshot/extension-view.png)
+> ⚡ Lightning-fast LinkedIn text formatter with a stunning modern UI. Style your posts with bold, italic, underline, strikethrough, emojis & more using Unicode characters.
 
 ## ✨ Features
 
+### Core Formatting
 - **Bold**, *Italic*, ***Bold Italic*** formatting
 - <u>Underline</u> and ~~Strikethrough~~
 - Bullet points & ordered lists
-- Emoji picker with search
-- Live LinkedIn post preview
-- One-click copy
-- Keyboard shortcuts (Ctrl+B, Ctrl+I, Ctrl+U)
-- Auto-save to localStorage
-- ⚡ Lightning fast — zero dependencies, pure vanilla JS
+- Case converters (UPPER, lower, Title, Sentence)
+
+### Pro Features 🔓
+- One-click **Copy Formatted Text**
+- **Custom Signature** with auto-insert
+- **5 Viral Hook Templates**
+- **8 Post Templates** (Launch, Lessons, Tips, etc.)
+- **Find & Replace**
+- **Character Map** (Arrows, Math, Currency, Symbols...)
+- **Text Cleaner** & **Emoji Spacing Fix**
+- **Line Break Fixer**
+- **Export as .txt**
+
+### UX & Design
+- 🎨 Modern blue glass-morphism UI with Tailwind CSS
+- 📱 Fully mobile-responsive design
+- 👁 Live LinkedIn post preview
+- 🎉 Confetti celebration on Pro unlock
+- 🍪 Cookie consent banner
+- 🔔 Toast notifications
+- 💾 Auto-save to localStorage
+- ⚡ Lightning fast — single HTML file, instant load
+
+## 🔓 Pro Activation
+
+Enter the Pro code in the unlock modal to activate all premium features.
 
 ## 🚀 Quick Start
+
+### Web App (Recommended)
+Just open `index.html` in any browser — works standalone!
 
 ### Chrome Extension
 1. Clone this repo:
@@ -28,9 +50,6 @@
 4. Click **Load unpacked** → select the cloned folder
 5. Done! Click the extension icon to open
 
-### Web App
-Just open `index.html` in any browser — works standalone.
-
 ## ⌨️ Keyboard Shortcuts
 
 | Shortcut | Action |
@@ -40,13 +59,14 @@ Just open `index.html` in any browser — works standalone.
 | `Ctrl+U` | Underline |
 | `Ctrl+Shift+B` | Bold Italic |
 | `Ctrl+Shift+X` | Strikethrough |
-| `Escape` | Close emoji picker |
+| `Escape` | Close modals |
 
 ## 🛠 Tech Stack
 
 - Pure HTML/CSS/JavaScript
-- Zero dependencies
-- No build step required
+- Tailwind CSS (CDN)
+- Zero build step required
+- Single self-contained HTML file
 
 ## 📄 License
 
