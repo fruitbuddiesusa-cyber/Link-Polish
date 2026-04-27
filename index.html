@@ -233,6 +233,7 @@ textarea:focus {
             <button onclick="transformCase('upper')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600 text-xs font-bold" title="Uppercase">AB</button>
             <button onclick="transformCase('lower')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600 text-xs" title="Lowercase">ab</button>
             <button onclick="transformCase('title')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600 text-xs font-medium" title="Title Case">Aa</button>
+            <button onclick="transformCase('sentence')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600 text-xs" title="Sentence case">Aa.</button>
             <div class="w-px h-5 bg-gray-200 mx-1"></div>
             <button onclick="openModal('templates')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600" title="Templates">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
@@ -1014,6 +1015,8 @@ function transformCase(type) {
     if (type === 'upper') editor.value = text.toUpperCase();
     else if (type === 'lower') editor.value = text.toLowerCase();
     else if (type === 'title') editor.value = text.replace(/\w\S*/g, t => t.charAt(0).toUpperCase() + t.substring(1).toLowerCase());
+    else if (type === 'sentence') editor.value = text.toLowerCase().replace(/(^\
+*\w|[.!?]\s+\w)/g, c => c.toUpperCase());
     editor.selectionStart = start;
     editor.selectionEnd = end;
     editor.focus();
@@ -1027,6 +1030,7 @@ function transformCase(type) {
   if (type === 'upper') transformed = selected.toUpperCase();
   else if (type === 'lower') transformed = selected.toLowerCase();
   else if (type === 'title') transformed = selected.replace(/\w\S*/g, t => t.charAt(0).toUpperCase() + t.substring(1).toLowerCase());
+  else if (type === 'sentence') transformed = selected.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g, c => c.toUpperCase());
 
   editor.value = text.substring(0, start) + transformed + text.substring(end);
   editor.selectionStart = start;
@@ -1267,7 +1271,8 @@ function switchMobileTab(tab) {
 
 // ============= MODALS =============
 function openModal(name) {
-  if (name === 'signature' && !isPro) {
+  const proFeatures = ['signature', 'templates', 'findreplace', 'specialchars', 'hooks'];
+  if (proFeatures.includes(name) && !isPro) {
     openModal('paywall');
     return;
   }
@@ -1504,6 +1509,7 @@ function acceptCookies() {
 }
 
 function dismissCookies() {
+  localStorage.setItem('linkpolish_cookies', 'dismissed');
   document.getElementById('cookie-banner').style.transform = 'translateY(100%)';
 }
 
