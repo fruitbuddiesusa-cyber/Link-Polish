@@ -289,11 +289,9 @@ textarea:focus {
 
           <!-- Copy Button -->
           <div class="px-4 pb-4">
-            <button id="copy-btn" onclick="copyText()" class="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all duration-200 copy-free-btn flex items-center justify-center gap-2">
+            <button id="copy-btn" onclick="copyText()" class="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all duration-200 copy-pro-btn flex items-center justify-center gap-2">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-              <svg id="copy-lock" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-              <span id="copy-text">Copy Formatted Text <span class="ml-1 bg-amber-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">PRO</span></span>
-              <svg id="copy-crown" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="hidden"><path d="M2 4l4 8 6-6 6 6 4-8v16H2V4z"/></svg>
+              <span id="copy-text">Copy Formatted Text</span>
             </button>
           </div>
         </div>
@@ -437,7 +435,7 @@ textarea:focus {
         </div>
         <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 animate-on-scroll">
           <div class="text-2xl mb-3">📋</div>
-          <h3 class="font-semibold text-gray-900 mb-1">Copy to Clipboard <span class="pro-badge text-white text-[10px] px-1.5 py-0.5 rounded ml-1">PRO</span></h3>
+          <h3 class="font-semibold text-gray-900 mb-1">Copy to Clipboard <span class="bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded ml-1">FREE</span></h3>
           <p class="text-sm text-gray-500">One-click copy your formatted text to clipboard</p>
         </div>
         <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 animate-on-scroll">
@@ -509,7 +507,7 @@ textarea:focus {
             What's included in the Pro version?
             <svg class="w-5 h-5 text-gray-400 transform transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
           </summary>
-          <div class="px-4 pb-4 text-sm text-gray-600">Pro unlocks: one-click copy to clipboard, custom signatures with auto-insert, viral hooks library, and priority access to new features. It's a one-time $9 payment for lifetime access — no subscriptions.</div>
+          <div class="px-4 pb-4 text-sm text-gray-600">Pro unlocks: Templates, Viral Hooks, Find & Replace, Special Characters, Custom Signatures, and priority access to new features. Copy to Clipboard is FREE for everyone! It's a one-time $9 payment for lifetime access — no subscriptions.</div>
         </details>
         <details class="bg-white rounded-xl border border-gray-100 shadow-sm group animate-on-scroll">
           <summary class="p-4 cursor-pointer font-medium text-gray-900 flex items-center justify-between hover:text-blue-700 transition-colors">
@@ -759,6 +757,7 @@ textarea:focus {
             <div class="flex items-center gap-1.5"><span class="text-green-500">✓</span> Export .txt</div>
             <div class="flex items-center gap-1.5"><span class="text-green-500">✓</span> Emoji Spacing</div>
             <div class="flex items-center gap-1.5"><span class="text-green-500">✓</span> Fix Line Breaks</div>
+            <div class="flex items-center gap-1.5 col-span-2"><span class="text-green-500 font-bold">✓</span> <strong>Copy to Clipboard</strong> — one-click copy!</div>
           </div>
         </div>
         <!-- Pro features -->
@@ -768,7 +767,6 @@ textarea:focus {
             <span class="text-xs text-gray-500">Unlocked with $9</span>
           </div>
           <div class="space-y-2 text-sm">
-            <div class="flex items-center gap-1.5 bg-blue-50 rounded-lg px-3 py-2"><span class="text-blue-600 font-bold">★</span> <strong>Copy to Clipboard</strong> — one-click copy</div>
             <div class="flex items-center gap-1.5 bg-blue-50 rounded-lg px-3 py-2"><span class="text-blue-600 font-bold">★</span> <strong>Templates</strong> — proven post formats</div>
             <div class="flex items-center gap-1.5 bg-blue-50 rounded-lg px-3 py-2"><span class="text-blue-600 font-bold">★</span> <strong>Viral Hooks</strong> — attention-grabbing openers</div>
             <div class="flex items-center gap-1.5 bg-blue-50 rounded-lg px-3 py-2"><span class="text-blue-600 font-bold">★</span> <strong>Find &amp; Replace</strong> — quick text editing</div>
@@ -815,8 +813,8 @@ textarea:focus {
       <p class="text-gray-500 mb-6">All features are unlocked. Enjoy the full power of Link Polish!</p>
       <div class="grid grid-cols-2 gap-3 mb-6">
         <div class="bg-blue-50 rounded-lg p-3 text-center">
-          <div class="text-lg font-bold text-blue-700">📋</div>
-          <div class="text-xs text-blue-600">Copy to Clipboard</div>
+          <div class="text-lg font-bold text-blue-700">📄</div>
+          <div class="text-xs text-blue-600">Templates</div>
         </div>
         <div class="bg-blue-50 rounded-lg p-3 text-center">
           <div class="text-lg font-bold text-blue-700">✍️</div>
@@ -828,7 +826,7 @@ textarea:focus {
         </div>
         <div class="bg-blue-50 rounded-lg p-3 text-center">
           <div class="text-lg font-bold text-blue-700">🚀</div>
-          <div class="text-xs text-blue-600">Future Features</div>
+          <div class="text-xs text-blue-600">All Future Features</div>
         </div>
       </div>
       <button onclick="closeModal('prosuccess')" class="w-full py-3 cta-gradient text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all">Start Using Pro ✨</button>
@@ -974,30 +972,18 @@ document.addEventListener('DOMContentLoaded', () => {
 function updateProUI() {
   const proBanner = document.getElementById('pro-cta-banner');
   const proBadge = document.getElementById('header-pro-badge');
-  const copyBtn = document.getElementById('copy-btn');
-  const copyLock = document.getElementById('copy-lock');
-  const copyCrown = document.getElementById('copy-crown');
-  const copyText = document.getElementById('copy-text');
 
   if (isPro) {
     proBanner.style.maxHeight = '0';
     proBanner.style.paddingTop = '0';
     proBanner.style.paddingBottom = '0';
     proBadge.classList.remove('hidden');
-    copyBtn.className = 'w-full py-3 rounded-xl text-white font-semibold text-sm transition-all duration-200 copy-pro-btn flex items-center justify-center gap-2';
-    copyLock.classList.add('hidden');
-    copyCrown.classList.remove('hidden');
-    copyText.textContent = 'Copy Formatted Text';
     document.getElementById('floating-buy-btn').style.display = 'none';
     // Hide PRO badges on toolbar buttons since user is Pro
     document.querySelectorAll('.tool-btn .bg-amber-500').forEach(function(badge) { badge.style.display = 'none'; });
   } else {
     proBanner.style.maxHeight = '60px';
     proBadge.classList.add('hidden');
-    copyBtn.className = 'w-full py-3 rounded-xl text-white font-semibold text-sm transition-all duration-200 copy-free-btn flex items-center justify-center gap-2';
-    copyLock.classList.remove('hidden');
-    copyCrown.classList.add('hidden');
-    copyText.innerHTML = 'Copy Formatted Text <span class="ml-1 bg-amber-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">PRO</span>';
     // Show PRO badges on toolbar buttons
     document.querySelectorAll('.tool-btn .bg-amber-500').forEach(function(badge) { badge.style.display = ''; });
   }
@@ -1323,10 +1309,7 @@ function escapeRegex(string) {
 
 // ============= COPY =============
 function copyText() {
-  if (!isPro) {
-    openModal('paywall');
-    return;
-  }
+  // Copy is FREE for everyone — no Pro check
   const editor = document.getElementById('editor');
   if (!editor.value.trim()) {
     showToast('⚠️', 'Nothing to copy');
