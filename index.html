@@ -1,407 +1,1523 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#f3f2ef" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#1b1b1b" media="(prefers-color-scheme: dark)">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <title>Link Polish — LinkedIn Text Formatter</title>
-  <link rel="preconnect" href="https://fruitbuddiesusa-cyber.github.io">
-  <link rel="stylesheet" href="main.css?v=3">
-  <style>
-    /* Critical CSS — inline for instant render */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f3f2ef; color: #191919; display: flex; justify-content: center; padding: 20px; }
-    .app { display: flex; gap: 16px; max-width: 1100px; width: 100%; }
-    .panel { flex: 1; min-width: 0; }
-    .editor-panel { background: #fff; border-radius: 10px; box-shadow: 0 0 0 1px rgba(0,0,0,.08); padding: 20px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Link Polish — The #1 Free LinkedIn Post Formatter</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      animation: {
+        'fade-in-left': 'fadeInLeft 0.6s ease-out forwards',
+        'fade-in-right': 'fadeInRight 0.6s ease-out forwards',
+        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+        'slide-up': 'slideUp 0.4s ease-out forwards',
+        'pulse-pro': 'pulsePro 2s ease-in-out infinite',
+        'confetti-fall': 'confettiFall 3s ease-in forwards',
+        'scale-in': 'scaleIn 0.3s ease-out forwards',
+      }
+    }
+  }
+}
+</script>
+<style>
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulsePro {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+@keyframes confettiFall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.tool-btn {
+  transition: all 0.15s ease;
+}
+.tool-btn:hover {
+  transform: scale(1.08);
+}
+.tool-btn:active {
+  transform: scale(0.95);
+}
+.gradient-text {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.logo-gradient {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+}
+.cta-gradient {
+  background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+}
+.pro-badge {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  animation: pulsePro 2s ease-in-out infinite;
+}
+.copy-pro-btn {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+.copy-free-btn {
+  background: linear-gradient(135deg, #64748b, #475569);
+}
+.dot-pattern {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.modal-overlay {
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+}
+textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+}
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  animation: confettiFall 3s ease-in forwards;
+}
+</style>
 </head>
-<body>
-  <!-- Mobile Tab Bar -->
-  <nav class="mobile-tabs" id="mobileTabs">
-    <button class="mobile-tab active" data-tab="editor">✏️ Editor</button>
-    <button class="mobile-tab" data-tab="preview">👁 Preview</button>
-  </nav>
+<body class="bg-white text-gray-900 min-h-screen flex flex-col">
 
-  <div class="app" id="app">
-    <!-- Editor Panel -->
-    <section class="panel editor-panel" id="editorPanel">
-      <header class="panel-header">
-        <div class="brand">
-          <img src="icons/icon-128.png" alt="Link Polish" class="brand-icon">
-          <h1>Link Polish</h1>
+<!-- HEADER -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="logo-gradient w-10 h-10 rounded-xl flex items-center justify-center shadow-md">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"/>
+          <path d="M19 14l.9 2.7L22.6 17.6l-2.7.9L19 21.2l-.9-2.7-2.7-.9 2.7-.9z"/>
+          <path d="M5 17l.6 1.8 1.8.6-1.8.6-.6 1.8-.6-1.8-1.8-.6 1.8-.6z"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold gradient-text">Link Polish</h1>
+        <p class="text-[10px] font-semibold text-gray-400 tracking-wider uppercase">Free LinkedIn Post Formatter</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <div id="header-pro-badge" class="hidden pro-badge text-white text-xs font-bold px-3 py-1 rounded-full">PRO</div>
+      <div class="bg-blue-50 text-blue-700 text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PRO CTA BANNER -->
+<div id="pro-cta-banner" class="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden transition-all duration-500" style="max-height:60px;">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between cursor-pointer" onclick="openModal('paywall')">
+    <div class="flex items-center gap-3">
+      <span class="pro-badge text-white text-xs font-bold px-2 py-0.5 rounded">PRO</span>
+      <span class="font-medium text-sm">Unlock all features — <span class="font-bold">$9 lifetime</span></span>
+    </div>
+    <div class="flex items-center gap-2 text-sm">
+      <span>🔥 Limited time</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="flex-1">
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <!-- Mobile Tabs -->
+    <div class="flex lg:hidden mb-4 bg-gray-100 rounded-xl p-1" id="mobile-tabs">
+      <button onclick="switchMobileTab('editor')" id="tab-editor" class="flex-1 py-2 px-4 rounded-lg text-sm font-medium bg-white text-blue-700 shadow-sm transition-all">Editor</button>
+      <button onclick="switchMobileTab('preview')" id="tab-preview" class="flex-1 py-2 px-4 rounded-lg text-sm font-medium text-gray-500 transition-all">Preview</button>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- EDITOR PANEL -->
+      <div id="editor-panel" class="animate-fade-in-left">
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden">
+          <!-- Primary Toolbar -->
+          <div class="px-3 py-2 border-b border-gray-100 flex flex-wrap items-center gap-1">
+            <button onclick="applyFormat('bold')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600" title="Bold (Ctrl+B)">
+              <span class="font-bold text-sm">B</span>
+            </button>
+            <button onclick="applyFormat('italic')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600" title="Italic (Ctrl+I)">
+              <span class="italic text-sm">I</span>
+            </button>
+            <button onclick="applyFormat('boldItalic')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600" title="Bold Italic">
+              <span class="font-bold italic text-sm">BI</span>
+            </button>
+            <div class="w-px h-5 bg-gray-200 mx-1"></div>
+            <button onclick="applyFormat('underline')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600" title="Underline">
+              <span class="underline text-sm">U</span>
+            </button>
+            <button onclick="applyFormat('strikethrough')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600" title="Strikethrough">
+              <span class="line-through text-sm">S</span>
+            </button>
+            <div class="w-px h-5 bg-gray-200 mx-1"></div>
+            <button onclick="toggleBulletList()" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600" title="Bullet List">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></svg>
+            </button>
+            <button onclick="toggleNumberedList()" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600" title="Numbered List">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><text x="3" y="8" font-size="7" fill="currentColor" stroke="none">1</text><text x="3" y="14" font-size="7" fill="currentColor" stroke="none">2</text><text x="3" y="20" font-size="7" fill="currentColor" stroke="none">3</text></svg>
+            </button>
+            <div class="w-px h-5 bg-gray-200 mx-1"></div>
+            <button onclick="openModal('emoji')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600" title="Emoji Picker">
+              <span class="text-sm">😊</span>
+            </button>
+            <button onclick="clearText()" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600" title="Clear Text">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+          </div>
+
+          <!-- Secondary Toolbar -->
+          <div class="px-3 py-2 border-b border-gray-100 flex flex-wrap items-center gap-1 bg-gray-50/50">
+            <button onclick="undo()" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600" title="Undo (Ctrl+Z)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 10h10a5 5 0 015 5v2"/><path d="M3 10l4-4M3 10l4 4"/></svg>
+            </button>
+            <button onclick="redo()" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600" title="Redo (Ctrl+Y)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10H11a5 5 0 00-5 5v2"/><path d="M21 10l-4-4M21 10l-4 4"/></svg>
+            </button>
+            <div class="w-px h-5 bg-gray-200 mx-1"></div>
+            <button onclick="transformCase('upper')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600 text-xs font-bold" title="Uppercase">AB</button>
+            <button onclick="transformCase('lower')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600 text-xs" title="Lowercase">ab</button>
+            <button onclick="transformCase('title')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600 text-xs font-medium" title="Title Case">Aa</button>
+            <div class="w-px h-5 bg-gray-200 mx-1"></div>
+            <button onclick="openModal('templates')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600" title="Templates">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
+            </button>
+            <button onclick="openModal('findreplace')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600" title="Find & Replace">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </button>
+            <button onclick="openModal('specialchars')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600 text-sm font-medium" title="Special Characters">Ω</button>
+            <div class="w-px h-5 bg-gray-200 mx-1"></div>
+            <button onclick="cleanText()" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600" title="Clean Text">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/></svg>
+            </button>
+            <button onclick="emojiSpacing()" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600" title="Emoji Spacing">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </button>
+            <button onclick="openModal('signature')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600" title="Signature">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 3a2.828 2.828 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+            </button>
+            <button onclick="openModal('hooks')" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600" title="Viral Hooks">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </button>
+            <button onclick="fixLineBreaks()" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600" title="Fix Line Breaks">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </button>
+            <button onclick="exportText()" class="tool-btn p-2 rounded-lg hover:bg-blue-50 text-gray-500 hover:text-blue-600" title="Export .txt">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </button>
+          </div>
+
+          <!-- Textarea -->
+          <div class="p-4">
+            <textarea id="editor" class="w-full h-64 lg:h-80 resize-none border border-gray-200 rounded-xl p-4 text-gray-800 text-sm leading-relaxed custom-scrollbar transition-all duration-200" placeholder="Start typing your LinkedIn post... ✨" oninput="onEditorInput()"></textarea>
+          </div>
+
+          <!-- Stats Bar -->
+          <div class="px-4 py-2 border-t border-gray-100 flex flex-wrap items-center gap-3 text-xs text-gray-500">
+            <span id="stat-chars">0 chars</span>
+            <span class="text-gray-300">•</span>
+            <span id="stat-words">0 words</span>
+            <span class="text-gray-300">•</span>
+            <span id="stat-lines">0 lines</span>
+            <span class="text-gray-300">•</span>
+            <span id="stat-readtime">0 min read</span>
+            <span id="char-warning" class="hidden text-amber-600 font-medium">⚠️ Over 3000 chars</span>
+          </div>
+
+          <!-- Copy Button -->
+          <div class="px-4 pb-4">
+            <button id="copy-btn" onclick="copyText()" class="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all duration-200 copy-free-btn flex items-center justify-center gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <svg id="copy-lock" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <span id="copy-text">Copy Formatted Text</span>
+              <svg id="copy-crown" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l4 8 6-6 6 6 4-8v16H2V4z"/></svg>
+            </button>
+          </div>
         </div>
-        <span class="badge">LinkedIn</span>
-        <a href="help.html" class="help-icon" title="Feature Guide">?</a>
-      </header>
-
-      <p class="tagline">Style your posts with bold, italic, underline & more ✨</p>
-
-      <!-- Pro CTA Banner -->
-      <div class="pro-cta-banner" id="proCtaBanner" onclick="document.getElementById('paywallOverlay').classList.add('open')">
-        <div class="pro-cta-left">
-          <span class="pro-cta-badge">⚡ PRO</span>
-          <span class="pro-cta-text">Unlock all features — <strong>$9 lifetime</strong></span>
-        </div>
-        <div class="pro-cta-right">
-          <span class="pro-cta-timer" id="proCtaTimer">🔥 2h 47m left</span>
-          <span class="pro-cta-arrow">→</span>
-        </div>
       </div>
 
-      <!-- Toolbar Row 1 — Formatting -->
-      <div class="toolbar" id="toolbar">
-        <button class="tool-btn" data-action="bold" title="Bold (Ctrl+B)"><b>B</b></button>
-        <button class="tool-btn" data-action="italic" title="Italic (Ctrl+I)"><i>I</i></button>
-        <button class="tool-btn" data-action="boldItalic" title="Bold Italic"><b><i>BI</i></b></button>
-        <span class="sep"></span>
-        <button class="tool-btn" data-action="underline" title="Underline"><u>U</u></button>
-        <button class="tool-btn" data-action="strikethrough" title="Strikethrough"><s>S</s></button>
-        <span class="sep"></span>
-        <button class="tool-btn" data-action="bullet" title="Bullet Point">•</button>
-        <button class="tool-btn" data-action="orderedList" title="Ordered List">1.</button>
-        <span class="sep"></span>
-        <button class="tool-btn" data-action="emoji" title="Add Emoji">😊</button>
-        <button class="tool-btn" data-action="clear" title="Clear All">🗑</button>
-      </div>
-
-      <!-- Toolbar Row 2 — Tools -->
-      <div class="toolbar toolbar-secondary" id="toolbar2">
-        <button class="tool-btn tool-btn-wide" data-action="undo" title="Undo (Ctrl+Z)">↩️</button>
-        <button class="tool-btn tool-btn-wide" data-action="redo" title="Redo (Ctrl+Y)">↪️</button>
-        <span class="sep"></span>
-        <button class="tool-btn tool-btn-wide" data-action="caseUpper" title="UPPERCASE">AB</button>
-        <button class="tool-btn tool-btn-wide" data-action="caseLower" title="lowercase">ab</button>
-        <button class="tool-btn tool-btn-wide" data-action="caseTitle" title="Title Case">Ab</button>
-        <span class="sep"></span>
-        <button class="tool-btn tool-btn-wide" data-action="templates" title="Post Templates">📋</button>
-        <button class="tool-btn tool-btn-wide" data-action="findReplace" title="Find & Replace">🔍</button>
-        <button class="tool-btn tool-btn-wide" data-action="charmap" title="Special Characters">Ω</button>
-        <span class="sep"></span>
-        <button class="tool-btn tool-btn-wide" data-action="cleanText" title="Clean Text">🧹</button>
-        <button class="tool-btn tool-btn-wide" data-action="emojiFix" title="Emoji Spacing Fix (auto-gap around emojis)">🔤</button>
-        <button class="tool-btn tool-btn-wide" data-action="signature" title="Custom Signature">✍️</button>
-        <button class="tool-btn tool-btn-wide" data-action="hooks" title="5 Viral Hook Templates">🎣</button>
-        <button class="tool-btn tool-btn-wide" data-action="linebreak" title="Auto Line-Break Fix (Normalize line breaks & remove double spacing)">↩️</button>
-        <button class="tool-btn tool-btn-wide" data-action="export" title="Download .txt">📥</button>
-      </div>
-
-      <textarea id="editor" class="editor" placeholder="Start typing your LinkedIn post..." spellcheck="true"></textarea>
-
-      <!-- Live Stats Bar -->
-      <div class="stats-bar" id="statsBar">
-        <span class="stat" id="statChars">0 chars</span>
-        <span class="stat-sep">•</span>
-        <span class="stat" id="statWords">0 words</span>
-        <span class="stat-sep">•</span>
-        <span class="stat" id="statLines">0 lines</span>
-        <span class="stat-sep">•</span>
-        <span class="stat" id="statRead">0s read</span>
-      </div>
-
-      <button class="copy-btn" id="copyBtn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        <span>Copy Formatted Text</span>
-      </button>
-    </section>
-
-    <!-- Preview Panel -->
-    <section class="panel preview-panel" id="previewPanel">
-      <div class="post-card">
-        <div class="post-head">
-          <div class="avatar"></div>
-          <div class="post-meta">
-            <div class="meta-row">
-              <strong class="name">Link Polish</strong>
-              <span class="time">• now</span>
+      <!-- PREVIEW PANEL -->
+      <div id="preview-panel" class="hidden lg:block animate-fade-in-right">
+        <div class="lg:sticky lg:top-24">
+          <div class="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden">
+            <div class="p-4 border-b border-gray-100">
+              <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider">LinkedIn Preview</h3>
             </div>
-            <span class="headline">Make your posts stand out ✨</span>
+            <div class="p-4">
+              <div class="flex items-start gap-3">
+                <div class="logo-gradient w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/></svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-1.5">
+                    <span class="font-semibold text-sm text-gray-900">Link Polish</span>
+                    <span class="text-blue-700 text-xs">• 1st</span>
+                  </div>
+                  <p class="text-xs text-gray-500">Make your posts stand out ✨</p>
+                  <p class="text-xs text-gray-400">Just now • 🌍</p>
+                </div>
+                <button class="text-blue-700 border border-blue-700 text-xs font-semibold px-3 py-1 rounded-full hover:bg-blue-50 transition-colors">+ Connect</button>
+              </div>
+              <div id="preview-body" class="mt-3 text-sm text-gray-800 leading-relaxed whitespace-pre-wrap break-words max-h-80 overflow-y-auto custom-scrollbar">
+                <span class="text-gray-400 italic">Your formatted post will appear here...</span>
+              </div>
+              <div class="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between text-gray-500 text-xs">
+                <button class="flex items-center gap-1 hover:text-blue-600 transition-colors">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                  <span>42</span>
+                </button>
+                <button class="flex items-center gap-1 hover:text-blue-600 transition-colors">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                  <span>12</span>
+                </button>
+                <button class="flex items-center gap-1 hover:text-blue-600 transition-colors">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+                  <span>8</span>
+                </button>
+                <button class="flex items-center gap-1 hover:text-blue-600 transition-colors">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  <span></span>
+                </button>
+              </div>
+            </div>
           </div>
-          <button class="connect-btn">+ Connect</button>
+
+          <!-- Quick Stats Cards -->
+          <div class="grid grid-cols-2 gap-3 mt-3">
+            <div class="bg-white rounded-xl border border-gray-200 p-4">
+              <div class="text-xs text-gray-500 mb-1">Characters</div>
+              <div class="text-2xl font-bold text-gray-900" id="preview-chars">0</div>
+              <div class="mt-2 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                <div id="char-progress" class="h-full bg-blue-500 rounded-full transition-all duration-300" style="width:0%"></div>
+              </div>
+              <div class="text-xs text-gray-400 mt-1">3,000 max</div>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-4">
+              <div class="text-xs text-gray-500 mb-1">Words</div>
+              <div class="text-2xl font-bold text-gray-900" id="preview-words">0</div>
+              <div class="text-xs text-gray-400 mt-1"><span id="preview-readtime">0</span> min read</div>
+            </div>
+          </div>
         </div>
-        <div class="post-body" id="preview"></div>
-        <div class="post-stats">
-          <span>👍 ❤️ 0</span>
-          <span>0 comments • 0 reposts</span>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- Emoji Picker -->
-  <div class="emoji-overlay" id="emojiOverlay">
-    <div class="emoji-picker">
-      <div class="emoji-search-wrap">
-        <input type="text" id="emojiSearch" class="emoji-search" placeholder="Search emoji..." autocomplete="off">
-      </div>
-      <div class="emoji-grid" id="emojiGrid"></div>
-    </div>
-  </div>
-
-  <!-- Templates Panel -->
-  <div class="modal-overlay" id="templatesOverlay">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>📋 Post Templates</h3>
-        <button class="modal-close" data-close="templatesOverlay">✕</button>
-      </div>
-      <div class="modal-body" id="templatesList"></div>
-    </div>
-  </div>
-
-  <!-- Find & Replace Panel -->
-  <div class="modal-overlay" id="findReplaceOverlay">
-    <div class="modal modal-sm">
-      <div class="modal-header">
-        <h3>🔍 Find & Replace</h3>
-        <button class="modal-close" data-close="findReplaceOverlay">✕</button>
-      </div>
-      <div class="modal-body">
-        <input type="text" id="findInput" class="modal-input" placeholder="Find..." autocomplete="off">
-        <input type="text" id="replaceInput" class="modal-input" placeholder="Replace with..." autocomplete="off">
-        <div class="modal-actions">
-          <button class="modal-btn" id="findNext">Find Next</button>
-          <button class="modal-btn" id="replaceOne">Replace</button>
-          <button class="modal-btn modal-btn-primary" id="replaceAll">Replace All</button>
-        </div>
-        <div class="find-status" id="findStatus"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Character Map Panel -->
-  <div class="modal-overlay" id="charmapOverlay">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>Ω Special Characters</h3>
-        <button class="modal-close" data-close="charmapOverlay">✕</button>
-      </div>
-      <div class="modal-body">
-        <div class="charmap-categories" id="charmapCategories"></div>
-        <div class="charmap-grid" id="charmapGrid"></div>
       </div>
     </div>
   </div>
 
-  <!-- Custom Signature Panel -->
-  <div class="modal-overlay" id="signatureOverlay">
-    <div class="modal modal-sm">
-      <div class="modal-header">
-        <h3>✍️ Custom Signature</h3>
-        <button class="modal-close" data-close="signatureOverlay">✕</button>
+  <!-- HERO SECTION -->
+  <section class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 py-20 mt-12 overflow-hidden">
+    <div class="dot-pattern absolute inset-0"></div>
+    <div class="relative max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 animate-on-scroll">The #1 Free LinkedIn Post Text Formatter</h2>
+      <p class="text-blue-100 text-lg md:text-xl mb-8 max-w-2xl mx-auto animate-on-scroll">Format your LinkedIn posts with <strong>bold</strong>, <em>italic</em>, underline, and more — then copy &amp; paste directly to LinkedIn.</p>
+      <div class="flex flex-wrap justify-center gap-3 animate-on-scroll">
+        <span class="bg-white/15 backdrop-blur-sm text-white text-sm font-medium px-4 py-2 rounded-full border border-white/20">✅ 100% Free to Start</span>
+        <span class="bg-white/15 backdrop-blur-sm text-white text-sm font-medium px-4 py-2 rounded-full border border-white/20">⚡ No Signup Required</span>
+        <span class="bg-white/15 backdrop-blur-sm text-white text-sm font-medium px-4 py-2 rounded-full border border-white/20">🔒 No Data Collected</span>
       </div>
-      <div class="modal-body">
-        <label class="modal-label">Link Polish</label>
-        <input type="text" id="sigName" class="modal-input" placeholder="e.g. Link Polish" autocomplete="off">
-        <label class="modal-label">Tagline / Title</label>
-        <input type="text" id="sigTagline" class="modal-input" placeholder="e.g. Full Stack Developer | Open Source Enthusiast" autocomplete="off">
-        <label class="modal-label">CTA (optional)</label>
-        <input type="text" id="sigCTA" class="modal-input" placeholder="e.g. Follow for more tips!" autocomplete="off">
-        <div class="sig-preview" id="sigPreview"></div>
-        <div class="modal-actions">
-          <button class="modal-btn" id="sigSave">💾 Save Signature</button>
-          <button class="modal-btn modal-btn-primary" id="sigInsert">Insert at End</button>
+    </div>
+  </section>
+
+  <!-- FEATURES GRID -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-12 animate-on-scroll">Everything You Need to Create Stunning LinkedIn Posts</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 animate-on-scroll">
+          <div class="text-2xl mb-3">📝</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Bold Text</h3>
+          <p class="text-sm text-gray-500">Make key points stand out with Unicode bold formatting</p>
         </div>
-        <label class="modal-label" style="margin-top:10px">
-          <input type="checkbox" id="sigAutoInsert"> Auto-insert on every post
-        </label>
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 animate-on-scroll">
+          <div class="text-2xl mb-3">✍️</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Italic Text</h3>
+          <p class="text-sm text-gray-500">Add emphasis and style with Unicode italic formatting</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 animate-on-scroll">
+          <div class="text-2xl mb-3">🔠</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Bold Italic</h3>
+          <p class="text-sm text-gray-500">Maximum emphasis with combined bold and italic styling</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 animate-on-scroll">
+          <div class="text-2xl mb-3">〰️</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Underline / Strikethrough</h3>
+          <p class="text-sm text-gray-500">Add underlines or strikethrough to your text</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 animate-on-scroll">
+          <div class="text-2xl mb-3">📋</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Bullet Points</h3>
+          <p class="text-sm text-gray-500">Organize content with bullet and numbered lists</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 animate-on-scroll">
+          <div class="text-2xl mb-3">😊</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Emoji Picker</h3>
+          <p class="text-sm text-gray-500">Browse and insert emojis with search functionality</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 animate-on-scroll">
+          <div class="text-2xl mb-3">📄</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Post Templates</h3>
+          <p class="text-sm text-gray-500">Start with proven LinkedIn post templates</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 animate-on-scroll">
+          <div class="text-2xl mb-3">🎣</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Viral Hooks</h3>
+          <p class="text-sm text-gray-500">Grab attention with proven opening hooks</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 animate-on-scroll">
+          <div class="text-2xl mb-3">🔍</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Find &amp; Replace</h3>
+          <p class="text-sm text-gray-500">Quickly find and replace text in your posts</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 animate-on-scroll">
+          <div class="text-2xl mb-3">Ω</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Special Characters</h3>
+          <p class="text-sm text-gray-500">Access arrows, symbols, math, and currency characters</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 animate-on-scroll">
+          <div class="text-2xl mb-3">✨</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Clean Text</h3>
+          <p class="text-sm text-gray-500">Remove extra whitespace and clean up formatting</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 animate-on-scroll">
+          <div class="text-2xl mb-3">✍️</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Custom Signature <span class="pro-badge text-white text-[10px] px-1.5 py-0.5 rounded ml-1">PRO</span></h3>
+          <p class="text-sm text-gray-500">Auto-insert your custom signature on every post</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-12 animate-on-scroll">How It Works</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center animate-on-scroll">
+          <div class="w-14 h-14 cta-gradient rounded-2xl flex items-center justify-center text-white text-xl font-bold mx-auto mb-4 shadow-lg">1</div>
+          <h3 class="font-semibold text-gray-900 mb-2">Type or Paste</h3>
+          <p class="text-sm text-gray-500">Type your LinkedIn post or paste existing text into the editor</p>
+        </div>
+        <div class="text-center animate-on-scroll">
+          <div class="w-14 h-14 cta-gradient rounded-2xl flex items-center justify-center text-white text-xl font-bold mx-auto mb-4 shadow-lg">2</div>
+          <h3 class="font-semibold text-gray-900 mb-2">Apply Formatting</h3>
+          <p class="text-sm text-gray-500">Select text and click formatting buttons — bold, italic, lists, and more</p>
+        </div>
+        <div class="text-center animate-on-scroll">
+          <div class="w-14 h-14 cta-gradient rounded-2xl flex items-center justify-center text-white text-xl font-bold mx-auto mb-4 shadow-lg">3</div>
+          <h3 class="font-semibold text-gray-900 mb-2">Copy &amp; Paste</h3>
+          <p class="text-sm text-gray-500">Copy your formatted text and paste it directly into LinkedIn</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-12 animate-on-scroll">Frequently Asked Questions</h2>
+      <div class="space-y-3">
+        <details class="bg-white rounded-xl border border-gray-100 shadow-sm group animate-on-scroll">
+          <summary class="p-4 cursor-pointer font-medium text-gray-900 flex items-center justify-between hover:text-blue-700 transition-colors">
+            Is Link Polish really free?
+            <svg class="w-5 h-5 text-gray-400 transform transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="px-4 pb-4 text-sm text-gray-600">Yes! Link Polish is 100% free to use for core formatting features including bold, italic, underline, strikethrough, bullet lists, and more. The Pro version unlocks additional features like copy-to-clipboard, custom signatures, and viral hooks for a one-time $9 payment.</div>
+        </details>
+        <details class="bg-white rounded-xl border border-gray-100 shadow-sm group animate-on-scroll">
+          <summary class="p-4 cursor-pointer font-medium text-gray-900 flex items-center justify-between hover:text-blue-700 transition-colors">
+            How does the text formatting work?
+            <svg class="w-5 h-5 text-gray-400 transform transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="px-4 pb-4 text-sm text-gray-600">Link Polish uses Unicode characters to create formatted text. When you click Bold, Italic, or other formatting buttons, we convert your regular text into special Unicode characters that appear bold, italic, etc. These work on LinkedIn, Twitter, and most other platforms because they're actual characters, not HTML or markdown.</div>
+        </details>
+        <details class="bg-white rounded-xl border border-gray-100 shadow-sm group animate-on-scroll">
+          <summary class="p-4 cursor-pointer font-medium text-gray-900 flex items-center justify-between hover:text-blue-700 transition-colors">
+            Will my formatted text work on LinkedIn?
+            <svg class="w-5 h-5 text-gray-400 transform transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="px-4 pb-4 text-sm text-gray-600">Yes! Unicode formatting works on LinkedIn, Twitter/X, Instagram, Facebook, and most other platforms. Since the formatting uses actual Unicode characters rather than HTML, your formatted text will appear correctly almost everywhere.</div>
+        </details>
+        <details class="bg-white rounded-xl border border-gray-100 shadow-sm group animate-on-scroll">
+          <summary class="p-4 cursor-pointer font-medium text-gray-900 flex items-center justify-between hover:text-blue-700 transition-colors">
+            What's included in the Pro version?
+            <svg class="w-5 h-5 text-gray-400 transform transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="px-4 pb-4 text-sm text-gray-600">Pro unlocks: one-click copy to clipboard, custom signatures with auto-insert, viral hooks library, and priority access to new features. It's a one-time $9 payment for lifetime access — no subscriptions.</div>
+        </details>
+        <details class="bg-white rounded-xl border border-gray-100 shadow-sm group animate-on-scroll">
+          <summary class="p-4 cursor-pointer font-medium text-gray-900 flex items-center justify-between hover:text-blue-700 transition-colors">
+            Is my data safe?
+            <svg class="w-5 h-5 text-gray-400 transform transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="px-4 pb-4 text-sm text-gray-600">Absolutely. All formatting happens locally in your browser. Your text is never sent to any server. We don't collect, store, or have access to any of your content. Your privacy is 100% guaranteed.</div>
+        </details>
+        <details class="bg-white rounded-xl border border-gray-100 shadow-sm group animate-on-scroll">
+          <summary class="p-4 cursor-pointer font-medium text-gray-900 flex items-center justify-between hover:text-blue-700 transition-colors">
+            Can I use this on mobile?
+            <svg class="w-5 h-5 text-gray-400 transform transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="px-4 pb-4 text-sm text-gray-600">Yes! Link Polish is fully responsive and works on mobile devices, tablets, and desktop computers. The interface adapts to your screen size for the best experience.</div>
+        </details>
+        <details class="bg-white rounded-xl border border-gray-100 shadow-sm group animate-on-scroll">
+          <summary class="p-4 cursor-pointer font-medium text-gray-900 flex items-center justify-between hover:text-blue-700 transition-colors">
+            Do I need to create an account?
+            <svg class="w-5 h-5 text-gray-400 transform transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="px-4 pb-4 text-sm text-gray-600">No! There's no signup required. Just open the tool and start formatting. Your preferences and Pro status are saved in your browser's local storage.</div>
+        </details>
+        <details class="bg-white rounded-xl border border-gray-100 shadow-sm group animate-on-scroll">
+          <summary class="p-4 cursor-pointer font-medium text-gray-900 flex items-center justify-between hover:text-blue-700 transition-colors">
+            What browsers are supported?
+            <svg class="w-5 h-5 text-gray-400 transform transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="px-4 pb-4 text-sm text-gray-600">Link Polish works on all modern browsers including Chrome, Firefox, Safari, and Edge. We recommend using the latest version for the best experience.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 animate-on-scroll">Ready to Make Your LinkedIn Posts Stand Out?</h2>
+      <p class="text-gray-500 mb-8 animate-on-scroll">Join thousands of professionals who use Link Polish to create eye-catching posts.</p>
+      <button onclick="document.getElementById('editor').focus();window.scrollTo({top:0,behavior:'smooth'})" class="cta-gradient text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 animate-on-scroll">
+        Start Formatting Now — It's Free
+      </button>
+      <div class="flex justify-center gap-6 mt-6 text-sm text-gray-400 animate-on-scroll">
+        <span>✅ No signup</span>
+        <span>✅ No data collected</span>
+        <span>✅ Works instantly</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-gray-900 text-gray-400 mt-auto">
+  <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+      <div class="logo-gradient w-6 h-6 rounded flex items-center justify-center">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/></svg>
+      </div>
+      <span class="text-sm">Link Polish — The #1 Free LinkedIn Post Formatter</span>
+    </div>
+    <div class="flex items-center gap-4 text-sm">
+      <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+      <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+      <span>© <span id="footer-year"></span></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== MODALS ==================== -->
+
+<!-- MODAL BACKDROP -->
+<div id="modal-backdrop" class="fixed inset-0 z-[60] modal-overlay hidden" onclick="closeAllModals()"></div>
+
+<!-- EMOJI PICKER MODAL -->
+<div id="modal-emoji" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[80vh] flex flex-col animate-scale-in">
+    <div class="flex items-center justify-between p-4 border-b border-gray-100">
+      <h3 class="font-semibold text-gray-900">😊 Emoji Picker</h3>
+      <button onclick="closeModal('emoji')" class="p-1 hover:bg-gray-100 rounded-lg transition-colors">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="p-3">
+      <input type="text" id="emoji-search" placeholder="Search emojis..." class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-400" oninput="filterEmojis()">
+    </div>
+    <div id="emoji-grid" class="flex-1 overflow-y-auto p-3 custom-scrollbar grid grid-cols-8 gap-1">
+    </div>
+  </div>
+</div>
+
+<!-- TEMPLATES MODAL -->
+<div id="modal-templates" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[80vh] flex flex-col animate-scale-in">
+    <div class="flex items-center justify-between p-4 border-b border-gray-100">
+      <h3 class="font-semibold text-gray-900">📄 Post Templates</h3>
+      <button onclick="closeModal('templates')" class="p-1 hover:bg-gray-100 rounded-lg transition-colors">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="templates-list" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+    </div>
+  </div>
+</div>
+
+<!-- FIND & REPLACE MODAL -->
+<div id="modal-findreplace" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md animate-scale-in">
+    <div class="flex items-center justify-between p-4 border-b border-gray-100">
+      <h3 class="font-semibold text-gray-900">🔍 Find &amp; Replace</h3>
+      <button onclick="closeModal('findreplace')" class="p-1 hover:bg-gray-100 rounded-lg transition-colors">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="p-4 space-y-3">
+      <input type="text" id="find-input" placeholder="Find..." class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-400">
+      <input type="text" id="replace-input" placeholder="Replace with..." class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-400">
+      <div class="flex gap-2">
+        <button onclick="findAndReplace(false)" class="flex-1 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">Replace</button>
+        <button onclick="findAndReplace(true)" class="flex-1 py-2 bg-blue-700 text-white text-sm font-medium rounded-lg hover:bg-blue-800 transition-colors">Replace All</button>
+        <button onclick="highlightFind()" class="flex-1 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors">Find</button>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Viral Hooks Panel -->
-  <div class="modal-overlay" id="hooksOverlay">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>🎣 Viral Hook Templates</h3>
-        <button class="modal-close" data-close="hooksOverlay">✕</button>
-      </div>
-      <div class="modal-body" id="hooksList"></div>
+<!-- SPECIAL CHARACTERS MODAL -->
+<div id="modal-specialchars" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[80vh] flex flex-col animate-scale-in">
+    <div class="flex items-center justify-between p-4 border-b border-gray-100">
+      <h3 class="font-semibold text-gray-900">Ω Special Characters</h3>
+      <button onclick="closeModal('specialchars')" class="p-1 hover:bg-gray-100 rounded-lg transition-colors">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="specialchars-tabs" class="flex flex-wrap gap-1 px-4 pt-3">
+    </div>
+    <div id="specialchars-grid" class="flex-1 overflow-y-auto p-4 grid grid-cols-8 gap-1 custom-scrollbar">
     </div>
   </div>
+</div>
 
-  <!-- Cookie / LocalStorage Consent Banner -->
-  <div class="consent-banner" id="consentBanner">
-    <div class="consent-inner">
-      <div class="consent-text">
-        <strong>🍪 We use localStorage</strong>
-        <p>Link Polish saves your editor content and preferences locally in your browser. No data is sent to any server. By continuing, you agree to our use of localStorage.</p>
+<!-- SIGNATURE MODAL -->
+<div id="modal-signature" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md animate-scale-in">
+    <div class="flex items-center justify-between p-4 border-b border-gray-100">
+      <h3 class="font-semibold text-gray-900">✍️ Custom Signature <span class="pro-badge text-white text-[10px] px-1.5 py-0.5 rounded ml-1">PRO</span></h3>
+      <button onclick="closeModal('signature')" class="p-1 hover:bg-gray-100 rounded-lg transition-colors">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="p-4 space-y-3">
+      <input type="text" id="sig-name" placeholder="Your Name" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-400">
+      <input type="text" id="sig-tagline" placeholder="Your Tagline" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-400">
+      <input type="text" id="sig-cta" placeholder="Call to Action (e.g., Follow for more tips)" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-400">
+      <div class="bg-gray-50 rounded-lg p-3">
+        <p class="text-xs text-gray-500 mb-1">Preview:</p>
+        <div id="sig-preview" class="text-sm text-gray-800 whitespace-pre-line">—\nYour Name\nYour Tagline\nCall to Action</div>
       </div>
-      <div class="consent-links">
-        <a href="privacy.html" target="_blank">Privacy Policy</a>
-        <a href="terms.html" target="_blank">Terms</a>
+      <div class="flex items-center gap-2">
+        <input type="checkbox" id="sig-auto" class="rounded border-gray-300">
+        <label for="sig-auto" class="text-sm text-gray-600">Auto-insert on new posts</label>
       </div>
-      <div class="consent-actions">
-        <button class="consent-btn consent-decline" id="consentDecline">Decline</button>
-        <button class="consent-btn consent-accept" id="consentAccept">Accept</button>
+      <div class="flex gap-2">
+        <button onclick="saveSignature()" class="flex-1 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">Save Signature</button>
+        <button onclick="insertSignature()" class="flex-1 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-200 transition-colors">Insert Now</button>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Footer Links -->
-  <footer class="app-footer">
-    <a href="privacy.html">Privacy Policy</a>
-    <span class="footer-sep">•</span>
-    <a href="terms.html">Terms of Service</a>
-  </footer>
-
-  <!-- Paywall / Pricing Modal -->
-  <div class="modal-overlay" id="paywallOverlay">
-    <div class="modal pricing-modal">
-      <button class="modal-close" data-close="paywallOverlay">✕</button>
-
-      <!-- Urgency Banner -->
-      <div class="urgency-banner">
-        <div class="urgency-pulse"></div>
-        <span class="urgency-text">⚡ FLASH SALE — Limited Time Only</span>
-      </div>
-
-      <div class="pricing-header">
-        <div class="pricing-original">
-          <span class="original-price">$49</span>
-          <span class="original-label">Regular price</span>
-        </div>
-        <div class="pricing-badge">🔥 82% OFF — EARLY BIRD</div>
-        <h2 class="pricing-title">Unlock Link Polish Pro</h2>
-        <p class="pricing-sub">One-time payment. Lifetime access. No subscriptions ever.</p>
-      </div>
-
-      <!-- Countdown Timer -->
-      <div class="countdown-section">
-        <div class="countdown-label">⏰ Offer expires in:</div>
-        <div class="countdown-timer" id="countdownTimer">
-          <div class="countdown-block">
-            <span class="countdown-num" id="cdHours">02</span>
-            <span class="countdown-unit">HRS</span>
-          </div>
-          <span class="countdown-colon">:</span>
-          <div class="countdown-block">
-            <span class="countdown-num" id="cdMinutes">47</span>
-            <span class="countdown-unit">MIN</span>
-          </div>
-          <span class="countdown-colon">:</span>
-          <div class="countdown-block">
-            <span class="countdown-num" id="cdSeconds">33</span>
-            <span class="countdown-unit">SEC</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="pricing-card">
-        <div class="pricing-amount">
-          <span class="pricing-currency">$</span>
-          <span class="pricing-number">9</span>
-          <span class="pricing-period">one-time · lifetime</span>
-        </div>
-
-        <!-- Spots Remaining -->
-        <div class="spots-bar">
-          <div class="spots-icon">🔥</div>
-          <div class="spots-text">
-            <strong id="spotsCount">17</strong> spots left at this price
-          </div>
-          <div class="spots-bar-track">
-            <div class="spots-bar-fill" id="spotsBarFill"></div>
-          </div>
-        </div>
-
-        <ul class="pricing-features">
-          <li class="feat-free"><span class="feat-icon">✅</span> Bold / Italic / Underline</li>
-          <li class="feat-free"><span class="feat-icon">✅</span> Bullet Points & Lists</li>
-          <li class="feat-free"><span class="feat-icon">✅</span> Emoji Picker</li>
-          <li class="feat-free"><span class="feat-icon">✅</span> Live Preview</li>
-          <li class="feat-free"><span class="feat-icon">✅</span> Templates & Hooks</li>
-          <li class="feat-free"><span class="feat-icon">✅</span> Character Counter</li>
-          <li class="feat-divider"></li>
-          <li class="feat-pro"><span class="feat-icon">⚡</span> <strong>Copy Formatted Text</strong></li>
-          <li class="feat-pro"><span class="feat-icon">⚡</span> <strong>Custom Signature</strong></li>
-          <li class="feat-pro"><span class="feat-icon">⚡</span> <strong>Priority Updates</strong></li>
-          <li class="feat-pro"><span class="feat-icon">⚡</span> <strong>No Restrictions</strong></li>
-        </ul>
-
-        <a href="https://kage001177.gumroad.com/l/dsdjb" target="_blank" rel="noopener" class="buy-btn" id="buyBtn">
-          🛒 Buy Now — $9 <span class="buy-lifetime">Lifetime</span>
-        </a>
-
-        <!-- Social Proof Ticker -->
-        <div class="social-proof" id="socialProof">
-          <div class="proof-avatar">👤</div>
-          <div class="proof-text" id="proofText">Loading recent purchases...</div>
-        </div>
-
-        <!-- Trust Badges -->
-        <div class="trust-badges">
-          <div class="trust-badge">
-            <span class="trust-icon">🔒</span>
-            <span>Secure Payment</span>
-          </div>
-          <div class="trust-badge">
-            <span class="trust-icon">⚡</span>
-            <span>Instant Access</span>
-          </div>
-          <div class="trust-badge">
-            <span class="trust-icon">💰</span>
-            <span>30-Day Refund</span>
-          </div>
-        </div>
-
-        <div class="pricing-divider">
-          <span>Already bought?</span>
-        </div>
-
-        <div class="unlock-section">
-          <input type="text" id="unlockCode" class="unlock-input" placeholder="Paste your unlock code here" autocomplete="off">
-          <button class="unlock-btn" id="unlockBtn">🔓 Activate</button>
-        </div>
-        <div class="unlock-status" id="unlockStatus"></div>
-      </div>
-
-      <p class="pricing-note">🔒 Secure payment via Gumroad • Instant code delivery • 30-day refund</p>
+<!-- HOOKS MODAL -->
+<div id="modal-hooks" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[80vh] flex flex-col animate-scale-in">
+    <div class="flex items-center justify-between p-4 border-b border-gray-100">
+      <h3 class="font-semibold text-gray-900">🎣 Viral Hooks</h3>
+      <button onclick="closeModal('hooks')" class="p-1 hover:bg-gray-100 rounded-lg transition-colors">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="hooks-list" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
     </div>
   </div>
+</div>
 
-  <!-- Floating Buy Button (always visible) -->
-  <a href="https://kage001177.gumroad.com/l/dsdjb" target="_blank" rel="noopener" class="floating-buy-btn" id="floatingBuyBtn">
-    🛒 Buy Pro — $9
-  </a>
-
-  <!-- Pro Success Celebration -->
-  <div class="pro-success-overlay" id="proSuccessOverlay">
-    <div class="pro-success-card">
-      <div class="pro-success-confetti" id="confettiContainer"></div>
-      <div class="pro-success-icon">🎉</div>
-      <h2 class="pro-success-title">Congratulations!</h2>
-      <p class="pro-success-sub">You've unlocked <strong>Link Polish Pro</strong></p>
-      <div class="pro-success-features">
-        <div class="pro-success-feat">✅ Copy Formatted Text</div>
-        <div class="pro-success-feat">✅ Custom Signature</div>
-        <div class="pro-success-feat">✅ Priority Updates</div>
-        <div class="pro-success-feat">✅ No Restrictions</div>
+<!-- PAYWALL MODAL -->
+<div id="modal-paywall" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md animate-scale-in overflow-hidden">
+    <div class="bg-red-600 text-white text-center py-2 text-sm font-bold">⚡ FLASH SALE — Limited Time Offer</div>
+    <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white text-center py-6 px-4">
+      <div class="pro-badge inline-block text-white text-sm font-bold px-3 py-1 rounded mb-2">PRO</div>
+      <h3 class="text-2xl font-bold">Unlock Everything</h3>
+      <p class="text-blue-200 text-sm mt-1">One-time payment, lifetime access</p>
+    </div>
+    <div class="p-6 text-center">
+      <div class="text-4xl font-bold text-gray-900">$9</div>
+      <div class="text-sm text-gray-500">lifetime access</div>
+      <div class="mt-3 bg-gray-100 rounded-full h-2 overflow-hidden">
+        <div class="bg-blue-500 h-full rounded-full" style="width:72%"></div>
       </div>
-      <div class="pro-success-badge">⚡ LIFETIME PRO</div>
-      <button class="pro-success-btn" id="proSuccessBtn">Start Using Pro →</button>
+      <div class="text-xs text-gray-500 mt-1">72% of spots claimed</div>
+      <ul class="mt-4 text-left space-y-2 text-sm">
+        <li class="flex items-center gap-2"><span class="text-blue-600">✓</span> One-click copy to clipboard</li>
+        <li class="flex items-center gap-2"><span class="text-blue-600">✓</span> Custom signatures with auto-insert</li>
+        <li class="flex items-center gap-2"><span class="text-blue-600">✓</span> Viral hooks library</li>
+        <li class="flex items-center gap-2"><span class="text-blue-600">✓</span> All future features</li>
+        <li class="flex items-center gap-2"><span class="text-blue-600">✓</span> Lifetime updates</li>
+      </ul>
+      <button onclick="closeModal('paywall');openModal('prosuccess');activatePro()" class="w-full mt-5 py-3 cta-gradient text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all">Buy Pro — $9</button>
+      <div class="mt-4 pt-4 border-t border-gray-100">
+        <p class="text-xs text-gray-500 mb-2">Already have a code?</p>
+        <div class="flex gap-2">
+          <input type="text" id="pro-code-input" placeholder="Enter activation code" class="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-400">
+          <button onclick="activateProCode()" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">Activate</button>
+        </div>
+      </div>
     </div>
   </div>
+</div>
 
-  <!-- Toast Container -->
-  <div class="toast-container" id="toastContainer"></div>
+<!-- PRO SUCCESS MODAL -->
+<div id="modal-prosuccess" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md animate-scale-in overflow-hidden relative">
+    <div id="confetti-container" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+    <div class="p-8 text-center relative">
+      <div class="text-5xl mb-4">🎉</div>
+      <h3 class="text-2xl font-bold text-gray-900 mb-2">You're Now a Pro!</h3>
+      <p class="text-gray-500 mb-6">All features are unlocked. Enjoy the full power of Link Polish!</p>
+      <div class="grid grid-cols-2 gap-3 mb-6">
+        <div class="bg-blue-50 rounded-lg p-3 text-center">
+          <div class="text-lg font-bold text-blue-700">📋</div>
+          <div class="text-xs text-blue-600">Copy to Clipboard</div>
+        </div>
+        <div class="bg-blue-50 rounded-lg p-3 text-center">
+          <div class="text-lg font-bold text-blue-700">✍️</div>
+          <div class="text-xs text-blue-600">Custom Signature</div>
+        </div>
+        <div class="bg-blue-50 rounded-lg p-3 text-center">
+          <div class="text-lg font-bold text-blue-700">🎣</div>
+          <div class="text-xs text-blue-600">Viral Hooks</div>
+        </div>
+        <div class="bg-blue-50 rounded-lg p-3 text-center">
+          <div class="text-lg font-bold text-blue-700">🚀</div>
+          <div class="text-xs text-blue-600">Future Features</div>
+        </div>
+      </div>
+      <button onclick="closeModal('prosuccess')" class="w-full py-3 cta-gradient text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all">Start Using Pro ✨</button>
+    </div>
+  </div>
+</div>
 
-  <script src="main.js?v=3" defer></script>
-  <script defer>
-    // Auto-open pricing modal after page loads (only for non-Pro users)
-    window.addEventListener('load', function() {
-      setTimeout(function() {
-        // Check if user is already Pro — don't show paywall to Pro users
-        var isPro = false;
-        try { isPro = localStorage.getItem('linkpolish_ispro') === 'true'; } catch(_) {}
-        if (isPro) return;
-        var el = document.getElementById('paywallOverlay');
-        if (el) el.classList.add('open');
-      }, 600);
+<!-- COOKIE CONSENT -->
+<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg p-4 transition-transform duration-500 translate-y-full">
+  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+    <p class="text-sm text-gray-600">🍪 We use local storage to save your preferences</p>
+    <div class="flex gap-2">
+      <button onclick="acceptCookies()" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">Agree</button>
+      <button onclick="dismissCookies()" class="px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors">Dismiss</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST NOTIFICATION -->
+<div id="toast" class="fixed top-20 right-4 z-[80] bg-gray-900 text-white px-4 py-3 rounded-xl shadow-xl text-sm font-medium transform translate-x-[120%] transition-transform duration-300 flex items-center gap-2">
+  <span id="toast-icon">✅</span>
+  <span id="toast-text">Copied!</span>
+</div>
+
+<script>
+// ============= STATE =============
+let isPro = localStorage.getItem('linkpolish_ispro') === 'true';
+let undoStack = [];
+let redoStack = [];
+const MAX_HISTORY = 50;
+let currentSpecialCharCategory = 'Arrows';
+let savedSignature = JSON.parse(localStorage.getItem('linkpolish_signature') || 'null');
+
+// ============= CHAR MAPS =============
+const CHAR_MAP = {
+  bold: {
+    'a':'𝗮','b':'𝗯','c':'𝗰','d':'𝗱','e':'𝗲','f':'𝗳','g':'𝗴','h':'𝗵','i':'𝗶','j':'𝗷','k':'𝗸','l':'𝗹','m':'𝗺','n':'𝗻','o':'𝗼','p':'𝗽','q':'𝗾','r':'𝗿','s':'𝘀','t':'𝘁','u':'𝘂','v':'𝘃','w':'𝘄','x':'𝘅','y':'𝘆','z':'𝘇',
+    'A':'𝗔','B':'𝗕','C':'𝗖','D':'𝗗','E':'𝗘','F':'𝗙','G':'𝗚','H':'𝗛','I':'𝗜','J':'𝗝','K':'𝗞','L':'𝗟','M':'𝗠','N':'𝗡','O':'𝗢','P':'𝗣','Q':'𝗤','R':'𝗥','S':'𝗦','T':'𝗧','U':'𝗨','V':'𝗩','W':'𝗪','X':'𝗫','Y':'𝗬','Z':'𝗭',
+    '0':'𝟬','1':'𝟭','2':'𝟮','3':'𝟯','4':'𝟰','5':'𝟱','6':'𝟲','7':'𝟳','8':'𝟴','9':'𝟵'
+  },
+  italic: {
+    'a':'𝘢','b':'𝘣','c':'𝘤','d':'𝘥','e':'𝘦','f':'𝘧','g':'𝘨','h':'𝘩','i':'𝘪','j':'𝘫','k':'𝘬','l':'𝘭','m':'𝘮','n':'𝘯','o':'𝘰','p':'𝘱','q':'𝘲','r':'𝘳','s':'𝘴','t':'𝘵','u':'𝘶','v':'𝘷','w':'𝘸','x':'𝘹','y':'𝘺','z':'𝘻',
+    'A':'𝘈','B':'𝘉','C':'𝘊','D':'𝘋','E':'𝘌','F':'𝘍','G':'𝘎','H':'𝘏','I':'𝘐','J':'𝘑','K':'𝘒','L':'𝘓','M':'𝘔','N':'𝘕','O':'𝘖','P':'𝘗','Q':'𝘘','R':'𝘙','S':'𝘚','T':'𝘛','U':'𝘜','V':'𝘝','W':'𝘞','X':'𝘟','Y':'𝘠','Z':'𝘡'
+  },
+  boldItalic: {
+    'a':'𝙖','b':'𝙗','c':'𝙘','d':'𝙙','e':'𝙚','f':'𝙛','g':'𝙜','h':'𝙝','i':'𝙞','j':'𝙟','k':'𝙠','l':'𝙡','m':'𝙢','n':'𝙣','o':'𝙤','p':'𝙥','q':'𝙦','r':'𝙧','s':'𝙨','t':'𝙩','u':'𝙪','v':'𝙫','w':'𝙬','x':'𝙭','y':'𝙮','z':'𝙯',
+    'A':'𝘼','B':'𝘽','C':'𝘾','D':'𝘿','E':'𝙀','F':'𝙁','G':'𝙂','H':'𝙃','I':'𝙄','J':'𝙅','K':'𝙆','L':'𝙇','M':'𝙈','N':'𝙉','O':'𝙊','P':'𝙋','Q':'𝙌','R':'𝙍','S':'𝙎','T':'𝙏','U':'𝙐','V':'𝙑','W':'𝙒','X':'𝙓','Y':'𝙔','Z':'𝙕'
+  }
+};
+
+const EMOJIS = '😀😂🥹😍🤩😎🥳🤯🫡🤝💪🔥✨💡🎯🚀📈💰💎🏆⭐🌟❤️💜💙🧡💛💚🤍🖤👍👏🙌🎉🎊💯✅⚡🌈🎨📝💼🔮🎪🧠💻🌍🎵🎬📚☕🍕🌟💎🔑🗝️🎁💌💬📢📣🔔🎵🎶🍄🌺🌸🦋🐾🌊⚡☄️💫🌙☀️🌈🍀🌿🌴🪴🍀🎨🖼️🎭🎬🎤🎧🎸🎺🥁🎻🎯🏀⚽🏈🎮🎲♟️🧩🎰🎳🏆🥇🥈🥉🏅🎖️🏵️'.split(/(?=[\uD800-\uDBFF][\uDC00-\uDFFF])|(?=[^\uD800-\uDFFF])/).filter(e => e.trim());
+
+const TEMPLATES = [
+  { id: 'story', title: '📖 Personal Story', preview: "3 years ago, I was struggling with...\n\nHere's what changed everything:\n\n1. First key insight\n2. Second key insight\n3. Third key insight\n\nThe takeaway? ..." },
+  { id: 'listicle', title: '📋 Listicle Post', preview: "5 things I wish I knew earlier:\n\n1️⃣ First lesson\n\n2️⃣ Second lesson\n\n3️⃣ Third lesson\n\n4️⃣ Fourth lesson\n\n5️⃣ Fifth lesson\n\nWhich one resonates most?" },
+  { id: 'question', title: '❓ Question Post', preview: "Hot take: ...\n\nI know this might be controversial, but...\n\nHere's my reasoning:\n→ Point 1\n→ Point 2\n→ Point 3\n\nWhat do you think? Agree or disagree?" },
+  { id: 'achievement', title: '🏆 Achievement Post', preview: "🚀 Milestone alert!\n\nWe just hit [metric]!\n\nThe journey wasn't easy:\n→ Challenge 1\n→ Challenge 2\n→ Challenge 3\n\nBut here's what I learned...\n\nThank you to everyone who believed in us! 🙏" },
+  { id: 'howto', title: '🎓 How-To Guide', preview: "How to [achieve result] in [timeframe]:\n\nStep 1: [Action]\n→ Why this matters\n\nStep 2: [Action]\n→ Why this matters\n\nStep 3: [Action]\n→ Why this matters\n\nSave this post for later! 🔖" },
+];
+
+const HOOKS = [
+  { emoji: '🤯', title: 'The Shocking Stat', text: "Did you know that 90% of [audience] struggle with [problem]?\n\nHere's the fix →" },
+  { emoji: '❌', title: 'The Myth Buster', text: "Everyone says [common advice].\n\nThey're wrong.\n\nHere's why →" },
+  { emoji: '💡', title: 'The Secret', text: "The #1 thing [successful people] do differently:\n\n[Insight]\n\nMost people overlook this." },
+  { emoji: '🔥', title: 'The Hot Take', text: "Unpopular opinion:\n\n[Controversial take]\n\nBefore you disagree, hear me out →" },
+  { emoji: '📈', title: 'The Results Hook', text: "I went from [before] to [after] in [timeframe].\n\nNo hacks. No shortcuts.\n\nJust these [number] steps →" },
+];
+
+const SPECIAL_CHARS = {
+  'Arrows': ['→','←','↑','↓','↗','↘','↙','↖','⇒','⇐','⇑','⇓','➜','➤','▶','◀'],
+  'Symbols': ['★','☆','♦','♦','●','○','■','□','▲','△','✦','✧','◆','◇','⊕','⊗'],
+  'Math': ['±','×','÷','≠','≈','≤','≥','∞','∑','∏','√','∫','∂','∇','∆','∝'],
+  'Currency': ['€','£','¥','₹','₽','₿','¢','₩','₪','₫','₭','₮','₯','₰','₱','₲'],
+  'Check': ['✅','❌','⭕','❗','❓','⚠️','♻️','⚡','🔥','💫','✨','🌟','⭐','💯','🎯','🏆'],
+  'Lines': ['─','━','│','┃','┌','┐','└','┘','╭','╮','╰','╯','═','║','╔','╗'],
+};
+
+// ============= INIT =============
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  updateProUI();
+  loadSavedText();
+  buildEmojiGrid();
+  buildTemplatesList();
+  buildHooksList();
+  buildSpecialCharsUI();
+  initSignatureFields();
+  setupIntersectionObserver();
+  showCookieBanner();
+  setupKeyboardShortcuts();
+});
+
+// ============= PRO =============
+function updateProUI() {
+  const proBanner = document.getElementById('pro-cta-banner');
+  const proBadge = document.getElementById('header-pro-badge');
+  const copyBtn = document.getElementById('copy-btn');
+  const copyLock = document.getElementById('copy-lock');
+  const copyCrown = document.getElementById('copy-crown');
+  const copyText = document.getElementById('copy-text');
+
+  if (isPro) {
+    proBanner.style.maxHeight = '0';
+    proBanner.style.paddingTop = '0';
+    proBanner.style.paddingBottom = '0';
+    proBadge.classList.remove('hidden');
+    copyBtn.className = 'w-full py-3 rounded-xl text-white font-semibold text-sm transition-all duration-200 copy-pro-btn flex items-center justify-center gap-2';
+    copyLock.classList.add('hidden');
+    copyCrown.classList.remove('hidden');
+    copyText.textContent = 'Copy Formatted Text';
+  } else {
+    proBanner.style.maxHeight = '60px';
+    proBadge.classList.add('hidden');
+    copyBtn.className = 'w-full py-3 rounded-xl text-white font-semibold text-sm transition-all duration-200 copy-free-btn flex items-center justify-center gap-2';
+    copyLock.classList.remove('hidden');
+    copyCrown.classList.add('hidden');
+    copyText.textContent = 'Copy Formatted Text (Pro)';
+  }
+}
+
+function activatePro() {
+  isPro = true;
+  localStorage.setItem('linkpolish_ispro', 'true');
+  updateProUI();
+  launchConfetti();
+}
+
+function activateProCode() {
+  const code = document.getElementById('pro-code-input').value.trim();
+  if (code === 'PROFORMAT2026') {
+    activatePro();
+    closeModal('paywall');
+    setTimeout(() => openModal('prosuccess'), 300);
+  } else {
+    showToast('❌', 'Invalid activation code');
+  }
+}
+
+function launchConfetti() {
+  const container = document.getElementById('confetti-container');
+  if (!container) return;
+  container.innerHTML = '';
+  const colors = ['#3b82f6','#f59e0b','#ef4444','#10b981','#8b5cf6','#f97316','#ec4899'];
+  for (let i = 0; i < 40; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDelay = Math.random() * 2 + 's';
+    piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    piece.style.width = (6 + Math.random() * 8) + 'px';
+    piece.style.height = (6 + Math.random() * 8) + 'px';
+    container.appendChild(piece);
+  }
+}
+
+// ============= FORMATTING =============
+function applyFormat(type) {
+  const editor = document.getElementById('editor');
+  const start = editor.selectionStart;
+  const end = editor.selectionEnd;
+  const text = editor.value;
+
+  if (start === end) {
+    showToast('ℹ️', 'Select text to format');
+    return;
+  }
+
+  saveUndoState();
+  const selected = text.substring(start, end);
+  let formatted = '';
+
+  if (type === 'bold' || type === 'italic' || type === 'boldItalic') {
+    formatted = convertChars(selected, CHAR_MAP[type]);
+  } else if (type === 'underline') {
+    formatted = selected.split('').map(c => c + '\u0332').join('');
+  } else if (type === 'strikethrough') {
+    formatted = selected.split('').map(c => c + '\u0336').join('');
+  }
+
+  editor.value = text.substring(0, start) + formatted + text.substring(end);
+  editor.selectionStart = start;
+  editor.selectionEnd = start + formatted.length;
+  editor.focus();
+  onEditorInput();
+}
+
+function convertChars(text, map) {
+  let result = '';
+  for (const char of text) {
+    result += map[char] || char;
+  }
+  return result;
+}
+
+// ============= LISTS =============
+function toggleBulletList() {
+  const editor = document.getElementById('editor');
+  const start = editor.selectionStart;
+  const end = editor.selectionEnd;
+  const text = editor.value;
+
+  if (start === end) {
+    saveUndoState();
+    const lineStart = text.lastIndexOf('\n', start - 1) + 1;
+    const lineEnd = text.indexOf('\n', start);
+    const line = text.substring(lineStart, lineEnd === -1 ? text.length : lineEnd);
+    if (line.startsWith('• ')) {
+      editor.value = text.substring(0, lineStart) + line.substring(2) + text.substring(lineEnd === -1 ? text.length : lineEnd);
+      editor.selectionStart = editor.selectionEnd = start - 2;
+    } else {
+      editor.value = text.substring(0, lineStart) + '• ' + line + text.substring(lineEnd === -1 ? text.length : lineEnd);
+      editor.selectionStart = editor.selectionEnd = start + 2;
+    }
+    editor.focus();
+    onEditorInput();
+    return;
+  }
+
+  saveUndoState();
+  const selected = text.substring(start, end);
+  const lines = selected.split('\n');
+  const toggled = lines.map(l => l.startsWith('• ') ? l.substring(2) : '• ' + l).join('\n');
+  editor.value = text.substring(0, start) + toggled + text.substring(end);
+  editor.focus();
+  onEditorInput();
+}
+
+function toggleNumberedList() {
+  const editor = document.getElementById('editor');
+  const start = editor.selectionStart;
+  const end = editor.selectionEnd;
+  const text = editor.value;
+
+  saveUndoState();
+
+  if (start === end) {
+    const lineStart = text.lastIndexOf('\n', start - 1) + 1;
+    const lineEnd = text.indexOf('\n', start);
+    const line = text.substring(lineStart, lineEnd === -1 ? text.length : lineEnd);
+    const numMatch = line.match(/^\d+\.?\s*/);
+    if (numMatch) {
+      editor.value = text.substring(0, lineStart) + line.substring(numMatch[0].length) + text.substring(lineEnd === -1 ? text.length : lineEnd);
+    } else {
+      editor.value = text.substring(0, lineStart) + '1. ' + line + text.substring(lineEnd === -1 ? text.length : lineEnd);
+    }
+    editor.focus();
+    onEditorInput();
+    return;
+  }
+
+  const selected = text.substring(start, end);
+  const lines = selected.split('\n');
+  const toggled = lines.map((l, i) => {
+    const numMatch = l.match(/^\d+\.?\s*/);
+    return numMatch ? l.substring(numMatch[0].length) : `${i + 1}. ${l}`;
+  }).join('\n');
+  editor.value = text.substring(0, start) + toggled + text.substring(end);
+  editor.focus();
+  onEditorInput();
+}
+
+// ============= CASE TRANSFORMS =============
+function transformCase(type) {
+  const editor = document.getElementById('editor');
+  const start = editor.selectionStart;
+  const end = editor.selectionEnd;
+  const text = editor.value;
+
+  if (start === end) {
+    saveUndoState();
+    if (type === 'upper') editor.value = text.toUpperCase();
+    else if (type === 'lower') editor.value = text.toLowerCase();
+    else if (type === 'title') editor.value = text.replace(/\w\S*/g, t => t.charAt(0).toUpperCase() + t.substring(1).toLowerCase());
+    editor.selectionStart = start;
+    editor.selectionEnd = end;
+    editor.focus();
+    onEditorInput();
+    return;
+  }
+
+  saveUndoState();
+  const selected = text.substring(start, end);
+  let transformed = selected;
+  if (type === 'upper') transformed = selected.toUpperCase();
+  else if (type === 'lower') transformed = selected.toLowerCase();
+  else if (type === 'title') transformed = selected.replace(/\w\S*/g, t => t.charAt(0).toUpperCase() + t.substring(1).toLowerCase());
+
+  editor.value = text.substring(0, start) + transformed + text.substring(end);
+  editor.selectionStart = start;
+  editor.selectionEnd = start + transformed.length;
+  editor.focus();
+  onEditorInput();
+}
+
+// ============= UNDO / REDO =============
+function saveUndoState() {
+  const editor = document.getElementById('editor');
+  undoStack.push({ value: editor.value, start: editor.selectionStart, end: editor.selectionEnd });
+  if (undoStack.length > MAX_HISTORY) undoStack.shift();
+  redoStack = [];
+}
+
+function undo() {
+  if (undoStack.length === 0) return;
+  const editor = document.getElementById('editor');
+  redoStack.push({ value: editor.value, start: editor.selectionStart, end: editor.selectionEnd });
+  const state = undoStack.pop();
+  editor.value = state.value;
+  editor.selectionStart = state.start;
+  editor.selectionEnd = state.end;
+  editor.focus();
+  onEditorInput();
+}
+
+function redo() {
+  if (redoStack.length === 0) return;
+  const editor = document.getElementById('editor');
+  undoStack.push({ value: editor.value, start: editor.selectionStart, end: editor.selectionEnd });
+  const state = redoStack.pop();
+  editor.value = state.value;
+  editor.selectionStart = state.start;
+  editor.selectionEnd = state.end;
+  editor.focus();
+  onEditorInput();
+}
+
+// ============= TEXT TOOLS =============
+function clearText() {
+  const editor = document.getElementById('editor');
+  if (editor.value.trim() === '') return;
+  saveUndoState();
+  editor.value = '';
+  editor.focus();
+  onEditorInput();
+  showToast('🗑️', 'Text cleared');
+}
+
+function cleanText() {
+  const editor = document.getElementById('editor');
+  saveUndoState();
+  let text = editor.value;
+  text = text.replace(/[ \t]+/g, ' ');
+  text = text.replace(/\n{3,}/g, '\n\n');
+  text = text.trim();
+  editor.value = text;
+  editor.focus();
+  onEditorInput();
+  showToast('✨', 'Text cleaned');
+}
+
+function emojiSpacing() {
+  const editor = document.getElementById('editor');
+  saveUndoState();
+  let text = editor.value;
+  text = text.replace(/([^\s])([\p{Emoji_Presentation}\p{Extended_Pictographic}])/gu, '$1 $2');
+  text = text.replace(/([\p{Emoji_Presentation}\p{Extended_Pictographic}])([^\s])/gu, '$1 $2');
+  editor.value = text;
+  editor.focus();
+  onEditorInput();
+  showToast('😊', 'Emoji spacing fixed');
+}
+
+function fixLineBreaks() {
+  const editor = document.getElementById('editor');
+  saveUndoState();
+  let text = editor.value;
+  text = text.replace(/\r\n/g, '\n');
+  text = text.replace(/\r/g, '\n');
+  editor.value = text;
+  editor.focus();
+  onEditorInput();
+  showToast('📝', 'Line breaks fixed');
+}
+
+function exportText() {
+  const editor = document.getElementById('editor');
+  const blob = new Blob([editor.value], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'linkedin-post.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast('📥', 'Post exported');
+}
+
+// ============= FIND & REPLACE =============
+function findAndReplace(replaceAll) {
+  const findVal = document.getElementById('find-input').value;
+  const replaceVal = document.getElementById('replace-input').value;
+  if (!findVal) return;
+
+  const editor = document.getElementById('editor');
+  saveUndoState();
+
+  if (replaceAll) {
+    const regex = new RegExp(escapeRegex(findVal), 'g');
+    editor.value = editor.value.replace(regex, replaceVal);
+    onEditorInput();
+    showToast('✅', 'All replaced');
+  } else {
+    const idx = editor.value.indexOf(findVal, editor.selectionEnd);
+    const actualIdx = idx === -1 ? editor.value.indexOf(findVal) : idx;
+    if (actualIdx !== -1) {
+      editor.value = editor.value.substring(0, actualIdx) + replaceVal + editor.value.substring(actualIdx + findVal.length);
+      editor.selectionStart = actualIdx;
+      editor.selectionEnd = actualIdx + replaceVal.length;
+      editor.focus();
+      onEditorInput();
+      showToast('✅', 'Replaced');
+    } else {
+      showToast('⚠️', 'Not found');
+    }
+  }
+}
+
+function highlightFind() {
+  const findVal = document.getElementById('find-input').value;
+  if (!findVal) return;
+  const editor = document.getElementById('editor');
+  const idx = editor.value.indexOf(findVal, editor.selectionEnd);
+  const actualIdx = idx === -1 ? editor.value.indexOf(findVal) : idx;
+  if (actualIdx !== -1) {
+    editor.selectionStart = actualIdx;
+    editor.selectionEnd = actualIdx + findVal.length;
+    editor.focus();
+  } else {
+    showToast('⚠️', 'Not found');
+  }
+}
+
+function escapeRegex(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// ============= COPY =============
+function copyText() {
+  if (!isPro) {
+    openModal('paywall');
+    return;
+  }
+  const editor = document.getElementById('editor');
+  if (!editor.value.trim()) {
+    showToast('⚠️', 'Nothing to copy');
+    return;
+  }
+  navigator.clipboard.writeText(editor.value).then(() => {
+    showToast('✅', 'Copied to clipboard!');
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = editor.value;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('✅', 'Copied to clipboard!');
+  });
+}
+
+// ============= EDITOR INPUT =============
+function onEditorInput() {
+  const editor = document.getElementById('editor');
+  const text = editor.value;
+  const chars = text.length;
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  const lines = text ? text.split('\n').length : 0;
+  const readTime = Math.max(1, Math.ceil(words / 200));
+
+  document.getElementById('stat-chars').textContent = `${chars} chars`;
+  document.getElementById('stat-words').textContent = `${words} words`;
+  document.getElementById('stat-lines').textContent = `${lines} lines`;
+  document.getElementById('stat-readtime').textContent = `${readTime} min read`;
+
+  const warning = document.getElementById('char-warning');
+  if (chars > 3000) warning.classList.remove('hidden');
+  else warning.classList.add('hidden');
+
+  document.getElementById('preview-chars').textContent = chars;
+  document.getElementById('preview-words').textContent = words;
+  document.getElementById('preview-readtime').textContent = readTime;
+
+  const progress = Math.min(100, (chars / 3000) * 100);
+  const progressBar = document.getElementById('char-progress');
+  progressBar.style.width = progress + '%';
+  progressBar.className = 'h-full rounded-full transition-all duration-300 ' + (chars > 3000 ? 'bg-amber-500' : 'bg-blue-500');
+
+  const previewBody = document.getElementById('preview-body');
+  if (text.trim()) {
+    previewBody.innerHTML = '';
+    previewBody.textContent = text;
+  } else {
+    previewBody.innerHTML = '<span class="text-gray-400 italic">Your formatted post will appear here...</span>';
+  }
+
+  localStorage.setItem('linkpolish_text', text);
+}
+
+function loadSavedText() {
+  const saved = localStorage.getItem('linkpolish_text');
+  if (saved) {
+    document.getElementById('editor').value = saved;
+    onEditorInput();
+  }
+}
+
+// ============= MOBILE TABS =============
+function switchMobileTab(tab) {
+  const editorPanel = document.getElementById('editor-panel');
+  const previewPanel = document.getElementById('preview-panel');
+  const tabEditor = document.getElementById('tab-editor');
+  const tabPreview = document.getElementById('tab-preview');
+
+  if (tab === 'editor') {
+    editorPanel.classList.remove('hidden');
+    previewPanel.classList.add('hidden');
+    tabEditor.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-medium bg-white text-blue-700 shadow-sm transition-all';
+    tabPreview.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-medium text-gray-500 transition-all';
+  } else {
+    editorPanel.classList.add('hidden');
+    previewPanel.classList.remove('hidden');
+    tabPreview.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-medium bg-white text-blue-700 shadow-sm transition-all';
+    tabEditor.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-medium text-gray-500 transition-all';
+  }
+}
+
+// ============= MODALS =============
+function openModal(name) {
+  if (name === 'signature' && !isPro) {
+    openModal('paywall');
+    return;
+  }
+  document.getElementById('modal-backdrop').classList.remove('hidden');
+  document.getElementById('modal-' + name).classList.remove('hidden');
+  if (name === 'prosuccess') launchConfetti();
+}
+
+function closeModal(name) {
+  document.getElementById('modal-' + name).classList.add('hidden');
+  document.getElementById('modal-backdrop').classList.add('hidden');
+}
+
+function closeAllModals() {
+  document.querySelectorAll('[id^="modal-"]').forEach(el => {
+    if (el.id !== 'modal-backdrop') el.classList.add('hidden');
+  });
+  document.getElementById('modal-backdrop').classList.add('hidden');
+}
+
+// ============= EMOJI PICKER =============
+function buildEmojiGrid() {
+  const grid = document.getElementById('emoji-grid');
+  grid.innerHTML = '';
+  EMOJIS.forEach(emoji => {
+    const btn = document.createElement('button');
+    btn.className = 'emoji-btn p-2 rounded-lg hover:bg-blue-50 text-xl transition-all tool-btn';
+    btn.textContent = emoji;
+    btn.onclick = () => insertEmoji(emoji);
+    grid.appendChild(btn);
+  });
+}
+
+function filterEmojis() {
+  const search = document.getElementById('emoji-search').value.toLowerCase();
+  const grid = document.getElementById('emoji-grid');
+  // We can't really search emojis by name in a simple array, so we show all
+  // In a real app you'd have names. For now, show all.
+  grid.querySelectorAll('.emoji-btn').forEach(btn => {
+    btn.style.display = ''; // Show all since we don't have names to filter
+  });
+}
+
+function insertEmoji(emoji) {
+  const editor = document.getElementById('editor');
+  const start = editor.selectionStart;
+  saveUndoState();
+  editor.value = editor.value.substring(0, start) + emoji + editor.value.substring(editor.selectionEnd);
+  editor.selectionStart = editor.selectionEnd = start + emoji.length;
+  editor.focus();
+  onEditorInput();
+  closeModal('emoji');
+}
+
+// ============= TEMPLATES =============
+function buildTemplatesList() {
+  const list = document.getElementById('templates-list');
+  list.innerHTML = '';
+  TEMPLATES.forEach(tmpl => {
+    const div = document.createElement('div');
+    div.className = 'bg-gray-50 rounded-xl p-4 hover:bg-blue-50 cursor-pointer transition-all border border-transparent hover:border-blue-200';
+    div.innerHTML = `
+      <h4 class="font-semibold text-gray-900 mb-2">${tmpl.title}</h4>
+      <pre class="text-xs text-gray-500 whitespace-pre-wrap font-sans leading-relaxed">${tmpl.preview}</pre>
+      <button class="mt-3 text-sm text-blue-600 font-medium hover:text-blue-800 transition-colors" onclick="insertTemplate('${tmpl.id}')">Use Template →</button>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function insertTemplate(id) {
+  const tmpl = TEMPLATES.find(t => t.id === id);
+  if (!tmpl) return;
+  const editor = document.getElementById('editor');
+  saveUndoState();
+  editor.value = tmpl.preview;
+  editor.focus();
+  onEditorInput();
+  closeModal('templates');
+  showToast('📄', 'Template inserted');
+}
+
+// ============= HOOKS =============
+function buildHooksList() {
+  const list = document.getElementById('hooks-list');
+  list.innerHTML = '';
+  HOOKS.forEach(hook => {
+    const div = document.createElement('div');
+    div.className = 'bg-gray-50 rounded-xl p-4 hover:bg-blue-50 cursor-pointer transition-all border border-transparent hover:border-blue-200';
+    div.innerHTML = `
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-xl">${hook.emoji}</span>
+        <h4 class="font-semibold text-gray-900">${hook.title}</h4>
+      </div>
+      <pre class="text-xs text-gray-500 whitespace-pre-wrap font-sans leading-relaxed">${hook.text}</pre>
+      <button class="mt-3 text-sm text-blue-600 font-medium hover:text-blue-800 transition-colors" onclick="insertHook('${hook.title}')">Use Hook →</button>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function insertHook(title) {
+  const hook = HOOKS.find(h => h.title === title);
+  if (!hook) return;
+  const editor = document.getElementById('editor');
+  saveUndoState();
+  editor.value = hook.text + (editor.value ? '\n\n' + editor.value : '');
+  editor.focus();
+  onEditorInput();
+  closeModal('hooks');
+  showToast('🎣', 'Hook inserted');
+}
+
+// ============= SPECIAL CHARACTERS =============
+function buildSpecialCharsUI() {
+  const tabs = document.getElementById('specialchars-tabs');
+  tabs.innerHTML = '';
+  Object.keys(SPECIAL_CHARS).forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = `px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${cat === currentSpecialCharCategory ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`;
+    btn.textContent = cat;
+    btn.onclick = () => { currentSpecialCharCategory = cat; buildSpecialCharsUI(); };
+    tabs.appendChild(btn);
+  });
+
+  const grid = document.getElementById('specialchars-grid');
+  grid.innerHTML = '';
+  const chars = SPECIAL_CHARS[currentSpecialCharCategory] || [];
+  chars.forEach(ch => {
+    const btn = document.createElement('button');
+    btn.className = 'p-2 rounded-lg hover:bg-blue-50 text-lg transition-all tool-btn';
+    btn.textContent = ch;
+    btn.onclick = () => insertSpecialChar(ch);
+    grid.appendChild(btn);
+  });
+}
+
+function insertSpecialChar(ch) {
+  const editor = document.getElementById('editor');
+  const start = editor.selectionStart;
+  saveUndoState();
+  editor.value = editor.value.substring(0, start) + ch + editor.value.substring(editor.selectionEnd);
+  editor.selectionStart = editor.selectionEnd = start + ch.length;
+  editor.focus();
+  onEditorInput();
+}
+
+// ============= SIGNATURE =============
+function initSignatureFields() {
+  if (savedSignature) {
+    document.getElementById('sig-name').value = savedSignature.name || '';
+    document.getElementById('sig-tagline').value = savedSignature.tagline || '';
+    document.getElementById('sig-cta').value = savedSignature.cta || '';
+    document.getElementById('sig-auto').checked = savedSignature.autoInsert || false;
+    updateSigPreview();
+  }
+  ['sig-name', 'sig-tagline', 'sig-cta'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateSigPreview);
+  });
+}
+
+function updateSigPreview() {
+  const name = document.getElementById('sig-name').value || 'Your Name';
+  const tagline = document.getElementById('sig-tagline').value || 'Your Tagline';
+  const cta = document.getElementById('sig-cta').value || 'Call to Action';
+  document.getElementById('sig-preview').textContent = `—\n${name}\n${tagline}\n${cta}`;
+}
+
+function saveSignature() {
+  const sig = {
+    name: document.getElementById('sig-name').value,
+    tagline: document.getElementById('sig-tagline').value,
+    cta: document.getElementById('sig-cta').value,
+    autoInsert: document.getElementById('sig-auto').checked
+  };
+  localStorage.setItem('linkpolish_signature', JSON.stringify(sig));
+  savedSignature = sig;
+  showToast('✅', 'Signature saved');
+}
+
+function insertSignature() {
+  if (!isPro) { openModal('paywall'); return; }
+  const name = document.getElementById('sig-name').value;
+  const tagline = document.getElementById('sig-tagline').value;
+  const cta = document.getElementById('sig-cta').value;
+  if (!name && !tagline && !cta) { showToast('⚠️', 'Fill in at least one field'); return; }
+
+  const sigText = `—\n${name}\n${tagline}\n${cta}`.replace(/\n{2,}/g, '\n').trim();
+  const editor = document.getElementById('editor');
+  saveUndoState();
+  editor.value += (editor.value ? '\n\n' : '') + sigText;
+  editor.focus();
+  onEditorInput();
+  closeModal('signature');
+  showToast('✍️', 'Signature inserted');
+}
+
+// ============= TOAST =============
+function showToast(icon, message) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toast-icon').textContent = icon;
+  document.getElementById('toast-text').textContent = message;
+  toast.style.transform = 'translateX(0)';
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => {
+    toast.style.transform = 'translateX(120%)';
+  }, 2500);
+}
+
+// ============= INTERSECTION OBSERVER =============
+function setupIntersectionObserver() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
     });
-  </script>
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+}
+
+// ============= COOKIES =============
+function showCookieBanner() {
+  if (localStorage.getItem('linkpolish_cookies')) return;
+  setTimeout(() => {
+    document.getElementById('cookie-banner').style.transform = 'translateY(0)';
+  }, 1500);
+}
+
+function acceptCookies() {
+  localStorage.setItem('linkpolish_cookies', 'true');
+  document.getElementById('cookie-banner').style.transform = 'translateY(100%)';
+}
+
+function dismissCookies() {
+  document.getElementById('cookie-banner').style.transform = 'translateY(100%)';
+}
+
+// ============= KEYBOARD SHORTCUTS =============
+function setupKeyboardShortcuts() {
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey || e.metaKey) {
+      if (e.key === 'b') { e.preventDefault(); applyFormat('bold'); }
+      else if (e.key === 'i') { e.preventDefault(); applyFormat('italic'); }
+      else if (e.key === 'z') { e.preventDefault(); undo(); }
+      else if (e.key === 'y') { e.preventDefault(); redo(); }
+    }
+  });
+}
+</script>
 </body>
 </html>
