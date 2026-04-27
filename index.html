@@ -1114,8 +1114,7 @@ function transformCase(type) {
     if (type === 'upper') editor.value = text.toUpperCase();
     else if (type === 'lower') editor.value = text.toLowerCase();
     else if (type === 'title') editor.value = text.replace(/\w\S*/g, t => t.charAt(0).toUpperCase() + t.substring(1).toLowerCase());
-    else if (type === 'sentence') editor.value = text.toLowerCase().replace(/(^\
-*\w|[.!?]\s+\w)/g, c => c.toUpperCase());
+    else if (type === 'sentence') editor.value = text.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g, c => c.toUpperCase());
     editor.selectionStart = start;
     editor.selectionEnd = end;
     editor.focus();
