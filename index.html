@@ -156,6 +156,9 @@ textarea:focus {
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         LinkedIn
       </div>
+      <a href="help.html" class="bg-gray-100 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-1 hover:bg-gray-200 transition-colors" title="Feature Guide">
+        <span>📖</span> Guide
+      </a>
     </div>
   </div>
 </header>
@@ -684,27 +687,67 @@ textarea:focus {
 <!-- PAYWALL MODAL -->
 <div id="modal-paywall" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
   <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md animate-scale-in overflow-hidden">
-    <div class="bg-red-600 text-white text-center py-2 text-sm font-bold">⚡ FLASH SALE — Limited Time Offer</div>
+    <!-- Flash sale urgency banner -->
+    <div class="bg-red-600 text-white text-center py-2 text-sm font-bold animate-pulse">⚡ FLASH SALE — Limited Time Offer — Ends Soon!</div>
+    <!-- Blue gradient header -->
     <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white text-center py-6 px-4">
       <div class="pro-badge inline-block text-white text-sm font-bold px-3 py-1 rounded mb-2">PRO</div>
       <h3 class="text-2xl font-bold">Unlock Everything</h3>
       <p class="text-blue-200 text-sm mt-1">One-time payment, lifetime access</p>
     </div>
     <div class="p-6 text-center">
-      <div class="text-4xl font-bold text-gray-900">$9</div>
-      <div class="text-sm text-gray-500">lifetime access</div>
-      <div class="mt-3 bg-gray-100 rounded-full h-2 overflow-hidden">
-        <div class="bg-blue-500 h-full rounded-full" style="width:72%"></div>
+      <!-- Price display -->
+      <div class="flex items-center justify-center gap-3">
+        <span class="text-xl text-gray-400 line-through">$49</span>
+        <span class="text-4xl font-bold text-gray-900">$9</span>
+        <span class="text-sm text-gray-500">lifetime</span>
       </div>
-      <div class="text-xs text-gray-500 mt-1">72% of spots claimed</div>
-      <ul class="mt-4 text-left space-y-2 text-sm">
-        <li class="flex items-center gap-2"><span class="text-blue-600">✓</span> One-click copy to clipboard</li>
-        <li class="flex items-center gap-2"><span class="text-blue-600">✓</span> Custom signatures with auto-insert</li>
-        <li class="flex items-center gap-2"><span class="text-blue-600">✓</span> Viral hooks library</li>
-        <li class="flex items-center gap-2"><span class="text-blue-600">✓</span> All future features</li>
-        <li class="flex items-center gap-2"><span class="text-blue-600">✓</span> Lifetime updates</li>
+      <!-- Countdown timer -->
+      <div class="mt-4 flex items-center justify-center gap-2">
+        <span class="text-xs text-gray-500 font-medium">Offer ends in:</span>
+        <div class="flex items-center gap-1">
+          <span id="cd-hours" class="bg-gray-900 text-white text-sm font-bold px-2 py-1 rounded">02</span>
+          <span class="text-gray-900 font-bold">:</span>
+          <span id="cd-minutes" class="bg-gray-900 text-white text-sm font-bold px-2 py-1 rounded">47</span>
+          <span class="text-gray-900 font-bold">:</span>
+          <span id="cd-seconds" class="bg-gray-900 text-white text-sm font-bold px-2 py-1 rounded">33</span>
+        </div>
+      </div>
+      <!-- Spots remaining bar -->
+      <div class="mt-4">
+        <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+          <span>🔥 17 spots left at this price</span>
+          <span>72% claimed</span>
+        </div>
+        <div class="bg-gray-100 rounded-full h-2.5 overflow-hidden">
+          <div class="bg-gradient-to-r from-blue-500 to-blue-700 h-full rounded-full transition-all" style="width:72%"></div>
+        </div>
+      </div>
+      <!-- Feature list with checkmarks -->
+      <ul class="mt-5 text-left space-y-2.5 text-sm">
+        <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Copy to Clipboard</li>
+        <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Custom Signatures</li>
+        <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Viral Hooks</li>
+        <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Find &amp; Replace</li>
+        <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Special Characters</li>
+        <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Templates</li>
+        <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> All future features</li>
+        <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Lifetime updates</li>
       </ul>
-      <button onclick="closeModal('paywall');openModal('prosuccess');activatePro()" class="w-full mt-5 py-3 cta-gradient text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all">Buy Pro — $9</button>
+      <!-- Buy Now button -->
+      <a href="https://kage001177.gumroad.com/l/dsdjb" target="_blank" rel="noopener" class="w-full mt-5 py-3 cta-gradient text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all block text-center">Buy Now — $9 Lifetime</a>
+      <!-- Social proof section -->
+      <div class="mt-4 bg-gray-50 rounded-lg px-3 py-2 flex items-center justify-center gap-2 text-sm text-gray-600">
+        <span>👤</span>
+        <span id="proof-text" class="transition-opacity duration-300">Someone just purchased Pro — 2 minutes ago</span>
+      </div>
+      <!-- Trust badges row -->
+      <div class="mt-3 flex items-center justify-center gap-4 text-xs text-gray-500">
+        <span>🔒 Secure Payment</span>
+        <span>⚡ Instant Access</span>
+        <span>💰 30-Day Refund</span>
+      </div>
+      <!-- Already have a code section -->
       <div class="mt-4 pt-4 border-t border-gray-100">
         <p class="text-xs text-gray-500 mb-2">Already have a code?</p>
         <div class="flex gap-2">
@@ -712,6 +755,8 @@ textarea:focus {
           <button onclick="activateProCode()" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">Activate</button>
         </div>
       </div>
+      <!-- Bottom note -->
+      <p class="text-xs text-gray-400 mt-3">🔒 Secure payment via Gumroad • Instant code delivery • 30-day refund</p>
     </div>
   </div>
 </div>
@@ -763,6 +808,9 @@ textarea:focus {
   <span id="toast-icon">✅</span>
   <span id="toast-text">Copied!</span>
 </div>
+
+<!-- FLOATING BUY BUTTON -->
+<a href="https://kage001177.gumroad.com/l/dsdjb" target="_blank" rel="noopener" id="floating-buy-btn" class="fixed bottom-6 right-6 z-40 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold px-5 py-3 rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2">🛒 Buy Pro — $9</a>
 
 <script>
 // ============= STATE =============
@@ -817,6 +865,47 @@ const SPECIAL_CHARS = {
   'Lines': ['─','━','│','┃','┌','┐','└','┘','╭','╮','╰','╯','═','║','╔','╗'],
 };
 
+// ============= COUNTDOWN & SOCIAL PROOF =============
+function startCountdown() {
+  let totalSeconds = 2 * 3600 + 47 * 60 + 33; // 2h 47m 33s
+  const hoursEl = document.getElementById('cd-hours');
+  const minsEl = document.getElementById('cd-minutes');
+  const secsEl = document.getElementById('cd-seconds');
+  if (!hoursEl) return;
+
+  setInterval(function() {
+    totalSeconds--;
+    if (totalSeconds < 0) totalSeconds = 2 * 3600 + 47 * 60 + 33;
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = totalSeconds % 60;
+    hoursEl.textContent = String(h).padStart(2, '0');
+    minsEl.textContent = String(m).padStart(2, '0');
+    secsEl.textContent = String(s).padStart(2, '0');
+  }, 1000);
+}
+
+function rotateSocialProof() {
+  const el = document.getElementById('proof-text');
+  if (!el) return;
+  const messages = [
+    'Someone just purchased Pro — 2 minutes ago',
+    'A user from India unlocked Pro — 5 minutes ago',
+    'Pro activated by a LinkedIn creator — just now',
+    'Someone upgraded to Pro — 8 minutes ago',
+    'A new Pro member from USA — 3 minutes ago'
+  ];
+  let idx = 0;
+  setInterval(function() {
+    idx = (idx + 1) % messages.length;
+    el.style.opacity = '0';
+    setTimeout(function() {
+      el.textContent = messages[idx];
+      el.style.opacity = '1';
+    }, 300);
+  }, 5000);
+}
+
 // ============= INIT =============
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('footer-year').textContent = new Date().getFullYear();
@@ -830,6 +919,15 @@ document.addEventListener('DOMContentLoaded', () => {
   setupIntersectionObserver();
   showCookieBanner();
   setupKeyboardShortcuts();
+  startCountdown();
+  rotateSocialProof();
+
+  // Auto-open pricing modal for non-Pro users
+  setTimeout(function() {
+    if (!isPro) {
+      openModal('paywall');
+    }
+  }, 600);
 });
 
 // ============= PRO =============
@@ -850,6 +948,7 @@ function updateProUI() {
     copyLock.classList.add('hidden');
     copyCrown.classList.remove('hidden');
     copyText.textContent = 'Copy Formatted Text';
+    document.getElementById('floating-buy-btn').style.display = 'none';
   } else {
     proBanner.style.maxHeight = '60px';
     proBadge.classList.add('hidden');

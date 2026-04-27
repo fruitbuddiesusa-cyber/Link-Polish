@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Features — Link Polish</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 40%, #2563eb 100%);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #2563eb, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+        }
+        .toc-link {
+            transition: color 0.15s ease, padding-left 0.15s ease;
+        }
+        .toc-link:hover {
+            color: #2563eb;
+            padding-left: 4px;
+        }
+        .callout-tip {
+            border-left: 4px solid #2563eb;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        }
+        .callout-note {
+            border-left: 4px solid #f59e0b;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+        }
+        .callout-pro {
+            border-left: 4px solid #8b5cf6;
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+        }
+        .shortcut-key {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 28px;
+            height: 28px;
+            padding: 0 6px;
+            border-radius: 6px;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+        }
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        html { scroll-behavior: smooth; }
+        .badge-pro {
+            background: linear-gradient(135deg, #7c3aed, #a78bfa);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-6">
+            <a href="index.html" class="inline-flex items-center gap-2 text-blue-200 hover:text-white transition-colors mb-6 group">
+                <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                <span class="font-medium">Back to Link Polish</span>
+            </a>
+            <div class="flex items-center gap-3 mb-3">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center text-2xl">✨</div>
+                <div>
+                    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Help & Feature Guide</h1>
+                    <p class="text-blue-200 text-sm sm:text-base mt-1">Everything you need to craft perfect LinkedIn posts</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
+
+        <!-- Table of Contents -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 mb-8">
+            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span class="text-blue-600">📑</span> Table of Contents
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1">
+                <a href="#text-formatting" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">1. Text Formatting</a>
+                <a href="#bullet-ordered-lists" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">2. Bullet Points & Ordered Lists</a>
+                <a href="#emoji-picker" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">3. Emoji Picker</a>
+                <a href="#case-converter" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">4. Case Converter</a>
+                <a href="#undo-redo" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">5. Undo / Redo</a>
+                <a href="#post-templates" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">6. Post Templates</a>
+                <a href="#viral-hooks" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">7. Viral Hook Templates</a>
+                <a href="#find-replace" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">8. Find & Replace</a>
+                <a href="#special-characters" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">9. Special Characters</a>
+                <a href="#text-cleaner" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">10. Text Cleaner</a>
+                <a href="#emoji-spacing" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">11. Emoji Spacing Fix</a>
+                <a href="#line-break-fix" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">12. Line Break Fix</a>
+                <a href="#custom-signature" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">13. Custom Signature (PRO)</a>
+                <a href="#export-txt" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">14. Export as .txt</a>
+                <a href="#copy-formatted" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">15. Copy Formatted Text (PRO)</a>
+                <a href="#live-preview" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">16. Live Preview</a>
+                <a href="#live-stats" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">17. Live Stats</a>
+                <a href="#keyboard-shortcuts" class="toc-link block py-1.5 text-gray-600 hover:text-blue-600 text-sm font-medium">⌨️ Keyboard Shortcuts</a>
+            </div>
+        </section>
+
+        <!-- Callout: Getting Started -->
+        <div class="callout-tip rounded-xl p-4 sm:p-5 mb-8">
+            <p class="text-sm text-blue-900 font-medium flex items-start gap-2">
+                <span class="text-lg leading-none">💡</span>
+                <span><strong>Getting Started:</strong> Simply type or paste your LinkedIn post into the editor, then use the toolbar buttons or keyboard shortcuts to format your text. The live preview updates in real-time so you can see exactly how your post will look on LinkedIn.</span>
+            </p>
+        </div>
+
+        <!-- Feature Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-8">
+
+            <!-- 1. Text Formatting -->
+            <div id="text-formatting" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-blue-100 text-blue-600">🔤</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Text Formatting</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">Make your text stand out with Unicode styles</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    Apply bold, italic, bold italic, underline, and strikethrough formatting to any selected text. These styles use special Unicode characters, so they work natively on LinkedIn — no rich-text editor needed.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="inline-flex items-center gap-1.5 bg-gray-100 rounded-lg px-3 py-1.5 text-xs font-semibold text-gray-700"><strong>Bold</strong></span>
+                    <span class="inline-flex items-center gap-1.5 bg-gray-100 rounded-lg px-3 py-1.5 text-xs font-semibold text-gray-700"><em>Italic</em></span>
+                    <span class="inline-flex items-center gap-1.5 bg-gray-100 rounded-lg px-3 py-1.5 text-xs font-semibold text-gray-700"><strong><em>Bold Italic</em></strong></span>
+                    <span class="inline-flex items-center gap-1.5 bg-gray-100 rounded-lg px-3 py-1.5 text-xs font-semibold text-gray-700"><u>Underline</u></span>
+                    <span class="inline-flex items-center gap-1.5 bg-gray-100 rounded-lg px-3 py-1.5 text-xs font-semibold text-gray-700 line-through">Strikethrough</span>
+                </div>
+                <div class="callout-note rounded-lg p-3">
+                    <p class="text-xs text-amber-800 font-medium">⚠️ Select the text you want to format first, then click the toolbar button or use the keyboard shortcut.</p>
+                </div>
+            </div>
+
+            <!-- 2. Bullet Points & Ordered Lists -->
+            <div id="bullet-ordered-lists" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-emerald-100 text-emerald-600">📋</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Bullet Points & Ordered Lists</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">Structure your posts with lists</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    Organize your content with clean bullet points (•) or numbered circles (①②③). These Unicode list markers render beautifully on LinkedIn and don't require any markdown or HTML support.
+                </p>
+                <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                    <p class="text-sm text-gray-700 font-mono leading-loose">
+                        • First key point<br>
+                        • Second key point<br>
+                        • Third key point<br>
+                        <br>
+                        ① Step one<br>
+                        ② Step two<br>
+                        ③ Step three
+                    </p>
+                </div>
+                <div class="callout-tip rounded-lg p-3">
+                    <p class="text-xs text-blue-800 font-medium">💡 Tip: Use bullet points for feature lists and numbered lists for step-by-step guides or rankings.</p>
+                </div>
+            </div>
+
+            <!-- 3. Emoji Picker -->
+            <div id="emoji-picker" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-yellow-100 text-yellow-600">😀</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Emoji Picker</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">1000+ emojis at your fingertips</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    Browse over 1,000 emojis organized by category — Smileys, Gestures, Animals, Food, Travel, Objects, Symbols, and more. Use the built-in search to find the perfect emoji instantly.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="text-2xl">🚀</span>
+                    <span class="text-2xl">💡</span>
+                    <span class="text-2xl">🎯</span>
+                    <span class="text-2xl">🔥</span>
+                    <span class="text-2xl">📈</span>
+                    <span class="text-2xl">✅</span>
+                    <span class="text-2xl">💼</span>
+                    <span class="text-2xl">🌟</span>
+                    <span class="text-2xl">🤝</span>
+                    <span class="text-2xl">🎉</span>
+                </div>
+                <div class="callout-tip rounded-lg p-3">
+                    <p class="text-xs text-blue-800 font-medium">💡 Type a keyword like "fire" or "rocket" in the emoji search bar to quickly filter and find what you need.</p>
+                </div>
+            </div>
+
+            <!-- 4. Case Converter -->
+            <div id="case-converter" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-purple-100 text-purple-600">Aa</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Case Converter</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">Transform text casing instantly</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    Switch between four casing styles with one click. Perfect for fixing accidental caps lock, creating headline-style titles, or normalizing pasted content.
+                </p>
+                <div class="space-y-2 mb-4">
+                    <div class="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-2.5">
+                        <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">UPPER CASE</span>
+                        <span class="text-xs text-gray-400">Converts all letters to uppercase</span>
+                    </div>
+                    <div class="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-2.5">
+                        <span class="text-xs font-semibold text-gray-500 lowercase tracking-wide">lower case</span>
+                        <span class="text-xs text-gray-400">Converts all letters to lowercase</span>
+                    </div>
+                    <div class="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-2.5">
+                        <span class="text-xs font-semibold text-gray-500 tracking-wide">Title Case</span>
+                        <span class="text-xs text-gray-400">Capitalizes the first letter of each word</span>
+                    </div>
+                    <div class="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-2.5">
+                        <span class="text-xs font-semibold text-gray-500 tracking-wide">Sentence case</span>
+                        <span class="text-xs text-gray-400">Capitalizes first letter of each sentence</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Undo / Redo -->
+            <div id="undo-redo" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-sky-100 text-sky-600">↩️</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Undo / Redo</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">Never lose your work</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    Made a mistake? No problem. Undo and redo actions are fully supported so you can experiment fearlessly. The editor tracks a full history of your changes.
+                </p>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <span class="shortcut-key">Ctrl</span>
+                        <span class="text-gray-400">+</span>
+                        <span class="shortcut-key">Z</span>
+                        <span class="text-xs text-gray-500 font-medium ml-1">Undo</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="shortcut-key">Ctrl</span>
+                        <span class="text-gray-400">+</span>
+                        <span class="shortcut-key">Y</span>
+                        <span class="text-xs text-gray-500 font-medium ml-1">Redo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Post Templates -->
+            <div id="post-templates" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-rose-100 text-rose-600">📝</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Post Templates</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">8 ready-made LinkedIn templates</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    Jump-start your post with one of 8 professionally crafted templates designed for LinkedIn's most engaging content formats. Just fill in your details and publish.
+                </p>
+                <div class="grid grid-cols-2 gap-2 mb-4">
+                    <div class="bg-gray-50 rounded-lg px-3 py-2 text-xs font-medium text-gray-700 flex items-center gap-1.5"><span>📢</span> Announcement</div>
+                    <div class="bg-gray-50 rounded-lg px-3 py-2 text-xs font-medium text-gray-700 flex items-center gap-1.5"><span>💡</span> How-To Guide</div>
+                    <div class="bg-gray-50 rounded-lg px-3 py-2 text-xs font-medium text-gray-700 flex items-center gap-1.5"><span>📖</span> Story / Lesson</div>
+                    <div class="bg-gray-50 rounded-lg px-3 py-2 text-xs font-medium text-gray-700 flex items-center gap-1.5"><span>🔍</span> Listicle</div>
+                    <div class="bg-gray-50 rounded-lg px-3 py-2 text-xs font-medium text-gray-700 flex items-center gap-1.5"><span>❓</span> Question Poll</div>
+                    <div class="bg-gray-50 rounded-lg px-3 py-2 text-xs font-medium text-gray-700 flex items-center gap-1.5"><span>🏆</span> Achievement</div>
+                    <div class="bg-gray-50 rounded-lg px-3 py-2 text-xs font-medium text-gray-700 flex items-center gap-1.5"><span>🤝</span> Job Posting</div>
+                    <div class="bg-gray-50 rounded-lg px-3 py-2 text-xs font-medium text-gray-700 flex items-center gap-1.5"><span>💬</span> Hot Take</div>
+                </div>
+                <div class="callout-note rounded-lg p-3">
+                    <p class="text-xs text-amber-800 font-medium">⚠️ Templates insert placeholder text. Make sure to replace all [bracketed] placeholders with your own content before posting.</p>
+                </div>
+            </div>
+
+            <!-- 7. Viral Hook Templates -->
+            <div id="viral-hooks" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-orange-100 text-orange-600">🪝</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Viral Hook Templates</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">5 proven hook frameworks</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    The first line of your LinkedIn post determines whether people stop scrolling. Use these 5 battle-tested hook frameworks — backed by engagement data from top creators — to grab attention instantly.
+                </p>
+                <div class="space-y-2.5 mb-4">
+                    <div class="bg-gray-50 rounded-lg px-4 py-3">
+                        <p class="text-xs font-bold text-orange-600 mb-1">1. The Contrarian</p>
+                        <p class="text-xs text-gray-600 italic">"Unpopular opinion: [your bold take]"</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg px-4 py-3">
+                        <p class="text-xs font-bold text-orange-600 mb-1">2. The Number Hook</p>
+                        <p class="text-xs text-gray-600 italic">"[X]% of people don't know this…"</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg px-4 py-3">
+                        <p class="text-xs font-bold text-orange-600 mb-1">3. The Story Opener</p>
+                        <p class="text-xs text-gray-600 italic">"Last week I [did something unexpected]. Here's what happened:"</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg px-4 py-3">
+                        <p class="text-xs font-bold text-orange-600 mb-1">4. The How-To</p>
+                        <p class="text-xs text-gray-600 italic">"How to [achieve result] in [timeframe]:"</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg px-4 py-3">
+                        <p class="text-xs font-bold text-orange-600 mb-1">5. The Mistake</p>
+                        <p class="text-xs text-gray-600 italic">"I spent [time/money] doing [wrong thing]. Don't make my mistake."</p>
+                    </div>
+                </div>
+                <div class="callout-tip rounded-lg p-3">
+                    <p class="text-xs text-blue-800 font-medium">💡 The best hooks create curiosity, promise value, or challenge common beliefs. Test different hooks to see what resonates with your audience.</p>
+                </div>
+            </div>
+
+            <!-- 8. Find & Replace -->
+            <div id="find-replace" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-teal-100 text-teal-600">🔍</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Find & Replace</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">Search and replace text quickly</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    Instantly find any word or phrase in your post and replace it with new text. Supports replace-one and replace-all operations — great for fixing typos, updating names, or swapping terminology.
+                </p>
+                <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                    <div class="flex flex-col gap-3">
+                        <div class="flex items-center gap-2">
+                            <label class="text-xs font-semibold text-gray-500 w-16">Find:</label>
+                            <div class="flex-1 h-8 bg-white border border-gray-200 rounded-lg px-3 flex items-center text-xs text-gray-400">Enter text to find…</div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-xs font-semibold text-gray-500 w-16">Replace:</label>
+                            <div class="flex-1 h-8 bg-white border border-gray-200 rounded-lg px-3 flex items-center text-xs text-gray-400">Enter replacement…</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="callout-note rounded-lg p-3">
+                    <p class="text-xs text-amber-800 font-medium">⚠️ "Replace All" is irreversible — make sure to double-check your find query before using it.</p>
+                </div>
+            </div>
+
+            <!-- 9. Special Characters -->
+            <div id="special-characters" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-indigo-100 text-indigo-600">∞</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Special Characters</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">Arrows, Math, Currency & more</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    Access a curated library of special characters organized by category. Insert arrows, mathematical symbols, currency signs, checkmarks, and more — all fully compatible with LinkedIn.
+                </p>
+                <div class="space-y-3 mb-4">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 mb-1.5">Arrows</p>
+                        <p class="text-lg tracking-wider">→ ← ↑ ↓ ⇒ ⇐ ⇑ ⇓ ↗ ↘</p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 mb-1.5">Math</p>
+                        <p class="text-lg tracking-wider">± × ÷ ≠ ≈ ≤ ≥ ∞ ∑ √</p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 mb-1.5">Currency</p>
+                        <p class="text-lg tracking-wider">$ € £ ¥ ₹ ₿ ¢ ₩</p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 mb-1.5">Symbols</p>
+                        <p class="text-lg tracking-wider">✓ ✗ ★ ☆ ♠ ♥ ♦ ♣ ☀ ☁</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10. Text Cleaner -->
+            <div id="text-cleaner" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-cyan-100 text-cyan-600">🧹</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Text Cleaner</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">Remove whitespace & invisible chars</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    Paste text from other sources and it often comes with extra spaces, tabs, trailing whitespace, or invisible zero-width characters. The Text Cleaner strips all of that out in one click, leaving you with clean, LinkedIn-ready content.
+                </p>
+                <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                    <p class="text-xs text-gray-500 font-semibold mb-2">What it removes:</p>
+                    <ul class="space-y-1 text-xs text-gray-600">
+                        <li class="flex items-center gap-2"><span class="text-cyan-500">✓</span> Multiple consecutive spaces → single space</li>
+                        <li class="flex items-center gap-2"><span class="text-cyan-500">✓</span> Trailing whitespace on each line</li>
+                        <li class="flex items-center gap-2"><span class="text-cyan-500">✓</span> Zero-width characters (U+200B, U+FEFF, etc.)</li>
+                        <li class="flex items-center gap-2"><span class="text-cyan-500">✓</span> Non-breaking spaces → regular spaces</li>
+                        <li class="flex items-center gap-2"><span class="text-cyan-500">✓</span> Multiple blank lines → single blank line</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 11. Emoji Spacing Fix -->
+            <div id="emoji-spacing" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-pink-100 text-pink-600">📐</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Emoji Spacing Fix</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">Auto-gap around emojis</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    Emojis sometimes render too close to adjacent text on LinkedIn, making posts harder to read. This tool automatically adds a thin space around every emoji in your post for clean, professional formatting.
+                </p>
+                <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                    <div class="flex items-center gap-4">
+                        <div>
+                            <p class="text-xs font-semibold text-red-500 mb-1">Before</p>
+                            <p class="text-sm text-gray-700">Here's my🚀3-step process</p>
+                        </div>
+                        <span class="text-gray-300 text-xl">→</span>
+                        <div>
+                            <p class="text-xs font-semibold text-green-600 mb-1">After</p>
+                            <p class="text-sm text-gray-700">Here's my 🚀 3-step process</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="callout-tip rounded-lg p-3">
+                    <p class="text-xs text-blue-800 font-medium">💡 This is especially useful when copying text from tools that don't add automatic spacing around emojis.</p>
+                </div>
+            </div>
+
+            <!-- 12. Line Break Fix -->
+            <div id="line-break-fix" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-lime-100 text-lime-600">↕️</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Line Break Fix</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">Normalize line breaks for LinkedIn</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    LinkedIn sometimes collapses single line breaks, making your carefully formatted post look like a wall of text. This tool normalizes all line breaks to ensure your spacing is preserved when you paste your post.
+                </p>
+                <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                    <div class="flex items-center gap-4">
+                        <div>
+                            <p class="text-xs font-semibold text-red-500 mb-1">Broken</p>
+                            <p class="text-sm text-gray-700">Line one<br>Line two<br>Line three</p>
+                        </div>
+                        <span class="text-gray-300 text-xl">→</span>
+                        <div>
+                            <p class="text-xs font-semibold text-green-600 mb-1">Fixed</p>
+                            <p class="text-sm text-gray-700">Line one<br><br>Line two<br><br>Line three</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="callout-tip rounded-lg p-3">
+                    <p class="text-xs text-blue-800 font-medium">💡 LinkedIn best practice: use double line breaks between paragraphs for maximum readability on mobile.</p>
+                </div>
+            </div>
+
+            <!-- 13. Custom Signature (PRO) -->
+            <div id="custom-signature" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover relative overflow-hidden">
+                <div class="absolute top-4 right-4"><span class="badge-pro">PRO</span></div>
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-violet-100 text-violet-600">✍️</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Custom Signature</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">Save & auto-insert your signature</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    Create a reusable signature block with your name, title, links, and hashtags. Save it once, then auto-insert it at the bottom of any post with a single click. Keep your branding consistent across every post.
+                </p>
+                <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                    <p class="text-xs text-gray-500 font-semibold mb-2">Example signature:</p>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        —<br>
+                        <strong>Jane Smith</strong><br>
+                        Senior Product Designer @ Acme Corp<br>
+                        🎯 Helping teams build better products<br>
+                        🔗 janesmith.design
+                    </p>
+                </div>
+                <div class="callout-pro rounded-lg p-3">
+                    <p class="text-xs text-purple-800 font-medium">✨ This is a PRO feature. Upgrade to Link Polish PRO to save unlimited signatures and unlock all premium tools.</p>
+                </div>
+            </div>
+
+            <!-- 14. Export as .txt -->
+            <div id="export-txt" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-amber-100 text-amber-600">💾</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Export as .txt</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">Download your post as a file</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    Save your formatted LinkedIn post as a plain text (.txt) file with one click. Perfect for backing up drafts, sharing with collaborators, or scheduling posts using third-party tools.
+                </p>
+                <div class="flex items-center gap-3 bg-gray-50 rounded-xl p-4">
+                    <div class="w-10 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center text-xl shadow-sm">📄</div>
+                    <div>
+                        <p class="text-sm font-semibold text-gray-800">my-linkedin-post.txt</p>
+                        <p class="text-xs text-gray-500">UTF-8 encoded • All formatting preserved</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 15. Copy Formatted Text (PRO) -->
+            <div id="copy-formatted" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover relative overflow-hidden">
+                <div class="absolute top-4 right-4"><span class="badge-pro">PRO</span></div>
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-emerald-100 text-emerald-600">📋</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Copy Formatted Text</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">One-click copy to clipboard</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    Copy your entire formatted post to the clipboard with a single click. The text retains all Unicode formatting (bold, italic, etc.) so you can paste it directly into LinkedIn with zero loss of styling.
+                </p>
+                <div class="flex items-center gap-3">
+                    <div class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        Copy Formatted Text
+                    </div>
+                    <span class="text-xs text-gray-400">— one click, done!</span>
+                </div>
+                <div class="callout-pro rounded-lg p-3 mt-4">
+                    <p class="text-xs text-purple-800 font-medium">✨ This is a PRO feature. Free users can manually select and copy text from the editor.</p>
+                </div>
+            </div>
+
+            <!-- 16. Live Preview -->
+            <div id="live-preview" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-blue-100 text-blue-600">👁️</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Live Preview</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">Real-time LinkedIn post preview</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    See exactly how your post will look on LinkedIn as you type. The live preview panel updates in real-time, mimicking LinkedIn's actual post appearance — including line breaks, emoji rendering, and text formatting.
+                </p>
+                <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                    <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-bold">YS</div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900">Your Name</p>
+                                <p class="text-xs text-gray-500">Your Headline • 1st</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">Your formatted post appears here in real-time… 🚀</p>
+                        <div class="mt-3 pt-3 border-t border-gray-100 flex gap-6 text-xs text-gray-500">
+                            <span>👍 Like</span>
+                            <span>💬 Comment</span>
+                            <span>🔄 Repost</span>
+                            <span>📤 Send</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="callout-tip rounded-lg p-3">
+                    <p class="text-xs text-blue-800 font-medium">💡 Use the live preview to check line breaks and spacing before posting — it's the closest simulation to how LinkedIn renders your content.</p>
+                </div>
+            </div>
+
+            <!-- 17. Live Stats -->
+            <div id="live-stats" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="feature-icon bg-green-100 text-green-600">📊</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Live Stats</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">Characters, words, lines & read time</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    Monitor your post metrics in real-time as you write. The stats bar shows character count, word count, line count, and estimated read time — so you can optimize your post length for maximum engagement.
+                </p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                    <div class="bg-blue-50 rounded-xl p-3 text-center">
+                        <p class="text-2xl font-extrabold text-blue-700">248</p>
+                        <p class="text-xs font-medium text-blue-500">Characters</p>
+                    </div>
+                    <div class="bg-emerald-50 rounded-xl p-3 text-center">
+                        <p class="text-2xl font-extrabold text-emerald-700">42</p>
+                        <p class="text-xs font-medium text-emerald-500">Words</p>
+                    </div>
+                    <div class="bg-purple-50 rounded-xl p-3 text-center">
+                        <p class="text-2xl font-extrabold text-purple-700">8</p>
+                        <p class="text-xs font-medium text-purple-500">Lines</p>
+                    </div>
+                    <div class="bg-amber-50 rounded-xl p-3 text-center">
+                        <p class="text-2xl font-extrabold text-amber-700">~12s</p>
+                        <p class="text-xs font-medium text-amber-500">Read Time</p>
+                    </div>
+                </div>
+                <div class="callout-note rounded-lg p-3">
+                    <p class="text-xs text-amber-800 font-medium">⚠️ LinkedIn's character limit is 3,000 characters. The stats bar will warn you as you approach the limit.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keyboard Shortcuts Section -->
+        <section id="keyboard-shortcuts" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+                <span class="text-blue-600">⌨️</span> Keyboard Shortcuts
+            </h2>
+            <p class="text-sm text-gray-500 mb-6">Work faster with these keyboard shortcuts. All shortcuts work when the editor is focused.</p>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b-2 border-gray-100">
+                            <th class="text-left py-3 pr-4 font-semibold text-gray-700">Action</th>
+                            <th class="text-left py-3 pr-4 font-semibold text-gray-700">Windows / Linux</th>
+                            <th class="text-left py-3 font-semibold text-gray-700">macOS</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50">
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="py-3 pr-4 text-gray-700 font-medium">Bold</td>
+                            <td class="py-3 pr-4"><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">B</span></td>
+                            <td class="py-3"><span class="shortcut-key">⌘</span> + <span class="shortcut-key">B</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="py-3 pr-4 text-gray-700 font-medium">Italic</td>
+                            <td class="py-3 pr-4"><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">I</span></td>
+                            <td class="py-3"><span class="shortcut-key">⌘</span> + <span class="shortcut-key">I</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="py-3 pr-4 text-gray-700 font-medium">Bold Italic</td>
+                            <td class="py-3 pr-4"><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">Shift</span> + <span class="shortcut-key">B</span></td>
+                            <td class="py-3"><span class="shortcut-key">⌘</span> + <span class="shortcut-key">⇧</span> + <span class="shortcut-key">B</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="py-3 pr-4 text-gray-700 font-medium">Underline</td>
+                            <td class="py-3 pr-4"><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">U</span></td>
+                            <td class="py-3"><span class="shortcut-key">⌘</span> + <span class="shortcut-key">U</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="py-3 pr-4 text-gray-700 font-medium">Strikethrough</td>
+                            <td class="py-3 pr-4"><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">Shift</span> + <span class="shortcut-key">X</span></td>
+                            <td class="py-3"><span class="shortcut-key">⌘</span> + <span class="shortcut-key">⇧</span> + <span class="shortcut-key">X</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="py-3 pr-4 text-gray-700 font-medium">Undo</td>
+                            <td class="py-3 pr-4"><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">Z</span></td>
+                            <td class="py-3"><span class="shortcut-key">⌘</span> + <span class="shortcut-key">Z</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="py-3 pr-4 text-gray-700 font-medium">Redo</td>
+                            <td class="py-3 pr-4"><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">Y</span></td>
+                            <td class="py-3"><span class="shortcut-key">⌘</span> + <span class="shortcut-key">Y</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout-tip rounded-lg p-3 mt-6">
+                <p class="text-xs text-blue-800 font-medium">💡 On macOS, you can also use <strong>⌘ + ⇧ + Z</strong> for Redo as an alternative to ⌘ + Y.</p>
+            </div>
+        </section>
+
+        <!-- Additional Tips Section -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span class="text-blue-600">🎯</span> Tips for Great LinkedIn Posts
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="callout-tip rounded-xl p-4">
+                    <p class="text-sm text-blue-900 font-medium"><strong>Start with a hook.</strong> The first 2 lines are all people see before clicking "see more." Make them count.</p>
+                </div>
+                <div class="callout-tip rounded-xl p-4">
+                    <p class="text-sm text-blue-900 font-medium"><strong>Use white space.</strong> Short paragraphs and double line breaks make your post scannable on mobile.</p>
+                </div>
+                <div class="callout-tip rounded-xl p-4">
+                    <p class="text-sm text-blue-900 font-medium"><strong>End with a CTA.</strong> Ask a question, invite opinions, or encourage sharing to boost engagement.</p>
+                </div>
+                <div class="callout-tip rounded-xl p-4">
+                    <p class="text-sm text-blue-900 font-medium"><strong>Use emojis sparingly.</strong> 3–5 emojis per post is the sweet spot. Too many looks unprofessional.</p>
+                </div>
+                <div class="callout-tip rounded-xl p-4">
+                    <p class="text-sm text-blue-900 font-medium"><strong>Format key phrases.</strong> Use bold for key takeaways and italic for emphasis — but don't overdo it.</p>
+                </div>
+                <div class="callout-tip rounded-xl p-4">
+                    <p class="text-sm text-blue-900 font-medium"><strong>Keep it under 1,500 chars.</strong> Shorter posts tend to get more engagement than long-form content.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white mt-auto">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">✨</span>
+                    <span class="font-bold text-lg">Link Polish</span>
+                    <span class="text-blue-200 text-sm">— LinkedIn Text Formatter</span>
+                </div>
+                <p class="text-blue-200 text-sm text-center sm:text-right">
+                    Craft perfect LinkedIn posts with Unicode formatting.<br>
+                    <span class="text-blue-300">No sign-up required. Free to use.</span>
+                </p>
+            </div>
+            <div class="border-t border-blue-500/30 mt-6 pt-6 text-center">
+                <p class="text-blue-300 text-xs">&copy; 2025 Link Polish. All rights reserved. Made with ❤️ for LinkedIn creators.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
