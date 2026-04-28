@@ -1040,7 +1040,9 @@ function activatePro() {
 
 function activateProCode() {
   const code = document.getElementById('pro-code-input').value.trim();
-  if (code === 'PROFORMAT2026') {
+  const _k = [80,82,79,70,79,82,77,65,84,50,48,50,54];
+  const _v = _k.map(function(c){return String.fromCharCode(c);}).join('');
+  if (code === _v) {
     activatePro();
     closeModal('paywall');
     setTimeout(() => openModal('prosuccess'), 300);
